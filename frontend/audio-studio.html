@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIVoice — Audio Studio</title>
+    <link rel="stylesheet" href="styles.css?v=21.1" />
+    <link rel="stylesheet" href="audio-studio.css?v=1.0.0" />
+  </head>
+  <body class="studioBody">
+    <div class="app studioApp">
+      <header class="topbar">
+        <div class="brand">AIVoice</div><div class="subtitle">Audio Studio</div><div class="spacer"></div>
+        <a class="secondary small" href="index.html">← TTS</a>
+        <button id="studioThemeToggle" class="iconBtn" type="button" aria-label="Chuyển đổi giao diện sáng/tối">🌙</button>
+        <div id="studioHealth" class="health" aria-live="polite">● Đang kiểm tra...</div>
+      </header>
+
+      <main class="studioShell" aria-labelledby="audioStudioTitle">
+        <aside class="studioLeft" aria-labelledby="studioProjectsTitle">
+          <div class="studioSideHeader"><div><div class="voiceLabEyebrow">LOCAL PROJECTS</div><h1 id="audioStudioTitle">Audio Studio</h1></div><button id="studioNewProject" class="primary small" type="button">＋ Mới</button></div>
+          <label class="studioSearch"><span class="srOnly">Tìm dự án</span><input id="studioProjectSearch" type="search" placeholder="Tìm dự án..." autocomplete="off" /></label>
+          <div id="studioProjectsList" class="studioProjectsList" aria-label="Danh sách dự án"></div>
+          <section class="studioSideStats" aria-labelledby="studioProjectsTitle"><h2 id="studioProjectsTitle">Thống kê dự án</h2><div id="studioProjectStats"></div></section>
+        </aside>
+
+        <section id="audioStudio" class="studioCenter" aria-labelledby="studioSegmentsTitle">
+          <div class="studioToolbar" role="toolbar" aria-label="Công cụ project">
+            <label class="studioTitleField"><span class="srOnly">Tên project</span><input id="studioTitle" type="text" maxlength="120" value="Audio Project" /></label>
+            <div class="studioToolbarActions"><button id="studioSaveProject" class="secondary small" type="button">💾 Lưu</button><button id="studioAddSegment" class="primary small" type="button">＋ Segment</button><button id="studioPlayAll" class="secondary small" type="button">▶ Phát tất cả</button><button id="studioExport" class="primary small" type="button">⬇ Export WAV</button></div>
+          </div>
+          <div class="studioCenterIntro"><div><div class="voiceLabEyebrow">TIMELINE EDITOR</div><h2 id="studioSegmentsTitle">Segments</h2></div><span id="studioSaveStatus" class="muted small">Tự động lưu cục bộ.</span></div>
+          <div id="studioSegments" class="studioSegments" aria-live="polite"></div>
+          <div id="studioStatus" class="status" aria-live="polite">Sẵn sàng tạo từng segment.</div>
+        </section>
+
+        <aside class="studioRight" aria-label="Thông tin và xuất project">
+          <section class="studioInspector"><div class="voiceLabEyebrow">PROJECT STATUS</div><h2>Project hiện tại</h2><div id="studioInspectorStats" class="studioInspectorStats"></div><div class="studioInspectorActions"><button id="studioInspectorPlayAll" class="secondary" type="button">▶ Phát tất cả</button><button id="studioInspectorExport" class="primary" type="button">⬇ Export WAV</button></div><div id="studioInspectorStatus" class="muted small">Sẵn sàng.</div></section>
+        </aside>
+      </main>
+      <button id="studioFabAdd" class="studioFab" type="button" aria-label="Thêm segment mới">＋</button>
+    </div>
+    <script src="audio-studio.js?v=1.0.2"></script>
+  </body>
+</html>

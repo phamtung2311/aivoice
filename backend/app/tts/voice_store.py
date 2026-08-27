@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 from typing import Any, Dict, Optional
 
+import numpy as np
+
 DEFAULT_STORE_DIR = Path("data") / "voices"
 DEFAULT_STORE_FILE = DEFAULT_STORE_DIR / "voices.json"
 
@@ -65,3 +67,33 @@ def load_user_voices(path: Optional[Path] = None) -> Dict[str, Dict[str, Any]]:
         return {}
     voices = data.get("voices", {}) if isinstance(data, dict) else {}
     return {k: v for k, v in voices.items() if isinstance(v, dict)}
+
+
+def serialize_profile(v: Dict[str, Any], default_style: Optional[str] = None) -> Dict[str, Any]:
+    """Flatten a native Vieneu voice-profile dict into the persisted JSON shape.
+
+    Mirrors vieneu's own ``save_voices()``: ``speaker_emb`` is flattened and
+    rounded to 6 decimals, ``codes`` become plain ints, descriptive metadata
+    passes through. Phase 22.1 extracts this so the round-trip
+    (dtype/shape/precision) is testable without loading the TTS model.
+    """
+    emb = v.get("speaker_emb")
+    codes = v.get("codes")
+    return {
+        "description": v.get("description", ""),
+        "gender": v.get("gender", ""),
+        "style": v.get("style", default_style),
+        "speaker_emb": [round(float(x), 6) for x in np.asarray(emb).reshape(-1)] if emb is not None else None,
+        "codes": np.asarray(codes, dtype=int).tolist() if codes is not None else None,
+    }
+
+
+def deserialize_profile(d: Dict[str, Any], default_style: Optional[str] = None) -> Dict[str, Any]:
+    """Rebuild native arrays from the persisted JSON shape (float32 emb, int64 codes)."""
+    return {
+        "description": d.get("description", ""),
+        "gender": d.get("gender", ""),
+        "style": d.get("style", default_style),
+        "speaker_emb": np.asarray(d.get("speaker_emb"), dtype=np.float32) if d.get("speaker_emb") is not None else None,
+        "codes": np.asarray(d.get("codes"), dtype=np.int64) if d.get("codes") is not None else None,
+    }

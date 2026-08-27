@@ -6,9 +6,12 @@ from pydantic import BaseModel, Field
 from typing import Optional
 import tempfile
 import os
+import secrets
 
 from backend.app.tts.engine import TTSEngine
 from backend.app.tts import voice_store
+from backend.app.tts.reference_quality import analyze_clip
+from backend.app.tts.nlp import normalize_text
 from backend.app.runtime_metadata import get_runtime_metadata
 from backend.app import voice_lab
 import threading
@@ -17,6 +20,9 @@ import asyncio
 import logging
 
 logger = logging.getLogger(__name__)
+
+APP_VERSION = "1.0.0"
+BUILD_DATE = "2026-08-27"
 
 # global bounded semaphore to limit concurrent inferences
 # default from env or 1
@@ -126,6 +132,15 @@ class TTSRequest(BaseModel):
     top_k: Optional[int] = Field(None, description="Top-K sampling")
     top_p: Optional[float] = Field(None, description="Top-P sampling")
     repetition_penalty: Optional[float] = Field(None, description="Repetition penalty")
+    # Phase 22.1 diagnostic only: 'identity_only' drops reference codes for a
+    # SAVED voice (use_ref_codes=False). Absent → production behavior unchanged.
+    conditioning_mode: Optional[str] = Field(None, description="Voice Lab diagnostic conditioning mode ('identity_only')")
+    smart_text_processing: bool = Field(True, description="Apply deterministic local speech-text normalization")
+
+
+class NLPPreviewRequest(BaseModel):
+    text: str = Field(..., max_length=TEXT_MAX_LENGTH)
+    smart_text_processing: bool = True
 
 
 class CloneForm(BaseModel):
@@ -168,6 +183,8 @@ def health(engine: TTSEngine = Depends(get_engine)):
     runtime = get_runtime_metadata(engine)
     return {
         "status": "ok",
+        "version": APP_VERSION,
+        "build_date": BUILD_DATE,
         "engine": "local",
         "model": model,
         "max_text_length": TEXT_MAX_LENGTH,
@@ -211,6 +228,12 @@ def voices(engine: TTSEngine = Depends(get_engine)):
     return {"voices": out}
 
 
+@app.post("/api/nlp/preview")
+def nlp_preview(req: NLPPreviewRequest):
+    """Local, deterministic preview of the optional TTS text processing."""
+    return {"original": req.text, "processed": normalize_text(req.text, enabled=req.smart_text_processing)}
+
+
 @app.get("/api/voice-lab/corpus")
 def voice_lab_corpus():
     return voice_lab.load_corpus()
@@ -219,6 +242,66 @@ def voice_lab_corpus():
 @app.get("/api/voice-lab/quality-corpus")
 def voice_lab_quality_corpus():
     return voice_lab.load_quality_corpus()
+
+
+@app.post("/api/voice-lab/references/analyze")
+async def analyze_voice_lab_reference(ref_audio: UploadFile = File(...), reference_id: str = Form("")):
+    """Analyze one uploaded reference and retain only its quality metadata."""
+    filename = os.path.basename(ref_audio.filename or "reference")
+    source_ext = os.path.splitext(filename)[1].lower()
+    if source_ext not in CLONE_AUDIO_EXTENSIONS:
+        raise HTTPException(status_code=400, detail="Tệp tham chiếu phải là WAV, MP3 hoặc M4A")
+    audio_bytes = await ref_audio.read(REF_MAX_BYTES + 1)
+    if not audio_bytes or len(audio_bytes) > REF_MAX_BYTES:
+        raise HTTPException(status_code=400, detail="Reference phải có dữ liệu và không vượt quá 5 MB")
+    try:
+        analysis = analyze_clip(audio_bytes)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+    report = analysis.to_dict()
+    metrics = report["metrics"]
+    result = {
+        "duration": metrics["duration_seconds"],
+        "sample_rate": metrics["sample_rate"],
+        "channels": metrics["channels"],
+        "peak": metrics["peak"],
+        "rms": metrics["rms"],
+        "noise": metrics["noise_estimate"],
+        "silence_ratio": metrics["silence_ratio"],
+        "leading_silence": metrics["leading_silence"],
+        "ending_silence": metrics["ending_silence"],
+        "quality_score": analysis.score,
+        "strengths": report["strengths"],
+        "weaknesses": report["weaknesses"],
+        "tips": ["Ưu tiên phòng yên tĩnh, nói tự nhiên và giữ micro ổn định."] if report["recommended"] else ["Thu lại ở nơi yên tĩnh, tránh clipping và giữ đoạn nói 5–8 giây."],
+        "recommended": report["recommended"],
+        "bars": report["bars"],
+    }
+    history_id = reference_id.strip() or f"ref_{secrets.token_hex(6)}"
+    entry = voice_lab.ReferenceHistoryEntry(
+        id=history_id,
+        filename=filename,
+        duration=result["duration"],
+        score=result["quality_score"],
+        sample_rate=result["sample_rate"],
+        quality_report=result,
+    )
+    voice_lab.save_reference_analysis(entry)
+    return result
+
+
+@app.get("/api/voice-lab/references/history")
+def voice_lab_reference_history():
+    return {"references": voice_lab.load_reference_history()}
+
+
+@app.patch("/api/voice-lab/references/{reference_id}/preferred")
+def set_voice_lab_reference_preferred(reference_id: str):
+    try:
+        return voice_lab.set_reference_preferred(reference_id)
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Voice Lab reference not found")
 
 
 @app.get("/api/voice-lab/experiments")
@@ -444,10 +527,24 @@ def tts(req: TTSRequest, engine: TTSEngine = Depends(get_engine)):
         raise HTTPException(status_code=400, detail="Text must not be empty")
     if len(text) > TEXT_MAX_LENGTH:
         raise HTTPException(status_code=413, detail="Text too long")
+    if req.smart_text_processing:
+        text = normalize_text(text)
+        if len(text) > TEXT_MAX_LENGTH:
+            raise HTTPException(status_code=413, detail="Processed text too long")
 
     voices = engine.get_voices() or ["default"]
     if req.voice and req.voice not in voices:
         raise HTTPException(status_code=400, detail="Invalid voice")
+
+    # Phase 22.1: optional Voice Lab diagnostic. When absent, the generate call
+    # below is byte-identical to the pre-22.1 production call.
+    engine_kwargs: dict = {}
+    if req.conditioning_mode is not None:
+        if req.conditioning_mode != "identity_only":
+            raise HTTPException(status_code=422, detail="conditioning_mode must be 'identity_only'")
+        if not req.voice or req.voice not in (engine.get_user_voice_names() or []):
+            raise HTTPException(status_code=400, detail="conditioning_mode requires a saved (cloned) voice")
+        engine_kwargs["use_ref_codes"] = False
 
     # validate sampling params (optional)
     temperature = _validate_sampling_param("temperature", req.temperature, 0.1, 1.5)
@@ -477,6 +574,7 @@ def tts(req: TTSRequest, engine: TTSEngine = Depends(get_engine)):
             top_k=top_k,
             top_p=top_p,
             repetition_penalty=repetition_penalty,
+            **engine_kwargs,
         )
     except Exception as e:
         _remove_file(tmp_path)

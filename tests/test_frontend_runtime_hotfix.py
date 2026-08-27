@@ -45,8 +45,8 @@ def test_invalid_default_voice_is_never_inserted_as_fallback():
 def test_backend_detail_and_cache_busted_assets_are_wired():
     assert "readApiErrorDetail(res)" in APP
     assert "userMessageForHttpStatus(err.status, err.detail)" in APP
-    assert 'styles.css?v=21.0' in HTML
-    assert 'app.js?v=21.0' in HTML
+    assert 'styles.css?v=21.1' in HTML
+    assert 'app.js?v=21.1' in HTML
 
 
 def test_history_actions_have_explicit_active_and_disabled_contrast():
@@ -120,17 +120,17 @@ def test_generated_voice_lab_sample_survives_persistence_failure():
 
 
 def test_save_voice_all_clone_formats_are_eligible_and_local():
-    gate = APP[APP.index("function canSaveVoiceReference"):APP.index("async function handleCloneFile")]
     lab = APP[APP.index("function updateVoiceLabSaveState"):APP.index("function setVoiceLabCurrentSample")]
-    assert "CLONE_ACCEPTED_EXTENSIONS.includes(extensionOf(file.name))" in gate
+    assert "function canSaveVoiceReference(file)" in APP
+    assert "CLONE_ACCEPTED_EXTENSIONS.includes(extensionOf(file.name))" in APP
     assert "canSaveVoiceReference(current.reference.file)" in lab
     assert "Hỗ trợ lưu giọng từ WAV, MP3 và M4A" in APP
     assert "File sẽ được xử lý cục bộ trên máy" in APP
     assert "metadata.format !== 'wav'" not in APP
 
 
-def test_frontend_build_marker_is_21_0():
-    assert "const AIVOICE_FRONTEND_BUILD = '21.0'" in APP
+def test_frontend_build_marker_is_21_1():
+    assert "const AIVOICE_FRONTEND_BUILD = '21.1'" in APP
 
 
 def test_voice_lab_save_uses_exact_current_reference_and_refreshes_selection():
@@ -138,3 +138,68 @@ def test_voice_lab_save_uses_exact_current_reference_and_refreshes_selection():
     assert "current.reference.file" in source
     assert "form.append('ref_audio', current.reference.file, current.reference.file.name)" in source
     assert "loadHealthAndVoices(body.voice?.id || name)" in source
+
+
+def test_phase21_1_duplicate_clone_panel_removed_and_contracts_kept():
+    # Product decision: Voice Lab is the ONLY cloning workflow.
+    # The duplicate main-UI Clone panel and its enrollment row are gone.
+    for removed_html_marker in (
+        '<section class="card cardClone">',
+        'id="cloneDropzone"',
+        'id="cloneInput"',
+        'id="cloneFileMeta"',
+        'id="cloneInfo"',
+        'id="saveVoiceName"',
+        'id="saveVoiceBtn"',
+    ):
+        assert removed_html_marker not in HTML
+
+    # No dead JS around the removed panel.
+    for removed_js_marker in (
+        "'cloneDropzone'",
+        "'cloneInput'",
+        "'cloneInfo'",
+        "selectedRefFile",
+        "handleCloneFile",
+        "clearCloneFile",
+        "updateSaveVoiceState",
+        "probeWavDuration",
+        "'saveVoiceName'",
+        "document.getElementById('saveVoiceBtn')",
+    ):
+        assert removed_js_marker not in APP
+
+    # No dead CSS around the removed panel; shared styles preserved.
+    for removed_css_marker in (
+        ".cardClone{",
+        ".dropzone{",
+        ".dropIcon{",
+        ".fileMeta{",
+        ".fileName{",
+        ".formatBadge{",
+        ".cloneStatus{",
+        ".saveVoiceRow{",
+    ):
+        assert removed_css_marker not in CSS
+    for kept_css_marker in (
+        ".savedVoicesHeader{",
+        ".savedVoiceItem .svPlay{",
+        ".vplPlay{",
+        ".uploadLabel{",
+        ".labReference.labReady{",
+    ):
+        assert kept_css_marker in CSS
+
+    # Preserved behaviors after the removal.
+    assert 'id="savedVoicesList"' in HTML
+    assert 'id="saveVoiceInfo"' in HTML
+    assert "Muốn tạo giọng riêng" in HTML
+    assert 'id="openVoiceLabBtn"' in HTML
+    assert "openVoiceLabBtn" in APP
+    assert 'id="voiceLab"' in HTML
+    assert "startVoicePreview(name, playBtn)" in APP                      # saved preview kept
+    assert "'/api/voices/' + encodeURIComponent(name)" in APP             # saved delete kept
+    assert APP.count("fetch(API + '/api/tts/clone'") == 1                 # Voice Lab stays sole consumer
+    assert "fetch(API + '/api/tts'," in APP                               # main TTS JSON path intact
+    assert "form.append('ref_audio', current.reference.file, current.reference.file.name)" in APP
+    assert APP.count("fetch(API + '/api/voices/save'") == 1

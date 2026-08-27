@@ -75,15 +75,7 @@ class ModelLoader:
             v = all_v.get(name)
             if not isinstance(v, dict):
                 continue
-            emb = v.get("speaker_emb")
-            codes = v.get("codes")
-            profiles[name] = {
-                "description": v.get("description", ""),
-                "gender": v.get("gender", ""),
-                "style": v.get("style", default_style),
-                "speaker_emb": [round(float(x), 6) for x in np.asarray(emb).reshape(-1)] if emb is not None else None,
-                "codes": np.asarray(codes, dtype=int).tolist() if codes is not None else None,
-            }
+            profiles[name] = voice_store.serialize_profile(v, default_style)
         return profiles
 
     def _load_user_voices(self) -> None:
@@ -96,15 +88,7 @@ class ModelLoader:
             return
         default_style = getattr(self._v, "default_style", None)
         for name, d in profiles.items():
-            emb = np.asarray(d.get("speaker_emb"), dtype=np.float32) if d.get("speaker_emb") is not None else None
-            codes = np.asarray(d.get("codes"), dtype=np.int64) if d.get("codes") is not None else None
-            all_v[name] = {
-                "description": d.get("description", ""),
-                "gender": d.get("gender", ""),
-                "style": d.get("style", default_style),
-                "speaker_emb": emb,
-                "codes": codes,
-            }
+            all_v[name] = voice_store.deserialize_profile(d, default_style)
 
     def add_saved_voice(self, name: str, ref_audio: str, denoise: bool = True, description: str = "") -> str:
         """Register a new user voice from reference audio using the native mechanism.

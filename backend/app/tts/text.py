@@ -1,14 +1,24 @@
 import re
 from typing import List
 
+from .normalize_vi import normalize_vi_input
+
+_CARRIAGE_TAB_RE = re.compile(r"[\t\r]+")
+_MULTI_SPACE_RE = re.compile(r" +")
+
 
 def preprocess_text(text: str) -> str:
     if text is None:
         return ""
+    # Phase 22: map zero-width/invisible separators away and compose to Unicode
+    # NFC BEFORE whitespace cleanup, so sea_g2p can never see an invisible
+    # character glued to a Vietnamese syllable (it would turn it into a real
+    # space and split the syllable, e.g. "người" -> "ng" + "ười").
+    text = normalize_vi_input(text)
     # normalize whitespace, preserve Vietnamese unicode
     # remove control characters except newline
-    text = re.sub(r"[\t\r]+", " ", text)
-    text = re.sub(r" +", " ", text)
+    text = _CARRIAGE_TAB_RE.sub(" ", text)
+    text = _MULTI_SPACE_RE.sub(" ", text)
     # strip leading/trailing whitespace on each line but preserve blank lines
     lines = [ln.strip() for ln in text.splitlines()]
     # remove consecutive blank lines

@@ -1,5 +1,5 @@
 const API = 'http://127.0.0.1:8000'
-const AIVOICE_FRONTEND_BUILD = '21.0'
+const AIVOICE_FRONTEND_BUILD = '21.1'
 
 const voiceSelect = document.getElementById('voice')
 const speedInput = document.getElementById('speed')
@@ -20,20 +20,12 @@ const progressBar = document.getElementById('progressBar')
 const curTime = document.getElementById('curTime')
 const durTime = document.getElementById('durTime')
 const themeToggle = document.getElementById('themeToggle')
-// saved-voices controls
-const saveVoiceNameInput = document.getElementById('saveVoiceName')
-const saveVoiceBtn = document.getElementById('saveVoiceBtn')
+// saved-voices panel (Phase 21.1: panel stays; Save Voice enrollment UI lives in Voice Lab)
 const savedVoicesList = document.getElementById('savedVoicesList')
 const saveVoiceInfo = document.getElementById('saveVoiceInfo')
 // voice preview list (Phase 13)
 const voicePreviewList = document.getElementById('voicePreviewList')
-// Phase 14: clone dropzone + result card
-const cloneDropzone = document.getElementById('cloneDropzone')
-const cloneFileMeta = document.getElementById('cloneFileMeta')
-const cloneFileNameEl = document.getElementById('cloneFileName')
-const cloneFileSizeEl = document.getElementById('cloneFileSize')
-const cloneFileFormatEl = document.getElementById('cloneFileFormat')
-const cloneFileRemove = document.getElementById('cloneFileRemove')
+// result card
 const resultPlaceholder = document.getElementById('resultPlaceholder')
 const resultSuccess = document.getElementById('resultSuccess')
 const regenerateBtn = document.getElementById('regenerateBtn')
@@ -64,6 +56,9 @@ const voiceLabCandidateVoice = document.getElementById('voiceLabCandidateVoice')
 const voiceLabCandidateTemperature = document.getElementById('voiceLabCandidateTemperature')
 const voiceLabSelectTemperature = document.getElementById('voiceLabSelectTemperature')
 const voiceLabCandidateStatus = document.getElementById('voiceLabCandidateStatus')
+const voiceLabConditioningBlock = document.getElementById('voiceLabConditioningBlock')
+const voiceLabConditioningMode = document.getElementById('voiceLabConditioningMode')
+const voiceLabPronunciationOk = document.getElementById('voiceLabPronunciationOk')
 const voiceLabSaveEvaluation = document.getElementById('voiceLabSaveEvaluation')
 const voiceLabExperimentList = document.getElementById('voiceLabExperimentList')
 const voiceLabRefresh = document.getElementById('voiceLabRefresh')
@@ -76,6 +71,11 @@ const voiceLabReferenceMetaEls = {
   reference_a: document.getElementById('voiceLabRefAMeta'),
   reference_b: document.getElementById('voiceLabRefBMeta'),
   reference_c: document.getElementById('voiceLabRefCMeta'),
+}
+const voiceLabReferenceQualityEls = {
+  reference_a: document.getElementById('voiceLabRefAQuality'),
+  reference_b: document.getElementById('voiceLabRefBQuality'),
+  reference_c: document.getElementById('voiceLabRefCQuality'),
 }
 const CLONE_ACCEPTED_EXTENSIONS = ['.wav', '.mp3', '.m4a']
 const SAVE_VOICE_FORMAT_HELP = 'Hỗ trợ lưu giọng từ WAV, MP3 và M4A. File sẽ được xử lý cục bộ trên máy.'
@@ -121,8 +121,34 @@ const IDB_VERSION = 3
 const IDB_STORE = 'history_audio'
 const IDB_VOICE_LAB_STORE = 'voice_lab_audio'
 const VOICE_LAB_AUDIO_MAX = 25
+const AUDIO_STUDIO_STORAGE_KEY = 'aivoice_audio_studio_project'
+const AUDIO_STUDIO_AUDIO_PREFIX = 'studio:'
 let historyPlaybackUrl = null
 let lastStorageError = null
+const mainWorkspaceTab = document.getElementById('mainWorkspaceTab')
+const audioStudioTab = document.getElementById('audioStudioTab')
+const mainWorkspace = document.querySelector('main.main')
+const voiceLab = document.getElementById('voiceLab')
+const audioStudio = document.getElementById('audioStudio')
+const studioTitle = document.getElementById('studioTitle')
+const studioSegments = document.getElementById('studioSegments')
+const studioAddSegment = document.getElementById('studioAddSegment')
+const studioPlayAll = document.getElementById('studioPlayAll')
+const studioExport = document.getElementById('studioExport')
+const studioSaveStatus = document.getElementById('studioSaveStatus')
+const studioStatus = document.getElementById('studioStatus')
+const aboutBtn = document.getElementById('aboutBtn')
+const aboutDialog = document.getElementById('aboutDialog')
+const aboutCloseBtn = document.getElementById('aboutCloseBtn')
+const aboutVersion = document.getElementById('aboutVersion')
+const aboutBuildDate = document.getElementById('aboutBuildDate')
+const aboutFrontendBuild = document.getElementById('aboutFrontendBuild')
+const aboutBackendBuild = document.getElementById('aboutBackendBuild')
+const aboutModel = document.getElementById('aboutModel')
+const aboutEngine = document.getElementById('aboutEngine')
+let audioStudioProject = null
+let studioGenerating = false
+let latestHealth = null
 
 function storageErrorSummary(error){
   const name = error && error.name ? String(error.name) : 'Error'
@@ -151,6 +177,22 @@ function setStatus(msg, isError=false){
   status.setAttribute('aria-atomic', 'true')
 }
 
+function setStudioStatus(message, isError=false){
+  if(!studioStatus) return
+  studioStatus.textContent = message
+  studioStatus.style.color = isError ? 'var(--danger)' : ''
+  studioStatus.setAttribute('role', isError ? 'alert' : 'status')
+}
+
+function updateAboutDetails(health){
+  if(aboutVersion) aboutVersion.textContent = health?.version || '1.0.0'
+  if(aboutBuildDate) aboutBuildDate.textContent = health?.build_date || '2026-08-27'
+  if(aboutFrontendBuild) aboutFrontendBuild.textContent = AIVOICE_FRONTEND_BUILD
+  if(aboutBackendBuild) aboutBackendBuild.textContent = health?.version || '1.0.0'
+  if(aboutModel) aboutModel.textContent = health?.model || 'Không thể đọc khi backend chưa chạy'
+  if(aboutEngine) aboutEngine.textContent = health?.engine || 'TTS cục bộ'
+}
+
 function setGeneratingState(generating){
   isGenerating = generating
   updateTextValidation()
@@ -160,8 +202,7 @@ function setGeneratingState(generating){
     speakBtn.dataset.originalLabel = speakBtn.textContent
   }
   if(generating){
-    const usingClone = !!selectedRefFile
-    speakBtn.textContent = usingClone ? '⏳ Đang xử lý tham chiếu & tạo giọng...' : '⏳ Đang tạo giọng...'
+    speakBtn.textContent = '⏳ Đang tạo giọng...'
   }else{
     if(speakBtn.dataset.originalLabel !== undefined) speakBtn.textContent = speakBtn.dataset.originalLabel
   }
@@ -286,6 +327,8 @@ async function loadHealthAndVoices(preferredVoice=null){
       const j = await r.json()
       if(j.max_text_length) maxTextLength = j.max_text_length
       setHealth(true, j.model || '')
+      latestHealth = j
+      updateAboutDetails(j)
       if(voiceLabRuntime){
         const runtimeName = [j.engine_library, j.engine_version, j.runtime_family, j.runtime_backend, j.device].filter(Boolean).join(' · ')
         voiceLabRuntime.textContent = runtimeName || 'Runtime metadata chưa khả dụng'
@@ -293,8 +336,10 @@ async function loadHealthAndVoices(preferredVoice=null){
       updateTextValidation()
     }else{
       setHealth(false)
+      latestHealth = null
+      updateAboutDetails(null)
     }
-  }catch(e){ setHealth(false) }
+  }catch(e){ setHealth(false); latestHealth = null; updateAboutDetails(null) }
 
   try{
     const res = await fetch(API + '/api/voices')
@@ -334,6 +379,7 @@ async function loadHealthAndVoices(preferredVoice=null){
     renderVoicePreviewList(presets, saved)
     renderSavedVoices()
     renderTemperatureCandidateState()
+    renderAudioStudio()
     updateTextValidation()
     return true
   }catch(e){
@@ -343,6 +389,7 @@ async function loadHealthAndVoices(preferredVoice=null){
     voicesReady = false
     voiceSelect.innerHTML = '<option value="">Không tải được danh sách giọng</option>'
     voiceSelect.disabled = true
+    renderAudioStudio()
     updateTextValidation()
     setStatus('Không thể tải danh sách giọng. Hãy kiểm tra backend rồi tải lại trang.', true)
     return false
@@ -371,12 +418,9 @@ voiceSelect.addEventListener('change', ()=>{
   if(validVoiceIds.has(voiceSelect.value)) localStorage.setItem(SELECTED_VOICE_STORAGE_KEY, voiceSelect.value)
   renderTemperatureCandidateState()
 })
-textArea.addEventListener('input', updateTextValidation)
+textArea.addEventListener('input', ()=>{ updateTextValidation(); scheduleSmartTextPreview() })
 
 const emotionSelect = document.getElementById('emotion')
-const cloneInput = document.getElementById('cloneInput')
-const cloneInfo = document.getElementById('cloneInfo')
-let selectedRefFile = null
 
 // Advanced sampling controls
 const advancedToggle = document.getElementById('advancedToggle')
@@ -386,15 +430,48 @@ const topKInput = document.getElementById('topKInput')
 const topPInput = document.getElementById('topPInput')
 const repetitionPenaltyInput = document.getElementById('repetitionPenaltyInput')
 const resetSamplingBtn = document.getElementById('resetSamplingBtn')
+const smartTextProcessing = document.getElementById('smartTextProcessing')
+const smartTextPreview = document.getElementById('smartTextPreview')
+const smartTextOriginal = document.getElementById('smartTextOriginal')
+const smartTextProcessed = document.getElementById('smartTextProcessed')
 let advancedOpen = false
+let smartTextPreviewTimer = null
 
 if(advancedToggle){
   advancedToggle.addEventListener('click', ()=>{
     advancedOpen = !advancedOpen
     advancedToggle.setAttribute('aria-expanded', String(advancedOpen))
     if(advancedContents) advancedContents.hidden = !advancedOpen
+    if(advancedOpen) updateSmartTextPreview()
   })
 }
+
+async function updateSmartTextPreview(){
+  if(!smartTextOriginal || !smartTextProcessed) return
+  const text = textArea.value || ''
+  smartTextOriginal.textContent = text || '—'
+  if(!text){ smartTextProcessed.textContent = '—'; return }
+  try{
+    const response = await fetch(API + '/api/nlp/preview', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({text, smart_text_processing:Boolean(smartTextProcessing?.checked)}),
+    })
+    const data = await response.json()
+    if(!response.ok) throw new Error(data.detail || 'preview unavailable')
+    smartTextProcessed.textContent = data.processed
+  }catch(error){
+    smartTextProcessed.textContent = 'Không thể tạo preview cục bộ.'
+  }
+}
+
+function scheduleSmartTextPreview(){
+  if(!advancedOpen) return
+  if(smartTextPreviewTimer) clearTimeout(smartTextPreviewTimer)
+  smartTextPreviewTimer = setTimeout(updateSmartTextPreview, 180)
+}
+
+if(smartTextProcessing) smartTextProcessing.addEventListener('change', updateSmartTextPreview)
+if(smartTextPreview) smartTextPreview.addEventListener('toggle', ()=>{ if(smartTextPreview.open) updateSmartTextPreview() })
 if(resetSamplingBtn){
   resetSamplingBtn.addEventListener('click', ()=>{
     const preferred = preferredSamplingForVoice(voiceSelect.value)
@@ -403,29 +480,6 @@ if(resetSamplingBtn){
     if(topPInput) topPInput.value = String(preferred?.top_p ?? 0.95)
     if(repetitionPenaltyInput) repetitionPenaltyInput.value = String(preferred?.repetition_penalty ?? 1.2)
   })
-}
-
-async function probeWavDuration(file){
-  try{
-    const blob = new Blob([await file.arrayBuffer()], {type: 'audio/wav'})
-    const controller = new AbortController()
-    await waitForAudioDecode(blob, controller)
-    const audio = document.createElement('audio')
-    const url = URL.createObjectURL(blob)
-    return await new Promise((resolve, reject)=>{
-      audio.addEventListener('loadedmetadata', ()=>{ const d = audio.duration; URL.revokeObjectURL(url); resolve(d) })
-      audio.addEventListener('error', ()=>{ URL.revokeObjectURL(url); reject(new Error('invalid-audio')) })
-      audio.src = url
-      audio.load()
-    })
-  }catch(e){ throw e }
-}
-
-function clearCloneFile(){
-  selectedRefFile = null
-  if(cloneInput) cloneInput.value = ''
-  if(cloneFileMeta) cloneFileMeta.hidden = true
-  updateSaveVoiceState()
 }
 
 function formatFileSize(bytes){
@@ -441,87 +495,6 @@ function extensionOf(name){
 
 function canSaveVoiceReference(file){
   return Boolean(file && CLONE_ACCEPTED_EXTENSIONS.includes(extensionOf(file.name)))
-}
-
-async function handleCloneFile(f){
-  if(!f){ clearCloneFile(); return }
-  const ext = extensionOf(f.name)
-  if(!CLONE_ACCEPTED_EXTENSIONS.includes(ext)){
-    setStatus('Định dạng không được hỗ trợ. Vui lòng dùng tệp WAV, M4A hoặc MP3.', true)
-    clearCloneFile()
-    return
-  }
-  if(f.size > REF_MAX_BYTES){
-    setStatus(`Tệp tham chiếu quá lớn (${formatFileSize(f.size)}). Tối đa 5 MB.`, true)
-    clearCloneFile()
-    return
-  }
-
-  // Show metadata immediately for every supported format.
-  selectedRefFile = f
-  if(cloneFileMeta){
-    cloneFileMeta.hidden = false
-    if(cloneFileNameEl) cloneFileNameEl.textContent = f.name
-    if(cloneFileSizeEl) cloneFileSizeEl.textContent = formatFileSize(f.size)
-    if(cloneFileFormatEl) cloneFileFormatEl.textContent = ext.slice(1).toUpperCase()
-  }
-  updateSaveVoiceState()
-
-  if(cloneInfo) cloneInfo.textContent = 'Đang kiểm tra tệp âm thanh...'
-  if(ext !== '.wav'){
-    // Server converts M4A/MP3 to WAV during generation; duration is validated there.
-    if(cloneInfo) cloneInfo.textContent = `✓ Đã chuẩn bị file âm thanh ✓ — sẽ tự động chuyển đổi sang WAV khi tạo giọng (${formatFileSize(f.size)})`
-    setStatus(`Đã chọn tệp ${ext.slice(1).toUpperCase()}. Bấm “Tạo giọng nói” để dùng giọng này.`)
-    return
-  }
-  try{
-    const dur = await probeWavDuration(f)
-    if(dur > REF_MAX_SECONDS){
-      setStatus(`Tệp tham chiếu quá dài (${dur.toFixed(1)}s). Tối đa ${REF_MAX_SECONDS}s.`, true)
-      clearCloneFile()
-      if(cloneInfo) cloneInfo.textContent = ''
-      return
-    }
-    if(cloneInfo) cloneInfo.textContent = `✓ Đã chuẩn bị file âm thanh ✓ — ${dur.toFixed(1)}s · ${formatFileSize(f.size)}. Bấm “Tạo giọng nói” hoặc lưu làm giọng cá nhân bên dưới.`
-    setStatus('Đã chọn tệp WAV tham chiếu.')
-  }catch(e){
-    console.error('WAV probe failed:', e)
-    setStatus('Không thể đọc tệp WAV. Tệp có thể bị hỏng.', true)
-    clearCloneFile()
-    if(cloneInfo) cloneInfo.textContent = ''
-  }
-}
-
-if(cloneInput){
-  cloneInput.addEventListener('change', async (ev)=>{
-    const f = ev.target.files && ev.target.files[0]
-    await handleCloneFile(f)
-  })
-}
-if(cloneDropzone){
-  cloneDropzone.addEventListener('click', (e)=>{
-    // Avoid re-opening the picker when clicking the nested label.
-    if(e.target && e.target.closest && e.target.closest('label')) return
-    if(cloneInput) cloneInput.click()
-  })
-  cloneDropzone.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); if(cloneInput) cloneInput.click() }
-  })
-  ;['dragenter','dragover'].forEach(ev => cloneDropzone.addEventListener(ev, (e)=>{ e.preventDefault(); cloneDropzone.classList.add('drag') }))
-  ;['dragleave','drop'].forEach(ev => cloneDropzone.addEventListener(ev, (e)=>{ e.preventDefault(); cloneDropzone.classList.remove('drag') }))
-  cloneDropzone.addEventListener('drop', async (e)=>{
-    const files = e.dataTransfer && e.dataTransfer.files
-    if(!files || files.length === 0){ setStatus('Không tìm thấy tệp âm thanh để thả vào.', true); return }
-    if(files.length > 1){ setStatus('Chỉ hỗ trợ một tệp âm thanh mỗi lần.', true); return }
-    await handleCloneFile(files[0])
-  })
-}
-if(cloneFileRemove){
-  cloneFileRemove.addEventListener('click', ()=>{
-    clearCloneFile()
-    if(cloneInfo) cloneInfo.textContent = ''
-    setStatus('Đã xóa tệp tham chiếu.')
-  })
 }
 
 // ── Phase 12.1: emotion insertion toolbar (inserts native inline cues at cursor)
@@ -544,21 +517,9 @@ document.querySelectorAll('[data-emotion-tag]').forEach(btn=>{
   })
 })
 
-// ── Phase 12.1: saved voice profiles ──────────────────────────────────────────
-function updateSaveVoiceState(){
-  const name = (saveVoiceNameInput ? saveVoiceNameInput.value : '').trim()
-  const canSaveReference = canSaveVoiceReference(selectedRefFile)
-  if(saveVoiceBtn){
-    saveVoiceBtn.disabled = !(name && canSaveReference)
-    saveVoiceBtn.title = ''
-  }
-  if(selectedRefFile && canSaveReference){
-    setSaveVoiceInfo(SAVE_VOICE_FORMAT_HELP, false, 'format')
-  }else if(saveVoiceInfo && saveVoiceInfo.dataset.reason === 'format'){
-    setSaveVoiceInfo('')
-  }
-}
-
+// ── Phase 12.1: saved voices panel (view / preview / use / delete) ───────────
+// Phase 21.1: the enroll-save flow was removed here; saving a new personal voice
+// happens in Voice Lab ("Lưu giọng này"), which POSTs to /api/voices/save.
 function setSaveVoiceInfo(msg, isError, reason=''){
   if(!saveVoiceInfo) return
   saveVoiceInfo.textContent = msg || ''
@@ -727,35 +688,6 @@ function renderVoicePreviewList(presets, saved){
   }
   addGroup('Giọng mặc định', presets)
   addGroup('Giọng đã lưu', saved)
-}
-
-if(saveVoiceNameInput) saveVoiceNameInput.addEventListener('input', updateSaveVoiceState)
-if(saveVoiceBtn){
-  saveVoiceBtn.addEventListener('click', async ()=>{
-    const name = (saveVoiceNameInput ? saveVoiceNameInput.value : '').trim()
-    if(!selectedRefFile){ setSaveVoiceInfo('Chọn tệp WAV, MP3 hoặc M4A tham chiếu trước khi lưu.', true); return }
-    if(!canSaveVoiceReference(selectedRefFile)){ setSaveVoiceInfo('Định dạng tham chiếu không được hỗ trợ.', true); return }
-    if(!name){ setSaveVoiceInfo('Nhập tên giọng trước khi lưu.', true); return }
-    setSaveVoiceInfo('Đang lưu giọng...')
-    const form = new FormData()
-    form.append('name', name)
-    form.append('ref_audio', selectedRefFile, selectedRefFile.name)
-    try{
-      const r = await fetch(API + '/api/voices/save', { method: 'POST', body: form })
-      const body = await r.json().catch(()=>({}))
-      if(!r.ok){
-        setSaveVoiceInfo((body.detail) || 'Không thể lưu giọng.', true)
-        return
-      }
-      setSaveVoiceInfo('')
-      if(saveVoiceNameInput) saveVoiceNameInput.value = ''
-      updateSaveVoiceState()
-      await loadHealthAndVoices(name)
-      setStatus(`Đã lưu giọng "${name}". Bạn có thể chọn ở mục giọng.`)
-    }catch(e){
-      setSaveVoiceInfo('Không thể lưu giọng.', true)
-    }
-  })
 }
 
 async function hasWavSignature(blob){
@@ -941,6 +873,11 @@ function idbDeleteAudio(id){ return idbRun('readwrite', store => store.delete(id
 function idbPutVoiceLabAudio(id, blob){ return idbRun('readwrite', store => store.put(blob, id), IDB_VOICE_LAB_STORE) }
 function idbGetVoiceLabAudio(id){ return idbRun('readonly', store => store.get(id), IDB_VOICE_LAB_STORE) }
 function idbDeleteVoiceLabAudio(id){ return idbRun('readwrite', store => store.delete(id), IDB_VOICE_LAB_STORE) }
+
+function studioAudioKey(id){ return AUDIO_STUDIO_AUDIO_PREFIX + id }
+function idbPutStudioAudio(id, blob){ return idbPutVoiceLabAudio(studioAudioKey(id), blob) }
+function idbGetStudioAudio(id){ return idbGetVoiceLabAudio(studioAudioKey(id)) }
+function idbDeleteStudioAudio(id){ return idbDeleteVoiceLabAudio(studioAudioKey(id)) }
 function idbCount(storeName){ return idbRun('readonly', store => store.count(), storeName) }
 
 async function aivoiceStorageDiagnostics(){
@@ -974,6 +911,81 @@ async function idbClearAllAudio(){
   }catch(e){ console.error('Failed to clear audio store:', e) }
 }
 
+
+// ── Phase 25: Audio Studio — local project metadata + IndexedDB WAV blobs ──
+function studioSegmentId(){ return `seg_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}` }
+function defaultStudioSettings(){ return {temperature:Number(temperatureInput?.value || .8), top_k:Number(topKInput?.value || 25), top_p:Number(topPInput?.value || .95), repetition_penalty:Number(repetitionPenaltyInput?.value || 1.2), smart_text_processing:Boolean(smartTextProcessing?.checked)} }
+function newStudioSegment(){ return {id:studioSegmentId(), text:'', voice:voiceSelect?.value || '', speed:Number(speedInput?.value || 1), settings:defaultStudioSettings(), duration:0, status:'draft', hasAudio:false} }
+function normalizeStudioProject(project){ const now=new Date().toISOString(), source=project && typeof project==='object' ? project : {}; return {title:typeof source.title==='string' && source.title.trim() ? source.title.slice(0,120) : 'Audio Project', created_at:source.created_at || now, updated_at:source.updated_at || now, segments:Array.isArray(source.segments) ? source.segments.filter(item=>item && typeof item.id==='string').map(item=>({...newStudioSegment(), ...item, settings:{...defaultStudioSettings(), ...(item.settings || {})}})) : []} }
+function saveAudioStudioProject(){ if(!audioStudioProject) return; audioStudioProject.title=(studioTitle?.value || audioStudioProject.title || 'Audio Project').trim().slice(0,120) || 'Audio Project'; audioStudioProject.updated_at=new Date().toISOString(); localStorage.setItem(AUDIO_STUDIO_STORAGE_KEY, JSON.stringify(audioStudioProject)); if(studioSaveStatus) studioSaveStatus.textContent=`Đã lưu cục bộ · ${new Date(audioStudioProject.updated_at).toLocaleTimeString('vi-VN')}` }
+function loadAudioStudioProject(){ try{ audioStudioProject=normalizeStudioProject(JSON.parse(localStorage.getItem(AUDIO_STUDIO_STORAGE_KEY) || 'null')) }catch(_error){ audioStudioProject=normalizeStudioProject(null) } if(studioTitle) studioTitle.value=audioStudioProject.title; renderAudioStudio() }
+function studioSegment(index){ return audioStudioProject?.segments[index] || null }
+function renderAudioStudio(){
+  if(!studioSegments || !audioStudioProject) return; studioSegments.replaceChildren()
+  if(!audioStudioProject.segments.length){ const empty=document.createElement('p'); empty.className='muted small'; empty.textContent='Chưa có segment. Thêm một đoạn để bắt đầu project.'; studioSegments.appendChild(empty); return }
+  audioStudioProject.segments.forEach((segment,index)=>{
+    // Older projects (or a project opened before voices finish loading) can
+    // have an empty voice even though the select visibly falls back to the
+    // first option. Persist that fallback so Generate/Regenerate is usable
+    // immediately without leaving and re-entering Audio Studio.
+    if((!segment.voice || !validVoiceIds.has(segment.voice)) && validVoiceIds.size){
+      segment.voice = resolveValidVoice(voiceSelect?.value) || validVoiceIds.values().next().value || ''
+      saveAudioStudioProject()
+    }
+    const card=document.createElement('article'); card.className='studioSegment'; card.dataset.segmentId=segment.id; const heading=document.createElement('div'); heading.className='studioSegmentHeader'; const label=document.createElement('strong'); label.textContent=`Segment ${index+1}`; const state=document.createElement('span'); state.className='muted small'; state.textContent=segment.status==='ready' ? `Ready · ${formatTime(segment.duration)}` : segment.status==='generating' ? 'Đang tạo...' : 'Draft'; heading.append(label,state)
+    const text=document.createElement('textarea'); text.value=segment.text; text.placeholder='Nhập nội dung segment...'; text.rows=3; text.addEventListener('input',()=>{segment.text=text.value; segment.status=segment.hasAudio?'ready':'draft'; saveAudioStudioProject()})
+    const controls=document.createElement('div'); controls.className='studioSegmentControls'; const voice=document.createElement('select'); Array.from(validVoiceIds).forEach(id=>{const option=document.createElement('option'); option.value=id; option.textContent=id; option.selected=id===segment.voice; voice.appendChild(option)}); if(!voice.options.length){const option=document.createElement('option'); option.textContent='Đang tải giọng...'; voice.appendChild(option)}; voice.addEventListener('change',()=>{segment.voice=voice.value; saveAudioStudioProject()}); const speed=document.createElement('input'); speed.type='number'; speed.min='.5'; speed.max='2'; speed.step='.1'; speed.value=String(segment.speed); speed.addEventListener('change',()=>{const value=Number(speed.value); segment.speed=Number.isFinite(value)&&value>=.5&&value<=2?value:1; speed.value=String(segment.speed); saveAudioStudioProject()}); const generate=document.createElement('button'); generate.type='button'; generate.className='primary small'; generate.dataset.studioAction='generate'; generate.textContent=segment.hasAudio?'↻ Regenerate':'▶ Generate'; generate.disabled=studioGenerating||!segment.text.trim()||!segment.voice; controls.append(voice,speed,generate)
+    const actions=document.createElement('div'); actions.className='studioSegmentActions'; for(const [caption,action,disabled] of [['▶ Play','play',!segment.hasAudio],['⧉ Duplicate','duplicate',false],['↑','up',index===0],['↓','down',index===audioStudioProject.segments.length-1],['Delete','delete',false]]){const button=document.createElement('button'); button.type='button'; button.className='secondary small'; button.textContent=caption; button.dataset.studioAction=action; button.disabled=disabled; actions.appendChild(button)}
+    const settings=document.createElement('p'); settings.className='muted small studioSettings'; settings.textContent=`Advanced · T ${segment.settings.temperature} · K ${segment.settings.top_k} · P ${segment.settings.top_p} · Rep ${segment.settings.repetition_penalty} · Smart ${segment.settings.smart_text_processing?'ON':'OFF'}`; card.append(heading,text,controls,actions,settings); studioSegments.appendChild(card) })
+}
+function addStudioSegment(){audioStudioProject.segments.push(newStudioSegment()); saveAudioStudioProject(); renderAudioStudio()}
+function deleteStudioSegment(index){const [segment]=audioStudioProject.segments.splice(index,1); if(segment?.hasAudio) idbDeleteStudioAudio(segment.id).catch(console.error); saveAudioStudioProject(); renderAudioStudio()}
+function duplicateStudioSegment(index){const original=studioSegment(index); if(!original) return; audioStudioProject.segments.splice(index+1,0,{...original,id:studioSegmentId(),status:'draft',duration:0,hasAudio:false}); saveAudioStudioProject(); renderAudioStudio()}
+function moveStudioSegment(index,direction){const next=index+direction; if(next<0||next>=audioStudioProject.segments.length)return; [audioStudioProject.segments[index],audioStudioProject.segments[next]]=[audioStudioProject.segments[next],audioStudioProject.segments[index]]; saveAudioStudioProject(); renderAudioStudio()}
+function handleStudioSegmentAction(event){
+  const button=event.target.closest('[data-studio-action]')
+  if(!button || button.disabled || !studioSegments?.contains(button)) return
+  const card=button.closest('[data-segment-id]')
+  const index=audioStudioProject?.segments.findIndex(segment=>segment.id===card?.dataset.segmentId)
+  if(index === undefined || index < 0) return
+  const segment=studioSegment(index)
+  if(button.dataset.studioAction==='generate') generateStudioSegment(index)
+  else if(button.dataset.studioAction==='play') playStudioSegment(segment).catch(()=>setStudioStatus('Không thể phát segment này.',true))
+  else if(button.dataset.studioAction==='duplicate') duplicateStudioSegment(index)
+  else if(button.dataset.studioAction==='up') moveStudioSegment(index,-1)
+  else if(button.dataset.studioAction==='down') moveStudioSegment(index,1)
+  else if(button.dataset.studioAction==='delete') deleteStudioSegment(index)
+}
+function studioDuration(blob){return new Promise(resolve=>{const audio=document.createElement('audio'),url=URL.createObjectURL(blob),done=value=>{URL.revokeObjectURL(url);resolve(value)};audio.onloadedmetadata=()=>done(Number.isFinite(audio.duration)?audio.duration:0);audio.onerror=()=>done(0);audio.src=url})}
+async function generateStudioSegment(index){
+  const segment=studioSegment(index)
+  if(!segment||studioGenerating||!segment.text.trim()||!segment.voice) return
+  studioGenerating=true; segment.status='generating'; setStudioStatus(`Đang tạo Segment ${index+1}...`); renderAudioStudio()
+  try{
+    const payload={text:segment.text,voice:segment.voice,speed:segment.speed,...segment.settings}
+    const response=await fetch(API+'/api/tts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    if(!response.ok) throw new Error(await readApiErrorDetail(response)||'Yêu cầu tạo segment không thành công.')
+    const blob=await response.blob()
+    if(!isExpectedAudioResponse(response,blob)||!(await hasWavSignature(blob))) throw new Error('Audio trả về chưa hợp lệ.')
+    await idbPutStudioAudio(segment.id,blob)
+    segment.duration=await studioDuration(blob); segment.hasAudio=true; segment.status='ready'; saveAudioStudioProject()
+    setStudioStatus(`Segment ${index+1} đã sẵn sàng.`)
+  }catch(_error){
+    segment.status=segment.hasAudio?'ready':'draft'
+    setStudioStatus(`Không thể tạo Segment ${index+1}. Hãy kiểm tra backend cục bộ rồi thử lại.`,true)
+  }finally{studioGenerating=false;renderAudioStudio()}
+}
+async function playStudioSegment(segment){const blob=await idbGetStudioAudio(segment.id);if(!(blob instanceof Blob)){segment.hasAudio=false;saveAudioStudioProject();renderAudioStudio();return}const audio=new Audio(URL.createObjectURL(blob));audio.onended=()=>URL.revokeObjectURL(audio.src);await audio.play()}
+function playStudioSegmentAndWait(segment){return idbGetStudioAudio(segment.id).then(blob=>new Promise((resolve,reject)=>{if(!(blob instanceof Blob))return resolve();const audio=new Audio(URL.createObjectURL(blob));audio.onended=()=>{URL.revokeObjectURL(audio.src);resolve()};audio.onerror=()=>{URL.revokeObjectURL(audio.src);reject(new Error('playback failed'))};audio.play().catch(reject)}))}
+async function playAllStudioSegments(){
+  if(!audioStudioProject||studioGenerating) return
+  setStudioStatus('Đang phát các segment theo thứ tự...')
+  for(const segment of audioStudioProject.segments) if(segment.hasAudio) try{ await playStudioSegmentAndWait(segment) }catch(_error){ setStudioStatus('Không thể phát một segment trong project.',true); return }
+  setStudioStatus('Đã phát xong các segment sẵn sàng.')
+}
+function encodeStudioWav(channels,sampleRate){const frames=channels[0].length,bytes=new ArrayBuffer(44+frames*channels.length*2),view=new DataView(bytes),put=(offset,value)=>view.setUint32(offset,value,true);view.setUint32(0,0x46464952,true);put(4,36+frames*channels.length*2);view.setUint32(8,0x45564157,true);view.setUint32(12,0x20746d66,true);put(16,16);view.setUint16(20,1,true);view.setUint16(22,channels.length,true);put(24,sampleRate);put(28,sampleRate*channels.length*2);view.setUint16(32,channels.length*2,true);view.setUint16(34,16,true);view.setUint32(36,0x61746164,true);put(40,frames*channels.length*2);let offset=44;for(let frame=0;frame<frames;frame++)for(const channel of channels){const value=Math.max(-1,Math.min(1,channel[frame]));view.setInt16(offset,value<0?value*0x8000:value*0x7fff,true);offset+=2}return new Blob([bytes],{type:'audio/wav'})}
+async function exportAudioStudioWav(){const ready=audioStudioProject?.segments.filter(item=>item.hasAudio)||[];if(!ready.length){setStudioStatus('Chưa có segment nào để xuất WAV.',true);return}const context=new(window.AudioContext||window.webkitAudioContext)();setStudioStatus('Đang ghép WAV trong trình duyệt...');try{const buffers=[];for(const segment of ready){const blob=await idbGetStudioAudio(segment.id);if(blob instanceof Blob)buffers.push(await context.decodeAudioData(await blob.arrayBuffer()))}if(!buffers.length)throw new Error('Không tìm thấy audio project.');const sampleRate=buffers[0].sampleRate,channels=Math.max(...buffers.map(buffer=>buffer.numberOfChannels));if(buffers.some(buffer=>buffer.sampleRate!==sampleRate))throw new Error('Sample rate segment không đồng nhất.');const length=buffers.reduce((total,buffer)=>total+buffer.length,0),merged=Array.from({length:channels},()=>new Float32Array(length));let position=0;for(const buffer of buffers){for(let channel=0;channel<channels;channel++){const source=buffer.getChannelData(Math.min(channel,buffer.numberOfChannels-1));merged[channel].set(source,position)}position+=buffer.length}const url=URL.createObjectURL(encodeStudioWav(merged,sampleRate)),link=document.createElement('a');link.href=url;link.download=`${(audioStudioProject.title||'audio-project').replace(/[^\w-]+/g,'-')}.wav`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);setStudioStatus('Đã xuất WAV.') }catch(_error){setStudioStatus('Không thể xuất WAV. Hãy kiểm tra các segment đã sẵn sàng và cùng sample rate.',true)}finally{context.close()}}
+function setWorkspaceTab(studioOpen){if(mainWorkspace)mainWorkspace.hidden=studioOpen;if(voiceLab)voiceLab.hidden=studioOpen;if(audioStudio)audioStudio.hidden=!studioOpen;mainWorkspaceTab?.classList.toggle('active',!studioOpen);audioStudioTab?.classList.toggle('active',studioOpen);mainWorkspaceTab?.setAttribute('aria-selected',String(!studioOpen));audioStudioTab?.setAttribute('aria-selected',String(studioOpen));if(studioOpen)renderAudioStudio()}
 
 // History metadata persists in localStorage. Audio blobs persist in IndexedDB,
 // linked by item.id; hasAudio marks entries that should have playable audio.
@@ -1257,54 +1269,35 @@ async function synthesize(text, voice, speed){
   }
   activeTtsRequest = request
   setGeneratingState(true)
-  setStatus(selectedRefFile
-    ? 'Đang chuyển đổi tham chiếu (nếu cần) & tạo giọng nói... Bạn có thể hủy.'
-    : 'Đang tạo giọng nói... Bạn có thể hủy nếu không muốn chờ tiếp.')
+  setStatus('Đang tạo giọng nói... Bạn có thể hủy nếu không muốn chờ tiếp.')
   request.timeoutId = setTimeout(()=>{
     if(isActiveRequest(request)) abortActiveRequest('timeout')
   }, TTS_REQUEST_TIMEOUT_MS)
 
   try{
     const t0 = performance.now()
-    let res
-    if(selectedRefFile){
-      // clone path: multipart form
-      const form = new FormData()
-      form.append('text', text)
-      if(voice) form.append('voice', voice)
-      form.append('speed', String(speed))
-      const emotionVal = (emotionSelect && emotionSelect.value) ? emotionSelect.value : ''
-      if(emotionVal) form.append('emotion', emotionVal)
-      form.append('ref_audio', selectedRefFile, selectedRefFile.name)
-        // include sampling params only when advanced panel is open
-        if(advancedOpen){
-          if(temperatureInput) form.append('temperature', String(temperatureInput.value))
-          if(topKInput) form.append('top_k', String(topKInput.value))
-          if(topPInput) form.append('top_p', String(topPInput.value))
-          if(repetitionPenaltyInput) form.append('repetition_penalty', String(repetitionPenaltyInput.value))
-        }
-        res = await fetch(API + '/api/tts/clone', {method:'POST', body: form, signal: controller.signal})
-    }else{
-      const payload = {text, voice, speed}
-        const preferred = !advancedOpen ? preferredSamplingForVoice(voice) : null
-        if(advancedOpen){
-          if(temperatureInput) payload.temperature = parseFloat(temperatureInput.value)
-          if(topKInput) payload.top_k = parseInt(topKInput.value)
-          if(topPInput) payload.top_p = parseFloat(topPInput.value)
-          if(repetitionPenaltyInput) payload.repetition_penalty = parseFloat(repetitionPenaltyInput.value)
-        }else if(preferred){
-          payload.temperature = preferred.temperature
-          payload.top_k = preferred.top_k
-          payload.top_p = preferred.top_p
-          payload.repetition_penalty = preferred.repetition_penalty
-        }
-      res = await fetch(API + '/api/tts', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(payload),
-        signal: controller.signal,
-      })
+    // Phase 21.1: main TTS uses preset/saved voices only via /api/tts.
+    // Reference-based cloning requests live exclusively in Voice Lab (/api/tts/clone).
+    const payload = {text, voice, speed}
+    payload.smart_text_processing = Boolean(smartTextProcessing?.checked)
+    const preferred = !advancedOpen ? preferredSamplingForVoice(voice) : null
+    if(advancedOpen){
+      if(temperatureInput) payload.temperature = parseFloat(temperatureInput.value)
+      if(topKInput) payload.top_k = parseInt(topKInput.value)
+      if(topPInput) payload.top_p = parseFloat(topPInput.value)
+      if(repetitionPenaltyInput) payload.repetition_penalty = parseFloat(repetitionPenaltyInput.value)
+    }else if(preferred){
+      payload.temperature = preferred.temperature
+      payload.top_k = preferred.top_k
+      payload.top_p = preferred.top_p
+      payload.repetition_penalty = preferred.repetition_penalty
     }
+    const res = await fetch(API + '/api/tts', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    })
     const t1 = performance.now()
 
     // An aborted or superseded request must never replace a newer audio result.
@@ -1469,6 +1462,15 @@ if(regenerateBtn){
   })
 }
 
+// Phase 21.1: quick navigation to Voice Lab — the single voice-cloning workflow
+const openVoiceLabBtn = document.getElementById('openVoiceLabBtn')
+if(openVoiceLabBtn){
+  openVoiceLabBtn.addEventListener('click', ()=>{
+    const lab = document.getElementById('voiceLab')
+    if(lab) lab.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  })
+}
+
 cancelBtn.addEventListener('click', ()=>{ abortActiveRequest('cancelled') })
 clearTextBtn.addEventListener('click', ()=>{
   if(!textArea.value) return
@@ -1527,8 +1529,12 @@ function activeVoiceLabReference(){
 }
 
 function updateVoiceLabGenerateState(){
-  const requiresSavedVoice = voiceLabRound.value === 'temperature'
+  const requiresSavedVoice = voiceLabRound.value === 'temperature' || voiceLabRound.value === 'conditioning'
   voiceLabGenerate.disabled = voiceLabGenerating || !voiceLabCorpus || (requiresSavedVoice ? !selectedSavedVoiceId() : !activeVoiceLabReference())
+}
+
+function renderConditioningRoundState(){
+  if(voiceLabConditioningBlock) voiceLabConditioningBlock.hidden = voiceLabRound.value !== 'conditioning'
 }
 
 function updateVoiceLabSaveState(){
@@ -1651,12 +1657,32 @@ async function setVoiceLabReference(slot, file){
     return
   }
 
-  metaEl.textContent = 'Đang đọc metadata...'
+  metaEl.textContent = 'Đang phân tích chất lượng...'
   let duration = null
   try{ duration = await probeVoiceLabDuration(file) }catch(e){ console.warn('Voice Lab duration unavailable:', e) }
   if(duration !== null && duration > REF_MAX_SECONDS){
     setVoiceLabStatus(`Reference ${slot.slice(-1).toUpperCase()} dài ${duration.toFixed(1)} giây; giới hạn hiện tại là ${REF_MAX_SECONDS} giây.`, true)
     metaEl.textContent = 'File bị từ chối vì quá dài.'
+    return
+  }
+
+  let quality
+  try{
+    const form = new FormData()
+    form.append('ref_audio', file, file.name)
+    form.append('reference_id', slot)
+    const response = await fetch(API + '/api/voice-lab/references/analyze', {method:'POST', body:form})
+    const data = await response.json()
+    if(!response.ok) throw new Error(data.detail || 'Không thể phân tích reference.')
+    quality = data
+  }catch(error){
+    metaEl.textContent = 'Không thể phân tích chất lượng của file này.'
+    setVoiceLabStatus(error.message || 'Không thể phân tích reference.', true)
+    return
+  }
+  if(quality.duration > REF_MAX_SECONDS){
+    metaEl.textContent = 'File bị từ chối vì quá dài.'
+    setVoiceLabStatus(`Reference dài ${quality.duration.toFixed(1)} giây; giới hạn hiện tại là ${REF_MAX_SECONDS} giây.`, true)
     return
   }
 
@@ -1667,19 +1693,86 @@ async function setVoiceLabReference(slot, file){
     filename: file.name,
     format: ext.slice(1),
     size_bytes: file.size,
-    duration_seconds: duration === null ? null : Number(duration.toFixed(2)),
+    duration_seconds: quality.duration,
+    score: quality.quality_score,
+    sample_rate: quality.sample_rate,
+    date: new Date().toISOString(),
+    preferred: false,
+    quality_report: quality,
   }
   voiceLabReferences.set(slot, {file, metadata})
   radio.disabled = false
   if(!activeVoiceLabReference()) radio.checked = true
   card.classList.add('labReady')
-  const durationText = duration === null ? 'duration chưa đọc được' : `${duration.toFixed(1)} giây`
+  const durationText = `${quality.duration.toFixed(1)} giây`
   const preference = ext === '.wav' ? 'ưu tiên cho identity' : 'hỗ trợ clone, nhưng nên dùng WAV khi có thể'
   metaEl.textContent = `${file.name} · ${ext.slice(1).toUpperCase()} · ${formatFileSize(file.size)} · ${durationText} · ${preference}`
+  renderVoiceLabReferenceQuality(slot)
   setVoiceLabStatus(`${label} đã sẵn sàng. Chỉ generate một sample mỗi lần.`)
   updateVoiceLabGenerateState()
   if(radio.checked && voiceLabCorpus) voiceLabRun.value = String(nextVoiceLabRunNumber(metadata.id, voiceLabSentence.value))
   input.value = ''
+}
+
+function renderVoiceLabReferenceQuality(slot){
+  const target = voiceLabReferenceQualityEls[slot]
+  const reference = voiceLabReferences.get(slot)
+  if(!target || !reference?.metadata?.quality_report) return
+  const metadata = reference.metadata
+  const report = metadata.quality_report
+  const bestScore = Math.max(...Array.from(voiceLabReferences.values()).map(item => item.metadata.score || 0))
+  target.hidden = false
+  target.replaceChildren()
+  const score = document.createElement('div')
+  score.className = 'labQualityScore'
+  score.textContent = `Quality Score · ${metadata.score} / 100`
+  target.appendChild(score)
+  const bars = document.createElement('div')
+  bars.className = 'labQualityBars'
+  for(const [name, value] of Object.entries(report.bars || {})){
+    const row = document.createElement('div')
+    const label = document.createElement('span')
+    label.textContent = name[0].toUpperCase() + name.slice(1)
+    const meter = document.createElement('i')
+    meter.style.setProperty('--quality', `${Math.max(0, Math.min(1, Number(value) || 0)) * 100}%`)
+    row.append(label, meter)
+    bars.appendChild(row)
+  }
+  target.appendChild(bars)
+  const strengths = document.createElement('p')
+  strengths.className = 'labQualityStrengths'
+  strengths.textContent = `✔ ${Array.isArray(report.strengths) ? report.strengths.join(' · ') : ''}`
+  const weaknesses = document.createElement('p')
+  weaknesses.textContent = `• ${Array.isArray(report.weaknesses) ? report.weaknesses.join(' · ') : ''}`
+  const tips = document.createElement('p')
+  tips.textContent = `Tip: ${Array.isArray(report.tips) ? report.tips.join(' ') : ''}`
+  target.append(strengths, weaknesses, tips)
+  if(metadata.score === bestScore && bestScore > 0){
+    const recommended = document.createElement('p')
+    recommended.className = 'labQualityRecommended'
+    recommended.textContent = `⭐ Recommended · Reference ${slot.slice(-1).toUpperCase()}`
+    target.appendChild(recommended)
+  }
+  const preferred = document.createElement('button')
+  preferred.type = 'button'
+  preferred.className = 'secondary small'
+  preferred.textContent = metadata.preferred ? '⭐ Preferred' : '⭐ Set Preferred'
+  preferred.disabled = Boolean(metadata.preferred)
+  preferred.addEventListener('click', ()=> setVoiceLabPreferred(slot))
+  target.appendChild(preferred)
+}
+
+async function setVoiceLabPreferred(slot){
+  const reference = voiceLabReferences.get(slot)
+  if(!reference) return
+  try{
+    const response = await fetch(API + '/api/voice-lab/references/' + encodeURIComponent(slot) + '/preferred', {method:'PATCH'})
+    if(!response.ok) throw new Error('Không thể cập nhật reference ưu tiên.')
+    for(const item of voiceLabReferences.values()) item.metadata.preferred = false
+    reference.metadata.preferred = true
+    Object.keys(voiceLabReferenceQualityEls).forEach(renderVoiceLabReferenceQuality)
+    setVoiceLabStatus(`Đã đặt ${reference.metadata.label} là Preferred. Lựa chọn generate vẫn do bạn quyết định.`)
+  }catch(error){ setVoiceLabStatus(error.message || 'Không thể cập nhật Preferred.', true) }
 }
 
 function renderVoiceLabCorpus(){
@@ -1739,6 +1832,7 @@ function voiceLabParameters(){
     if(![0.7, 0.8, 0.9].includes(parameters.temperature)) throw new Error('Temperature Round 2 chỉ dùng 0.7, 0.8 hoặc 0.9.')
     return {speed:1.0, temperature:parameters.temperature, top_k:25, top_p:0.95, repetition_penalty:1.2}
   }
+  if(round === 'conditioning') return {speed:1.0, temperature:0.8, top_k:25, top_p:0.95, repetition_penalty:1.2}
   return parameters
 }
 
@@ -1754,18 +1848,21 @@ function resetVoiceLabEvaluation(){
   voiceLabNotes.value = ''
   if(voiceLabMissingWords) voiceLabMissingWords.checked = false
   if(voiceLabMissingWordNote) voiceLabMissingWordNote.value = ''
+  if(voiceLabPronunciationOk) voiceLabPronunciationOk.checked = false
   voiceLabSaveEvaluation.disabled = !voiceLabCurrentExperimentId
 }
 
 async function generateVoiceLabSample(){
   if(voiceLabGenerating) return
   const temperatureRound = voiceLabRound.value === 'temperature'
-  const savedVoiceId = temperatureRound ? selectedSavedVoiceId() : null
+  const conditioningRound = voiceLabRound.value === 'conditioning'
+  const savedVoiceId = (temperatureRound || conditioningRound) ? selectedSavedVoiceId() : null
   const selectedReference = activeVoiceLabReference()
   if(temperatureRound && !savedVoiceId){ setVoiceLabStatus('Round Temperature chỉ dùng giọng đã lưu đang được chọn ở phần Giọng đọc.', true); return }
-  if(!temperatureRound && !selectedReference){ setVoiceLabStatus('Hãy chọn Reference A, B hoặc C.', true); return }
-  const reference = temperatureRound
-    ? {metadata:{id:'saved_voice', label:'Giọng ứng viên', filename:savedVoiceId, format:'wav', size_bytes:1, duration_seconds:null}, file:null}
+  if(conditioningRound && !savedVoiceId){ setVoiceLabStatus('Round Phát âm giọng clone chỉ dùng giọng đã lưu đang được chọn ở phần Giọng đọc.', true); return }
+  if(!temperatureRound && !conditioningRound && !selectedReference){ setVoiceLabStatus('Hãy chọn Reference A, B hoặc C.', true); return }
+  const reference = (temperatureRound || conditioningRound)
+    ? {metadata:{id:'saved_voice', label: temperatureRound ? 'Giọng ứng viên' : 'Giọng đã lưu', filename:savedVoiceId, format:'wav', size_bytes:1, duration_seconds:null}, file:null}
     : selectedReference
   let parameters
   try{ parameters = voiceLabParameters() }catch(error){ setVoiceLabStatus(error.message, true); return }
@@ -1782,6 +1879,16 @@ async function generateVoiceLabSample(){
     if(temperatureRound){
       response = await fetch(API + '/api/tts', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({text:sentence.text, voice:savedVoiceId, ...parameters})})
       if(!response.ok) throw new Error(`TTS API trả HTTP ${response.status}.`)
+    }else if(conditioningRound){
+      // Phase 22.1: A/B conditioning comparison. One variable only — the mode.
+      const mode = voiceLabConditioningMode?.value === 'identity_only' ? 'identity_only' : 'full'
+      const payload = {text:sentence.text, voice:savedVoiceId, ...parameters}
+      if(mode === 'identity_only') payload.conditioning_mode = 'identity_only'
+      response = await fetch(API + '/api/tts', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
+      if(!response.ok){
+        const err = await response.json().catch(()=>({}))
+        throw new Error(err.detail || `TTS API trả HTTP ${response.status}.`)
+      }
     }else{
       const form = new FormData()
       form.append('text', sentence.text)
@@ -1817,6 +1924,7 @@ async function generateVoiceLabSample(){
         body:JSON.stringify({
           reference:reference.metadata,
           saved_voice_id:savedVoiceId,
+          conditioning_mode: conditioningRound ? (voiceLabConditioningMode?.value === 'identity_only' ? 'identity_only' : 'full') : null,
           evaluation_text_id:sentence.id,
           parameters,
           round:voiceLabRound.value,
@@ -1882,6 +1990,7 @@ async function saveVoiceLabEvaluation(){
         notes:voiceLabNotes.value.trim(),
         missing_words:Boolean(voiceLabMissingWords?.checked),
         missing_word_note:voiceLabMissingWordNote?.value.trim() || '',
+        pronunciation_ok: voiceLabRound.value === 'conditioning' ? Boolean(voiceLabPronunciationOk?.checked) : null,
       }),
     })
     if(!response.ok) throw new Error(`Không thể lưu đánh giá (HTTP ${response.status}).`)
@@ -1980,6 +2089,9 @@ function renderVoiceLabExperiments(){
     meta.className = 'labExperimentMeta'
     const p = item.parameters
     meta.textContent = `${item.round} · T ${p.temperature} · K ${p.top_k} · P ${p.top_p} · Rep ${p.repetition_penalty} · Speed ${p.speed} · ${new Date(item.created_at).toLocaleString('vi-VN')}`
+    if(item.round === 'conditioning'){
+      meta.textContent += ` · ${item.conditioning_mode === 'identity_only' ? 'B · Chỉ giữ đặc trưng giọng' : 'A · Đầy đủ tham chiếu'}`
+    }
     row.appendChild(top)
     row.appendChild(meta)
     const actions = document.createElement('div')
@@ -2006,6 +2118,12 @@ function renderVoiceLabExperiments(){
       missing.className = 'labExperimentMeta labMissingWarning'
       missing.textContent = `⚠ Có mất/nuốt chữ${item.missing_word_note ? `: ${item.missing_word_note}` : ''}`
       row.appendChild(missing)
+    }
+    if(item.round === 'conditioning' && item.pronunciation_ok !== null && item.pronunciation_ok !== undefined){
+      const pron = document.createElement('div')
+      pron.className = item.pronunciation_ok ? 'labExperimentMeta' : 'labExperimentMeta labMissingWarning'
+      pron.textContent = item.pronunciation_ok ? '✓ Đọc “người” đúng' : '✗ Đọc “người” SAI'
+      row.appendChild(pron)
     }
     voiceLabExperimentList.appendChild(row)
   })
@@ -2060,6 +2178,7 @@ document.querySelectorAll('input[name="voiceLabReference"]').forEach(radio=> rad
 }))
 voiceLabSentence.addEventListener('change', renderVoiceLabSentence)
 voiceLabRound.addEventListener('change', ()=>{
+  renderConditioningRoundState()
   if(voiceLabRound.value === 'reference_selection'){
     voiceLabTemperature.value = '0.8'
     voiceLabTopP.value = '0.95'
@@ -2069,6 +2188,12 @@ voiceLabRound.addEventListener('change', ()=>{
     voiceLabTopP.value = '0.95'
     voiceLabRepetition.value = '1.2'
     if(!['0.7', '0.8', '0.9'].includes(voiceLabTemperature.value)) voiceLabTemperature.value = '0.8'
+  }
+  if(voiceLabRound.value === 'conditioning'){
+    const savedVoiceId = selectedSavedVoiceId()
+    if(voiceLabCorpus) voiceLabRun.value = String(nextVoiceLabRunNumber('saved_voice', voiceLabSentence.value, savedVoiceId))
+    updateVoiceLabGenerateState()
+    return
   }
   const reference = activeVoiceLabReference()
   if(reference && voiceLabCorpus) voiceLabRun.value = String(nextVoiceLabRunNumber(reference.metadata.id, voiceLabSentence.value))
@@ -2081,8 +2206,21 @@ voiceLabSaveVoiceBtn.addEventListener('click', saveVoiceLabVoice)
 voiceLabRefresh.addEventListener('click', loadVoiceLabExperiments)
 window.addEventListener('beforeunload', ()=>{ if(voiceLabCurrentAudioUrl) URL.revokeObjectURL(voiceLabCurrentAudioUrl) })
 
+mainWorkspaceTab?.addEventListener('click', ()=>setWorkspaceTab(false))
+audioStudioTab?.addEventListener('click', ()=>setWorkspaceTab(true))
+studioAddSegment?.addEventListener('click', addStudioSegment)
+studioSegments?.addEventListener('click', handleStudioSegmentAction)
+studioPlayAll?.addEventListener('click', playAllStudioSegments)
+studioExport?.addEventListener('click', exportAudioStudioWav)
+studioTitle?.addEventListener('input', saveAudioStudioProject)
+aboutBtn?.addEventListener('click', ()=>{ updateAboutDetails(latestHealth); aboutDialog?.showModal() })
+aboutCloseBtn?.addEventListener('click', ()=>aboutDialog?.close())
+aboutDialog?.addEventListener('click', event=>{ if(event.target === aboutDialog) aboutDialog.close() })
+
 // init
 updateTextValidation()
+loadAudioStudioProject()
+renderConditioningRoundState()
 loadHealthAndVoices().then(()=>{ renderHistory() })
 loadVoiceLab()
 updateVoiceLabSaveState()

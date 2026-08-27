@@ -54,6 +54,11 @@ def temperature_candidates_path() -> Path:
     return voice_lab_dir() / "temperature_candidates.json"
 
 
+def reference_history_path() -> Path:
+    """Metadata-only reference analysis history; it never contains audio."""
+    return voice_lab_dir() / "reference_history.json"
+
+
 def _read_json(path: Path, default):
     if not path.exists():
         return default
@@ -77,6 +82,57 @@ class ReferenceMetadata(BaseModel):
     format: Literal["wav", "mp3", "m4a"]
     size_bytes: int = Field(gt=0, le=5 * 1024 * 1024)
     duration_seconds: Optional[float] = Field(default=None, gt=0, le=8)
+    score: Optional[int] = Field(default=None, ge=0, le=100)
+    sample_rate: Optional[int] = Field(default=None, gt=0)
+    date: Optional[str] = None
+    preferred: bool = False
+    quality_report: Optional[Dict] = None
+
+
+class ReferenceHistoryEntry(BaseModel):
+    id: str = Field(min_length=1, max_length=96)
+    filename: str = Field(min_length=1, max_length=255)
+    duration: float = Field(ge=0)
+    score: int = Field(ge=0, le=100)
+    sample_rate: int = Field(gt=0)
+    date: str = Field(default_factory=_utc_now)
+    preferred: bool = False
+    quality_report: Dict = Field(default_factory=dict)
+
+
+def load_reference_history(path: Optional[Path] = None) -> List[dict]:
+    data = _read_json(Path(path) if path else reference_history_path(), {"version": SCHEMA_VERSION, "references": []})
+    entries = data.get("references", []) if isinstance(data, dict) else []
+    if not isinstance(entries, list):
+        raise ValueError("Voice Lab reference history is invalid")
+    return [ReferenceHistoryEntry.model_validate(item).model_dump(mode="json") for item in entries]
+
+
+def save_reference_analysis(entry: ReferenceHistoryEntry, path: Optional[Path] = None) -> dict:
+    """Save structural quality metadata only; uploaded bytes are discarded."""
+    target = Path(path) if path else reference_history_path()
+    with _LOCK:
+        entries = load_reference_history(target)
+        entries = [item for item in entries if item["id"] != entry.id]
+        entries.append(entry.model_dump(mode="json"))
+        _write_json(target, {"version": SCHEMA_VERSION, "references": entries[-100:]})
+    return entry.model_dump(mode="json")
+
+
+def set_reference_preferred(reference_id: str, path: Optional[Path] = None) -> dict:
+    """Mark a history item preferred for UI guidance only (never selection)."""
+    target = Path(path) if path else reference_history_path()
+    with _LOCK:
+        entries = load_reference_history(target)
+        index = next((i for i, item in enumerate(entries) if item["id"] == reference_id), None)
+        if index is None:
+            raise KeyError(reference_id)
+        # A preferred reference is a single explicit user choice.
+        for item in entries:
+            item["preferred"] = False
+        entries[index]["preferred"] = True
+        _write_json(target, {"version": SCHEMA_VERSION, "references": entries})
+    return entries[index]
 
 
 class ExperimentParameters(BaseModel):
@@ -113,9 +169,10 @@ class ListeningScores(BaseModel):
 class ExperimentCreate(BaseModel):
     reference: ReferenceMetadata
     saved_voice_id: Optional[str] = Field(default=None, max_length=64)
+    conditioning_mode: Optional[Literal["full", "identity_only"]] = Field(default=None)
     evaluation_text_id: str = Field(min_length=1, max_length=64)
     parameters: ExperimentParameters = Field(default_factory=ExperimentParameters)
-    round: Literal["reference_selection", "temperature", "top_p", "repetition_penalty", "custom"] = "reference_selection"
+    round: Literal["reference_selection", "temperature", "top_p", "repetition_penalty", "conditioning", "custom"] = "reference_selection"
     run_number: int = Field(default=1, ge=1, le=2)
     has_audio: bool = False
 
@@ -129,6 +186,13 @@ class ExperimentCreate(BaseModel):
                 raise ValueError("Temperature round requires a saved voice")
             if p.temperature not in (0.7, 0.8, 0.9) or p.top_k != 25 or p.top_p != 0.95 or p.repetition_penalty != 1.2 or p.speed != 1.0:
                 raise ValueError("Temperature round must vary only temperature across 0.7/0.8/0.9")
+        if self.round == "conditioning":
+            if not self.saved_voice_id:
+                raise ValueError("Conditioning round requires a saved voice")
+            if self.conditioning_mode not in ("full", "identity_only"):
+                raise ValueError("Conditioning round requires conditioning_mode 'full' or 'identity_only'")
+            if p.model_dump() != BASELINE_PARAMETERS:
+                raise ValueError("Conditioning round must use baseline parameters")
         if self.round == "top_p":
             if p.top_p not in (0.9, 0.95) or p.repetition_penalty != 1.2:
                 raise ValueError("Top P round must use 0.90 or 0.95 and keep repetition baseline")
@@ -142,6 +206,10 @@ class ExperimentEvaluation(BaseModel):
     notes: str = Field(default="", max_length=2000)
     missing_words: bool = False
     missing_word_note: str = Field(default="", max_length=500)
+    # Phase 22.1: explicit YES/NO pronunciation verdict for the conditioning
+    # round ("Đọc 'người' đúng?"). Never folded into the average score.
+    pronunciation_ok: Optional[bool] = None
+
 
     @model_validator(mode="after")
     def missing_word_note_requires_flag(self):
@@ -161,6 +229,7 @@ class ExperimentRecord(ExperimentCreate):
     notes: str = ""
     missing_words: bool = False
     missing_word_note: str = ""
+    pronunciation_ok: Optional[bool] = None
     evaluated_at: Optional[str] = None
     average_score: Optional[float] = None
 
@@ -334,6 +403,8 @@ def evaluate_experiment(experiment_id: str, evaluation: ExperimentEvaluation) ->
         if index is None:
             raise KeyError(experiment_id)
         record = ExperimentRecord.model_validate(records[index])
+        if record.round == "conditioning" and evaluation.pronunciation_ok is None:
+            raise ValueError("Conditioning round requires an explicit pronunciation result (pronunciation_ok)")
         score_values = list(evaluation.scores.model_dump().values())
         updated = record.model_copy(update={
             "status": "evaluated",
@@ -341,6 +412,7 @@ def evaluate_experiment(experiment_id: str, evaluation: ExperimentEvaluation) ->
             "notes": evaluation.notes,
             "missing_words": evaluation.missing_words,
             "missing_word_note": evaluation.missing_word_note.strip(),
+            "pronunciation_ok": evaluation.pronunciation_ok,
             "evaluated_at": _utc_now(),
             "average_score": round(sum(score_values) / len(score_values), 2),
         })
