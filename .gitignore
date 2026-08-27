@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Test/cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Generated output
+output/
+
+# Local model/cache
+models/
+
+# Environment/secrets
+.env
+.env.*
+
+# Local user voice profiles (biometric data — never commit)
+data/voices/
+
+# Local Voice Lab results and user-selected manifest
+data/voice_lab/experiments.json
+data/voice_lab/branded_voice.json
+data/voice_lab/temperature_candidates.json
+
+# Local session artifacts
+*.ses
+
+# OS/editor
+.DS_Store
+*.swp
+*.swo
+.vscode/

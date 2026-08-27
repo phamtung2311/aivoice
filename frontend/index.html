@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AIVoice — Local AI Voice Studio</title>
+    <link rel="stylesheet" href="styles.css?v=21.0" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">AIVoice</div>
+        <div class="subtitle">Local AI Voice Studio</div>
+        <div class="spacer"></div>
+        <button id="themeToggle" type="button" aria-label="Chuyển đổi giao diện sáng/tối" aria-pressed="false" class="iconBtn">🌙</button>
+        <div id="health" class="health" aria-live="polite">● Đang kiểm tra...</div>
+      </header>
+
+      <main class="main">
+        <!-- Cot trai: nhap lieu & cau hinh -->
+        <section class="left">
+
+          <!-- Card: Nhap van ban -->
+          <section class="card">
+            <div class="cardHeader">
+              <h2>Văn bản</h2>
+              <div id="charCount" class="muted small" aria-live="polite">0 / —</div>
+            </div>
+            <div id="editorWrap" class="editorWrap">
+              <textarea id="text" class="editor" placeholder="Nhập hoặc dán văn bản tiếng Việt tại đây... Ví dụ: Xin chào mọi người. Hôm nay chúng ta sẽ cùng nhau khám phá giọng đọc AI." aria-label="Văn bản để chuyển thành giọng nói"></textarea>
+            </div>
+            <div class="emotionBar" role="toolbar" aria-label="Chèn biểu cảm vào văn bản">
+              <span class="muted small">Chèn biểu cảm:</span>
+              <button type="button" class="secondary small" data-emotion-tag="[cười]">+ Cười</button>
+              <button type="button" class="secondary small" data-emotion-tag="[thở dài]">+ Thở dài</button>
+              <button type="button" class="secondary small" data-emotion-tag="[hắng giọng]">+ Hắng giọng</button>
+              <span class="flexSpacer"></span>
+              <label for="uploadInput" class="uploadLabel small" tabindex="0" role="button" aria-label="Tải tệp văn bản TXT">📄 Tải TXT</label>
+              <input id="uploadInput" type="file" accept=".txt,text/plain" aria-label="Tải văn bản từ tệp TXT" />
+              <button id="clearTextBtn" class="secondary small" type="button" disabled>Xóa nội dung</button>
+            </div>
+          </section>
+
+          <!-- Card: Cai dat giong -->
+          <section class="card">
+            <div class="cardHeader"><h2>Giọng đọc</h2></div>
+            <div class="settingsGrid">
+              <div class="field">
+                <label for="voice">Giọng đọc</label>
+                <select id="voice" aria-label="Chọn giọng đọc"></select>
+              </div>
+              <div class="field">
+                <label for="emotion">Biểu cảm</label>
+                <select id="emotion" aria-label="Chọn biểu cảm">
+                  <option value="">(Mặc định)</option>
+                  <option value="natural">Tự nhiên</option>
+                </select>
+              </div>
+              <div class="field fieldWide">
+                <label for="speed">Tốc độ đọc: <span id="speedVal" class="accentText">1.0x</span></label>
+                <input id="speed" type="range" min="0.5" max="2.0" step="0.1" value="1.0" aria-label="Tốc độ phát" />
+              </div>
+            </div>
+
+            <div class="voicePreviewBlock">
+              <div class="voicePreviewHeader">
+                <span class="smallTitle">Nghe thử trước khi chọn</span>
+                <span class="muted small">▶ nghe thử · bấm tên giọng để chọn</span>
+              </div>
+              <div id="voicePreviewList" class="voicePreviewList" aria-label="Danh sách giọng đọc kèm nút nghe thử"></div>
+            </div>
+
+            <!-- Advanced sampling (collapsed by default) -->
+            <div class="advancedPanel">
+              <button id="advancedToggle" class="secondary small" type="button" aria-expanded="false">⚙️ Cài đặt nâng cao</button>
+              <div id="advancedContents" class="advancedContents" hidden>
+                <div class="advRow">
+                  <label for="temperatureInput">Temperature</label>
+                  <input id="temperatureInput" type="number" step="0.1" min="0.1" max="1.5" value="0.8" />
+                  <div class="muted small">Độ ngẫu nhiên của giọng đọc. Thấp = ổn định hơn, cao = đa dạng hơn.</div>
+                </div>
+                <div class="advRow">
+                  <label for="topKInput">Top K</label>
+                  <input id="topKInput" type="number" step="1" min="1" max="100" value="25" />
+                  <div class="muted small">Giới hạn số lựa chọn token ở mỗi bước.</div>
+                </div>
+                <div class="advRow">
+                  <label for="topPInput">Top P</label>
+                  <input id="topPInput" type="number" step="0.01" min="0.5" max="1.0" value="0.95" />
+                  <div class="muted small">Giới hạn tổng xác suất của các token được chọn.</div>
+                </div>
+                <div class="advRow">
+                  <label for="repetitionPenaltyInput">Repetition penalty</label>
+                  <input id="repetitionPenaltyInput" type="number" step="0.05" min="1.0" max="2.0" value="1.2" />
+                  <div class="muted small">Giảm khả năng lặp lại âm/từ quá mức.</div>
+                </div>
+                <div class="advRow"><button id="resetSamplingBtn" class="secondary small" type="button">Khôi phục mặc định</button></div>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button id="speak" class="primary" aria-label="Tạo giọng nói từ văn bản">🔊 Tạo giọng nói</button>
+              <button id="cancelBtn" class="dangerBtn" type="button" disabled hidden aria-label="Hủy chuyển đổi giọng nói">✕ Hủy</button>
+              <button id="downloadBtn" class="secondary" disabled aria-label="Tải file âm thanh WAV">⬇ Tải WAV</button>
+            </div>
+            <div id="status" class="status" aria-live="polite"></div>
+          </section>
+
+          <!-- Card: Clone giong noi -->
+          <section class="card cardClone">
+            <div class="cardHeader"><h2>🎤 Clone giọng nói</h2></div>
+            <p class="muted small cardDesc">Tải lên một đoạn ghi âm để tạo giọng nói tương tự.</p>
+            <div id="cloneDropzone" class="dropzone" tabindex="0" role="button"
+                 aria-label="Kéo thả hoặc chọn tệp âm thanh WAV, M4A, MP3">
+              <div class="dropIcon" aria-hidden="true">🎙️</div>
+              <div class="dropMain"><strong>Kéo thả file âm thanh vào đây</strong></div>
+              <div class="muted small">hoặc</div>
+              <label for="cloneInput" class="uploadLabel small">chọn file từ máy tính</label>
+              <div class="muted small formatsLine">Hỗ trợ WAV · M4A · MP3 (≤ 5 MB)</div>
+            </div>
+            <input id="cloneInput" type="file" accept=".wav,.mp3,.m4a,audio/wav,audio/mpeg,audio/mp4,audio/x-m4a" aria-label="Tệp tham chiếu âm thanh" />
+            <div id="cloneFileMeta" class="fileMeta" hidden>
+              <span id="cloneFileName" class="fileName"></span>
+              <span id="cloneFileSize" class="muted small"></span>
+              <span id="cloneFileFormat" class="formatBadge"></span>
+              <button id="cloneFileRemove" class="secondary small" type="button" aria-label="Xóa tệp đã chọn">✕ Xóa file</button>
+            </div>
+            <div id="cloneInfo" class="muted small cloneStatus" aria-live="polite"></div>
+            <div id="cloneNote" class="muted small">Ghi âm ngắn, rõ tiếng, ít tạp âm cho kết quả tốt nhất. Tệp chỉ dùng cho lần tạo hiện tại.</div>
+          </section>
+
+          <!-- Card: Giong da luu -->
+          <section class="card">
+            <div class="savedVoicesHeader">
+              <h2>Giọng đã lưu</h2>
+              <span id="savedVoicesHint" class="muted small">Giọng cá nhân chỉ lưu trên máy này.</span>
+            </div>
+            <div id="savedVoicesList" class="savedVoicesList"></div>
+            <div class="saveVoiceRow">
+              <input id="saveVoiceName" type="text" maxlength="64" placeholder="Tên giọng mới..." aria-label="Tên giọng cần lưu" autocomplete="off" />
+              <button id="saveVoiceBtn" class="secondary small" type="button" disabled>💾 Lưu giọng</button>
+            </div>
+            <div id="saveVoiceInfo" class="muted small" style="min-height:0"></div>
+          </section>
+        </section>
+
+        <!-- Cot phai: ket qua & lich su -->
+        <aside class="right">
+          <section class="card cardResult">
+            <div class="cardHeader"><h2>Kết quả</h2></div>
+            <div id="resultPlaceholder" class="muted small">Chưa có audio nào. Hãy nhập văn bản rồi bấm “Tạo giọng nói”.</div>
+            <div id="resultSuccess" class="successLine" hidden>Đã tạo giọng nói thành công ✓</div>
+            <div class="playerArea">
+              <audio id="audio" controls preload="none" aria-label="Trình phát âm thanh"></audio>
+              <div class="timeline" aria-hidden="true">
+                <div id="progressBar" class="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Tiến độ phát"></div>
+              </div>
+              <div class="timeRow"><span id="curTime">00:00</span><span id="durTime" aria-label="Thời lượng">00:00</span></div>
+            </div>
+            <div class="actions">
+              <button id="regenerateBtn" class="secondary small" type="button" disabled aria-label="Tạo lại với nội dung hiện tại">🔄 Tạo lại</button>
+            </div>
+          </section>
+
+          <section class="card cardHistory">
+            <div class="historyHeader">
+              <h2>Lịch sử</h2>
+              <button id="clearHistoryBtn" class="secondary small" type="button" disabled aria-label="Xóa toàn bộ lịch sử">Xóa lịch sử</button>
+            </div>
+            <div id="historyList" class="historyList" aria-live="polite"></div>
+          </section>
+        </aside>
+      </main>
+
+      <section id="voiceLab" class="voiceLab" aria-labelledby="voiceLabTitle">
+        <div class="voiceLabHero">
+          <div>
+            <div class="voiceLabEyebrow">VOICE IDENTITY WORKBENCH</div>
+            <h2 id="voiceLabTitle">🧪 Voice Lab</h2>
+            <p>Thử từng mẫu, nghe bằng tai, chấm theo cùng một rubric và lưu kết quả để so sánh.</p>
+          </div>
+          <div class="voiceLabState">
+            <span class="labBadge">READY FOR REFERENCES</span>
+            <span id="voiceLabRuntime" class="muted small">Đang đọc runtime...</span>
+          </div>
+        </div>
+
+        <div class="voiceLabGuidance">
+          <strong>Reference thật, cùng một người nói:</strong>
+          4–8 giây · ưu tiên WAV · không nhạc nền · ít tiếng ồn · không clipping · giọng tự nhiên.
+        </div>
+
+        <div class="voiceLabGrid">
+          <section class="card labReferences" aria-labelledby="labReferencesTitle">
+            <div class="cardHeader">
+              <h2 id="labReferencesTitle">1. Mẫu tham chiếu</h2>
+              <span class="muted small">Không bắt buộc đủ cả 3</span>
+            </div>
+            <div class="labReferenceList">
+              <div class="labReference" data-reference-slot="reference_a">
+                <div class="labReferenceTop">
+                  <label class="labRadio"><input type="radio" name="voiceLabReference" value="reference_a" disabled /> Reference A</label>
+                  <label for="voiceLabRefAInput" class="uploadLabel small">Chọn file</label>
+                  <input id="voiceLabRefAInput" type="file" accept=".wav,.mp3,.m4a,audio/wav,audio/mpeg,audio/mp4,audio/x-m4a" />
+                </div>
+                <div id="voiceLabRefAMeta" class="labReferenceMeta muted small">Chưa có reference.</div>
+              </div>
+              <div class="labReference" data-reference-slot="reference_b">
+                <div class="labReferenceTop">
+                  <label class="labRadio"><input type="radio" name="voiceLabReference" value="reference_b" disabled /> Reference B</label>
+                  <label for="voiceLabRefBInput" class="uploadLabel small">Chọn file</label>
+                  <input id="voiceLabRefBInput" type="file" accept=".wav,.mp3,.m4a,audio/wav,audio/mpeg,audio/mp4,audio/x-m4a" />
+                </div>
+                <div id="voiceLabRefBMeta" class="labReferenceMeta muted small">Chưa có reference.</div>
+              </div>
+              <div class="labReference" data-reference-slot="reference_c">
+                <div class="labReferenceTop">
+                  <label class="labRadio"><input type="radio" name="voiceLabReference" value="reference_c" disabled /> Reference C</label>
+                  <label for="voiceLabRefCInput" class="uploadLabel small">Chọn file</label>
+                  <input id="voiceLabRefCInput" type="file" accept=".wav,.mp3,.m4a,audio/wav,audio/mpeg,audio/mp4,audio/x-m4a" />
+                </div>
+                <div id="voiceLabRefCMeta" class="labReferenceMeta muted small">Chưa có reference.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card labSetup" aria-labelledby="labSetupTitle">
+            <div class="cardHeader">
+              <h2 id="labSetupTitle">2. Tạo sample</h2>
+              <span class="labBaseline">Quality baseline · Speed 1.0</span>
+            </div>
+            <div class="field">
+              <label for="voiceLabSentence">Câu đánh giá cố định</label>
+              <select id="voiceLabSentence"></select>
+            </div>
+            <div id="voiceLabSentenceText" class="labSentencePreview"></div>
+            <details class="labAdvanced">
+              <summary>Nâng cao · Round 2 chỉ so sánh một biến</summary>
+            <div class="labConfigGrid">
+              <div class="field"><label for="voiceLabRound">Round</label><select id="voiceLabRound">
+                <option value="reference_selection">1 · Reference</option>
+                <option value="temperature">2 · Temperature (0.7 / 0.8 / 0.9)</option>
+                <option value="top_p">3 · Top P</option>
+                <option value="repetition_penalty">4 · Repetition</option>
+                <option value="custom">Controlled custom</option>
+              </select></div>
+              <div class="field"><label for="voiceLabRun">Run tự động</label><input id="voiceLabRun" type="number" value="1" readonly /></div>
+              <div class="field"><label for="voiceLabTemperature">Temperature</label><input id="voiceLabTemperature" type="number" min="0.1" max="1.5" step="0.1" value="0.8" /></div>
+              <div class="field"><label for="voiceLabTopP">Top P</label><input id="voiceLabTopP" type="number" min="0.5" max="1" step="0.01" value="0.95" /></div>
+              <div class="field"><label for="voiceLabRepetition">Repetition</label><input id="voiceLabRepetition" type="number" min="1" max="2" step="0.1" value="1.2" /></div>
+              <div class="field"><label for="voiceLabTopK">Top K</label><input id="voiceLabTopK" type="number" value="25" readonly /></div>
+              <div class="field"><label for="voiceLabSpeed">Speed</label><input id="voiceLabSpeed" type="number" value="1.0" readonly /></div>
+            </div>
+            </details>
+            <p class="muted small labRule">Giữ Top K = 25 và Speed = 1.0. Chỉ thay đổi một tham số mỗi round.</p>
+            <div class="labCandidateConfig">
+              <strong>Giọng ứng viên:</strong> <span id="voiceLabCandidateVoice" class="muted">Đang đọc danh sách giọng...</span>
+              <div class="labCandidateActions">
+                <label for="voiceLabCandidateTemperature">Chọn temperature</label>
+                <select id="voiceLabCandidateTemperature" aria-label="Temperature ứng viên">
+                  <option value="0.7">0.7 — thiên về ổn định</option>
+                  <option value="0.8" selected>0.8 — baseline cân bằng</option>
+                  <option value="0.9">0.9 — thiên về biến hóa</option>
+                </select>
+                <button id="voiceLabSelectTemperature" class="secondary small" type="button" disabled>Chọn temperature này</button>
+              </div>
+              <div id="voiceLabCandidateStatus" class="muted small" aria-live="polite"></div>
+            </div>
+            <button id="voiceLabGenerate" class="primary" type="button" disabled>Tạo một sample</button>
+            <div id="voiceLabStatus" class="status" aria-live="polite">Hãy chọn ít nhất một reference thật.</div>
+          </section>
+
+          <section class="card labListening" aria-labelledby="labListeningTitle">
+            <div class="cardHeader">
+              <h2 id="labListeningTitle">3. Nghe & chấm</h2>
+              <span class="muted small">1 rất kém · 5 rất tốt</span>
+            </div>
+            <audio id="voiceLabAudio" controls preload="none" aria-label="Voice Lab sample player"></audio>
+            <div id="voiceLabCurrentSample" class="labCurrentSample muted small">Chưa có mẫu hiện tại.</div>
+            <div class="labSaveVoice">
+              <input id="voiceLabSaveVoiceName" type="text" maxlength="64" placeholder="Tên giọng" autocomplete="off" />
+              <input id="voiceLabSaveVoiceDescription" type="text" maxlength="200" placeholder="Mô tả (không bắt buộc)" autocomplete="off" />
+              <button id="voiceLabSaveVoiceBtn" class="secondary" type="button" disabled>💾 Lưu giọng này</button>
+              <div id="voiceLabSaveVoiceHelp" class="muted small" aria-live="polite"></div>
+            </div>
+            <div id="voiceLabRubric" class="labRubric"></div>
+            <div class="field labNotesField">
+              <label for="voiceLabNotes">Ghi chú nghe</label>
+              <textarea id="voiceLabNotes" maxlength="2000" placeholder="Điểm mạnh, lỗi phát âm, identity drift, artifact..."></textarea>
+            </div>
+            <label class="labMissingWords"><input id="voiceLabMissingWords" type="checkbox" /> Có mất/nuốt chữ</label>
+            <div class="field labNotesField">
+              <label for="voiceLabMissingWordNote">Từ/cụm bị hụt (không bắt buộc)</label>
+              <input id="voiceLabMissingWordNote" type="text" maxlength="500" placeholder="Ví dụ: từ “năm” ở nửa sau câu" />
+            </div>
+            <button id="voiceLabSaveEvaluation" class="secondary" type="button" disabled>Lưu đánh giá</button>
+          </section>
+
+          <section class="card labExperiments" aria-labelledby="labExperimentsTitle">
+            <div class="cardHeader">
+              <h2 id="labExperimentsTitle">4. Lịch sử thử nghiệm</h2>
+              <button id="voiceLabRefresh" class="secondary small" type="button">Làm mới</button>
+            </div>
+            <div class="muted small labDecisionNote">Điểm trung bình chỉ hỗ trợ so sánh. Voice winner luôn do bạn nghe và chọn.</div>
+            <div id="voiceLabExperimentList" class="labExperimentList"></div>
+          </section>
+        </div>
+      </section>
+
+      <footer class="footer">
+        Chạy hoàn toàn cục bộ trên máy của bạn · Backend: <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">127.0.0.1:8000</a>
+      </footer>
+    </div>
+
+    <script src="app.js?v=21.0"></script>
+  </body>
+</html>

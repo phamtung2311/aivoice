@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "language": "vi-VN",
+  "description": "Bộ câu cố định để nghe và đánh giá độ ổn định của cùng một giọng thương hiệu.",
+  "sentences": [
+    {
+      "id": "brand_introduction",
+      "category": "brand_introduction",
+      "text": "Xin chào, đây là AIVoice, người bạn đồng hành bằng giọng nói của thương hiệu Việt.",
+      "goals": ["speaker_identity", "clarity", "naturalness"]
+    },
+    {
+      "id": "call_to_action",
+      "category": "call_to_action",
+      "text": "Hãy bắt đầu hành trình của bạn ngay hôm nay.",
+      "goals": ["energy", "clarity", "ending"]
+    },
+    {
+      "id": "numbers_and_date",
+      "category": "numbers_and_date",
+      "text": "Cuộc hẹn diễn ra lúc 9 giờ 30, ngày 15 tháng 9 năm 2026, với chi phí 1 triệu 250 nghìn đồng.",
+      "goals": ["vietnamese_pronunciation", "number_handling"]
+    },
+    {
+      "id": "punctuation_and_pauses",
+      "category": "punctuation",
+      "text": "Bạn đã sẵn sàng chưa? Hãy hít một hơi sâu, giữ nhịp ổn định: rồi bắt đầu.",
+      "goals": ["pause", "phrasing"]
+    },
+    {
+      "id": "long_form_narrative",
+      "category": "narrative",
+      "text": "Khi thành phố dần yên tĩnh sau một ngày dài, chúng tôi vẫn kiên nhẫn hoàn thiện từng chi tiết, để mỗi câu chuyện được kể bằng một giọng nói rõ ràng, gần gũi và nhất quán từ đầu đến cuối.",
+      "goals": ["long_form_consistency", "prosody", "identity_drift"]
+    },
+    {
+      "id": "verified_emotion_cue",
+      "category": "emotion_cue",
+      "text": "[cười] Thật vui khi được gặp lại bạn, chúng ta cùng bắt đầu nhé.",
+      "cue": "[cười]",
+      "goals": ["emotion_behavior", "identity_retention"]
+    }
+  ],
+  "rubric": [
+    {"id": "identity", "label": "Identity", "question": "Có giống đúng người nói hoặc reference không?"},
+    {"id": "naturalness", "label": "Naturalness", "question": "Có giống người thật nói không?"},
+    {"id": "pronunciation", "label": "Pronunciation", "question": "Phát âm tiếng Việt có chính xác không?"},
+    {"id": "prosody", "label": "Prosody", "question": "Nhịp, ngắt nghỉ và lên xuống giọng có tự nhiên không?"},
+    {"id": "audio_cleanliness", "label": "Audio cleanliness", "question": "Âm thanh có sạch và không có lỗi không?"},
+    {"id": "consistency", "label": "Consistency", "question": "Giọng có giữ identity từ đầu tới cuối không?"}
+  ],
+  "score_scale": {"1": "rất kém", "2": "kém", "3": "chấp nhận", "4": "tốt", "5": "rất tốt"}
+}

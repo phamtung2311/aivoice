@@ -1,0 +1,18 @@
+Lần sau muốn chạy nhanh
+
+Bạn chỉ cần mở 2 terminal:
+
+Terminal 1:
+
+cd ~/ai\ voice
+source .venv/bin/activate
+uvicorn backend.main:app --host 127.0.0.1 --port 8000
+
+Terminal 2:
+
+cd ~/ai\ voice
+python3 -m http.server 5173 --directory frontend
+
+Rồi vào:
+
+http://localhost:5173

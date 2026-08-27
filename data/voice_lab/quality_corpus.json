@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "language": "vi-VN",
+  "description": "Bộ câu trung tính cố định cho Phase 20: kiểm tra mất chữ, biên chunk, nhịp và độ ổn định. Không dùng để chấm cảm xúc.",
+  "sentences": [
+    {
+      "id": "quality_short_normal",
+      "category": "quality · short normal",
+      "text": "Xin chào, hôm nay chúng ta cùng thử một giọng nói mới.",
+      "goals": ["clarity", "first_word", "ending"]
+    },
+    {
+      "id": "quality_repeated_word",
+      "category": "quality · repeated word",
+      "text": "Bản tin tháng 5 năm 2026 nhắc lại rằng tháng 5 năm 2026 là thời điểm cần chuẩn bị kỹ hơn.",
+      "goals": ["missing_words", "consistency"]
+    },
+    {
+      "id": "quality_numbers_date",
+      "category": "quality · numbers and date",
+      "text": "Ngày 10 tháng 5 năm 2026, nhóm sẽ gặp nhau lúc 9 giờ 30 để rà soát kế hoạch.",
+      "goals": ["numbers", "date", "pronunciation"]
+    },
+    {
+      "id": "quality_long_sentence",
+      "category": "quality · long sentence",
+      "text": "Trong buổi làm việc kéo dài vào buổi sáng, nhóm sản phẩm cần lắng nghe từng ý kiến, kiểm tra từng số liệu, xác nhận các mốc thời gian quan trọng và nói chậm rãi, rõ ràng để mọi người đều hiểu đúng nội dung trước khi chuyển sang phần quyết định cuối cùng của cuộc họp hôm nay.",
+      "goals": ["long_sentence", "safe_boundary", "prosody"]
+    },
+    {
+      "id": "quality_multi_sentence",
+      "category": "quality · multi sentence paragraph",
+      "text": "Chúng ta bắt đầu bằng việc kiểm tra bản ghi đầu tiên. Sau đó, hãy lắng nghe kỹ các từ ở giữa câu, đặc biệt là những từ lặp lại và những cụm có số. Khi đoạn văn gần kết thúc, giọng đọc vẫn cần giữ âm lượng ổn định, nhịp tự nhiên và phát âm trọn vẹn ở câu cuối cùng.",
+      "goals": ["multi_sentence", "chunk_boundary", "final_chunk"]
+    }
+  ]
+}
