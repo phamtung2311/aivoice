@@ -15,8 +15,54 @@
 .studioInspectorStats strong{text-align:right;font-variant-numeric:tabular-nums}
 .studioInspectorStatus.error{color:var(--danger)}
 
+.studioFieldLabel{display:block;margin:12px 0 -12px;font-size:12px;color:var(--muted)}
+.studioInsertion{display:grid;justify-items:center;gap:6px;position:relative;padding:3px 0}.studioInsertion::before{content:"";position:absolute;top:0;bottom:0;border-left:1px dashed var(--border);z-index:0}.studioInsertion>button,.studioInsertionMenu{position:relative;z-index:1}.studioInsertionMenu{display:flex;gap:6px;padding:6px;border:1px solid var(--border);border-radius:10px;background:var(--panel);box-shadow:var(--shadow)}.studioSilence{max-width:440px;justify-self:center;background:var(--surface-alt)}.studioSilence .studioSegmentHeader{padding:8px 12px}.studioSilenceBody{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:0 12px 10px}.studioSilenceBody input{width:72px;min-height:32px}.studioSilenceBody>div{display:flex;gap:4px;flex-wrap:wrap}
+.studioShell{grid-template-columns:230px minmax(650px,1fr) 230px}.studioLeft{padding:11px;gap:10px}.studioProjectCard{padding:8px}.studioSegmentHeader{padding:9px 12px;gap:8px}.studioSegmentNumber{width:30px;height:30px}.studioInsertButton{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--panel);color:var(--muted);font-size:18px;line-height:1;cursor:pointer}.studioInsertButton:hover,.studioInsertButton[aria-expanded="true"]{color:var(--accent);border-color:var(--accent)}.studioInsertionMenu{display:grid;min-width:155px}.studioInsertionMenu button{text-align:left}.studioSilence{align-self:center;border:0;box-shadow:none;max-width:520px}.studioSilence .studioSegmentHeader{display:none}.studioSilenceBody{justify-content:center;padding:7px 12px}.studioToolbar{padding:8px 10px}.studioRight .studioInspectorActions{display:none}
+.studioSegment.playing{border-color:var(--accent);box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 35%,transparent),var(--shadow)}
+.studioPlaybackProgress{font-size:11px;color:var(--accent);font-variant-numeric:tabular-nums}
+
 /* The card surface is an intentional large hit target; its own action buttons stay separate. */
 .studioProjectCard{cursor:pointer}
 .studioProjectActions button{cursor:pointer}
 .studioSegmentHeader{cursor:pointer}
 .studioSegmentHeader button{cursor:pointer}
+
+/* Horizontal project timeline: segments stay compact on one rail; editing happens below. */
+.studioSegments{display:grid;gap:16px}
+.studioTimeline{min-width:0;padding:14px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 92%,var(--surface-alt)),var(--panel));box-shadow:var(--shadow);overflow-x:auto;overflow-y:visible}
+.studioTimelineRuler{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;min-width:720px;padding:0 2px 10px;color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--border)}
+.studioTimelineRuler span:nth-child(2){padding-left:18px;border-left:1px solid var(--border);color:var(--text);font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.studioTimelineTrack{position:relative;display:flex;align-items:stretch;gap:8px;width:max-content;min-width:100%;padding:20px 2px 8px;background-image:repeating-linear-gradient(90deg,transparent 0,transparent 71px,color-mix(in srgb,var(--border) 55%,transparent) 72px);background-size:72px 100%}
+.studioPlayhead{position:absolute;z-index:6;top:4px;bottom:0;left:0;width:2px;pointer-events:none;background:var(--danger);opacity:0;box-shadow:0 0 10px color-mix(in srgb,var(--danger) 80%,transparent);transition:opacity .16s ease,transform .05s linear}.studioPlayhead::before{content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--danger);transform:translateX(-50%);box-shadow:0 0 0 3px color-mix(in srgb,var(--danger) 18%,transparent)}.studioPlayhead.active{opacity:1}
+.studioTimeline .studioSegment{position:relative;width:var(--clip-width,150px);min-width:118px;max-width:300px;flex:0 0 var(--clip-width,150px);border-radius:11px;overflow:hidden;box-shadow:none;align-self:stretch;background:var(--surface-alt);transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease}
+.studioTimeline .studioSegment.playing::after{content:"";position:absolute;z-index:2;right:0;bottom:0;left:0;height:3px;width:var(--play-progress,0%);border-radius:0 3px 3px 0;background:var(--success);box-shadow:0 0 8px color-mix(in srgb,var(--success) 75%,transparent);transition:width .08s linear}
+.studioTimeline .studioSegment:hover{transform:translateY(-2px);border-color:var(--accent)}
+.studioTimeline .studioSegment.expanded{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 25%,transparent)}
+.studioTimeline .studioSegment.playing{box-shadow:0 0 0 2px color-mix(in srgb,var(--success) 35%,transparent)}
+.studioTimeline .studioSegmentHeader{display:flex;align-items:flex-start;gap:8px;height:100%;min-height:72px;padding:9px;cursor:pointer}
+.studioTimeline .studioSegmentNumber{width:24px;height:24px;flex:none;border-radius:7px;font-size:12px}
+.studioTimeline .studioSegmentSummary{display:grid;gap:4px;min-width:0;align-content:start}
+.studioTimeline .studioSegmentVoice{font-size:12px;line-height:1.35;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.studioTimeline .studioSegmentSummary>span:not(.studioSegmentVoice){font-size:10px}
+.studioTimeline .studioBadge{width:max-content;padding:2px 6px;font-size:9px}
+.studioTimeline .studioPlaybackProgress{display:none}
+.studioTimeline .studioSegmentHeader>button{display:none}
+.studioTimelineTrack>.studioInsertion{width:30px;flex:0 0 30px;align-self:center;padding:0;justify-items:center}
+.studioTimelineTrack>.studioInsertion::before{left:50%;top:-18px;bottom:-18px}
+.studioTimelineTrack>.studioInsertionMenu{position:absolute;top:calc(100% + 8px);left:50%;z-index:5;transform:translateX(-50%);white-space:nowrap}
+.studioTimelineTrack>.studioInsertButton{width:28px;height:28px;background:var(--panel);box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.studioInsertionMenu[hidden]{display:none!important}
+.studioTimelineFooter{display:flex;justify-content:flex-end;min-width:720px;padding-top:4px}
+.studioTimelineFooter .studioInsertion{padding:0;justify-items:end}
+.studioTimelineFooter .studioInsertion::before{display:none}
+.studioTimelineFooter .studioInsertionMenu{position:absolute;right:0;bottom:36px;z-index:4}
+.studioEditorHost:empty{display:none}
+.studioEditorPanel{overflow:hidden;border:1px solid color-mix(in srgb,var(--accent) 50%,var(--border));border-radius:16px;background:var(--panel);box-shadow:var(--shadow)}
+.studioEditorHeading{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:11px 14px;border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--accent) 8%,var(--panel))}
+.studioEditorHeading strong{font-size:14px}.studioEditorHeading span{min-width:0;color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.studioEditorPanel .studioSegmentBody{border-top:0;padding:0 14px 14px}
+.studioEditorPanel .studioSilenceBody{padding:14px}
+.studioVolumeControl{display:grid;gap:7px;color:var(--muted);font-size:12px;font-weight:700}.studioVolumeControl input{width:100%;accent-color:var(--accent)}
+.studioPauseTools{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:-4px}.studioPauseTools>span{margin-right:2px;color:var(--muted);font-size:12px;font-weight:700}.studioPauseTools button{min-height:31px}
+@media (max-width:780px){.studioTimeline{margin-inline:-2px}.studioTimelineRuler,.studioTimelineFooter{min-width:600px}.studioTimelineTrack{min-width:600px}.studioEditorHeading{align-items:flex-start;flex-direction:column;gap:4px}.studioTimeline .studioSegment{min-width:108px}.studioEditorPanel .studioSegmentBody{padding-inline:12px}}
+.studioSoundPicker{width:min(600px,calc(100vw - 32px));padding:0;border:1px solid var(--border);border-radius:18px;color:var(--text);background:var(--panel);box-shadow:0 24px 70px rgba(0,0,0,.45)}.studioSoundPicker::backdrop{background:rgba(5,10,20,.68);backdrop-filter:blur(3px)}.studioSoundPickerHeader{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:18px 18px 12px;border-bottom:1px solid var(--border)}.studioSoundPickerHeader h2{margin:4px 0 0;font-size:20px}.studioSoundPicker>p{margin:12px 18px}.studioSoundPickerList{display:grid;gap:9px;padding:0 18px 16px}.studioSoundOption{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:11px;border:1px solid var(--border);border-radius:12px;background:var(--surface-alt)}.studioSoundOption strong,.studioSoundOption span{display:block}.studioSoundOption span{margin-top:3px;font-size:12px;color:var(--muted)}.studioSoundPickerUpload{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 18px;border-top:1px solid var(--border);color:var(--muted);font-size:13px}@media(max-width:520px){.studioSoundOption{grid-template-columns:1fr auto}.studioSoundOption .primary{grid-column:1/-1}.studioSoundPickerUpload{align-items:stretch;flex-direction:column}}

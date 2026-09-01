@@ -8,6 +8,7 @@ from backend.main import APP_VERSION, BUILD_DATE, health
 ROOT = Path('.')
 APP = (ROOT / 'frontend' / 'app.js').read_text(encoding='utf-8')
 HTML = (ROOT / 'frontend' / 'index.html').read_text(encoding='utf-8')
+STUDIO_HTML = (ROOT / 'frontend' / 'audio-studio.html').read_text(encoding='utf-8')
 CSS = (ROOT / 'frontend' / 'styles.css').read_text(encoding='utf-8')
 README = (ROOT / 'README.md').read_text(encoding='utf-8')
 
@@ -28,14 +29,14 @@ def test_about_dialog_and_accessible_workspace_tabs_exist():
     assert 'id="aboutDialog"' in HTML
     assert 'id="aboutBtn"' in HTML
     assert 'aria-modal="true"' in HTML
-    assert 'aria-controls="audioStudio"' in HTML
+    assert 'href="audio-studio.html"' in HTML
     assert 'aria-controls="mainWorkspace"' in HTML
     assert 'function updateAboutDetails' in APP
     assert 'aboutDialog?.showModal()' in APP
 
 
 def test_release_polish_keeps_visible_status_and_keyboard_focus_contracts():
-    assert 'id="studioStatus"' in HTML
+    assert 'id="studioStatus"' in STUDIO_HTML
     assert 'function setStudioStatus' in APP
     assert '`Đang tạo Segment ${index+1}...`' in APP
     assert "'Đã xuất WAV.'" in APP

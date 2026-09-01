@@ -9,6 +9,9 @@ import os
 import secrets
 
 from backend.app.tts.engine import TTSEngine
+from backend.app.tts.prosody import parse_prosody_script, transform_prosody_script
+from backend.app.tts.prosody_suggest import plan_context_aware_prosody
+from backend.app.tts.long_audio import LongAudioJobs
 from backend.app.tts import voice_store
 from backend.app.tts.reference_quality import analyze_clip
 from backend.app.tts.nlp import normalize_text
@@ -136,6 +139,17 @@ class TTSRequest(BaseModel):
     # SAVED voice (use_ref_codes=False). Absent → production behavior unchanged.
     conditioning_mode: Optional[str] = Field(None, description="Voice Lab diagnostic conditioning mode ('identity_only')")
     smart_text_processing: bool = Field(True, description="Apply deterministic local speech-text normalization")
+    tts_script: Optional[str] = Field(None, description="Optional user-edited prosody script")
+    prosody_markup: bool = Field(False, description="Interpret |, ||, and ||| in tts_script")
+
+
+class LongAudioRequest(TTSRequest):
+    """Audio Studio's durable, progress-reporting generation request."""
+    idempotency_key: Optional[str] = Field(None, max_length=100)
+
+
+class ProsodySuggestionRequest(BaseModel):
+    text: str = Field(..., max_length=TEXT_MAX_LENGTH)
 
 
 class NLPPreviewRequest(BaseModel):
@@ -170,6 +184,8 @@ app.add_middleware(
 
 # singleton engine
 _ENGINE = TTSEngine()
+_LONG_AUDIO_JOBS = LongAudioJobs(_ENGINE, _TTS_SEMAPHORE)
+_LONG_AUDIO_IDEMPOTENCY: dict[str, str] = {}
 
 
 def get_engine() -> TTSEngine:
@@ -197,6 +213,7 @@ def voices(engine: TTSEngine = Depends(get_engine)):
     # Defensive: some engines/tests expose only get_voices(); use fallbacks.
     preset_names = list(getattr(engine, "get_preset_names", lambda: None)() or []) or list(engine.get_voices() or ["default"])
     saved_names = list(getattr(engine, "get_user_voice_names", lambda: [])() or [])
+    special_names = list(getattr(engine, "get_special_voice_names", lambda: [])() or [])
 
     # try to enrich with local voices.json metadata if available
     out = []
@@ -224,6 +241,18 @@ def voices(engine: TTSEngine = Depends(get_engine)):
 
     for name in saved_names:
         out.append({"id": name, "name": name, "type": "saved"})
+
+    for name in special_names:
+        meta = dict(getattr(engine, "get_voice_metadata", lambda _name: {})(name) or {})
+        out.append({
+            "id": name,
+            "name": meta.get("display_name") or name,
+            "type": "special",
+            "category": meta.get("category") or "Special Voice",
+            "description": meta.get("description", ""),
+            "special_type": meta.get("special_type", ""),
+            "recommended_use": meta.get("recommended_use", ""),
+        })
 
     return {"voices": out}
 
@@ -522,12 +551,27 @@ def _validate_sampling_param(name: str, value, minimum, maximum, integer: bool =
 
 @app.post("/api/tts")
 def tts(req: TTSRequest, engine: TTSEngine = Depends(get_engine)):
-    text = req.text or ""
-    if not text.strip():
+    original_text = req.text or ""
+    # A supplied script is the user-approved synthesis source. Markup is an
+    # additional opt-in interpretation layer, not a requirement for editing.
+    text = req.tts_script if req.tts_script is not None else original_text
+    if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text must not be empty")
-    if len(text) > TEXT_MAX_LENGTH:
+    if len(original_text) > TEXT_MAX_LENGTH or len(text) > TEXT_MAX_LENGTH:
         raise HTTPException(status_code=413, detail="Text too long")
-    if req.smart_text_processing:
+    if req.prosody_markup:
+        try:
+            # Validate before model work; the parser also prevents markers from
+            # entering the model path.
+            parse_prosody_script(text)
+            # Smart Text Processing runs only on clean parsed segments. This
+            # preserves user marker boundaries while retaining the established
+            # local date/number/money normalization for marked scripts.
+            if req.smart_text_processing:
+                text = transform_prosody_script(text, normalize_text)
+        except ValueError as e:
+            raise HTTPException(status_code=422, detail=str(e))
+    elif req.smart_text_processing:
         text = normalize_text(text)
         if len(text) > TEXT_MAX_LENGTH:
             raise HTTPException(status_code=413, detail="Processed text too long")
@@ -565,17 +609,13 @@ def tts(req: TTSRequest, engine: TTSEngine = Depends(get_engine)):
         logger.info("inference slot waited %.3fs", wait_elapsed)
     try:
         # let engine write to our temp path; forward sampling params only when provided
-        engine.generate(
-            text,
-            voice=req.voice,
-            speed=req.speed,
-            out_path=tmp_path,
-            temperature=temperature,
-            top_k=top_k,
-            top_p=top_p,
-            repetition_penalty=repetition_penalty,
-            **engine_kwargs,
-        )
+        generate_kwargs = dict(voice=req.voice, speed=req.speed, out_path=tmp_path,
+                               temperature=temperature, top_k=top_k, top_p=top_p,
+                               repetition_penalty=repetition_penalty, **engine_kwargs)
+        if req.prosody_markup:
+            engine.generate_prosody(text, **generate_kwargs)
+        else:
+            engine.generate(text, **generate_kwargs)
     except Exception as e:
         _remove_file(tmp_path)
         raise HTTPException(status_code=500, detail=f"TTS generation failed: {e}")
@@ -587,6 +627,82 @@ def tts(req: TTSRequest, engine: TTSEngine = Depends(get_engine)):
             pass
 
     return FileResponse(tmp_path, media_type="audio/wav", filename=os.path.basename(tmp_path), background=BackgroundTask(_remove_file, tmp_path))
+
+
+@app.post("/api/tts/prosody/suggest")
+def tts_prosody_suggest(req: ProsodySuggestionRequest):
+    try:
+        proposal = plan_context_aware_prosody(req.text)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return {"prosody_version": "podcast_prosody_v1", **proposal}
+
+
+@app.post("/api/long-audio/jobs")
+def create_long_audio_job(req: LongAudioRequest, engine: TTSEngine = Depends(get_engine)):
+    """Start a sequential Audio Studio job; never run markup through VieNeu."""
+    original_text = req.text or ""
+    text = req.tts_script if req.tts_script is not None else original_text
+    if not text.strip():
+        raise HTTPException(status_code=400, detail="Text must not be empty")
+    if len(original_text) > TEXT_MAX_LENGTH or len(text) > TEXT_MAX_LENGTH:
+        raise HTTPException(status_code=413, detail="Text too long")
+    if req.voice and req.voice not in (engine.get_voices() or ["default"]):
+        raise HTTPException(status_code=400, detail="Invalid voice")
+    if req.prosody_markup:
+        try:
+            parse_prosody_script(text)
+            if req.smart_text_processing:
+                text = transform_prosody_script(text, normalize_text)
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc))
+    elif req.smart_text_processing:
+        text = normalize_text(text)
+    if len(text) > TEXT_MAX_LENGTH:
+        raise HTTPException(status_code=413, detail="Processed text too long")
+    options = {
+        "temperature": _validate_sampling_param("temperature", req.temperature, 0.1, 1.5),
+        "top_k": _validate_sampling_param("top_k", req.top_k, 1, 100, integer=True),
+        "top_p": _validate_sampling_param("top_p", req.top_p, 0.5, 1.0),
+        "repetition_penalty": _validate_sampling_param("repetition_penalty", req.repetition_penalty, 1.0, 2.0),
+    }
+    # A browser retry/double-click with the same token returns the original job.
+    if req.idempotency_key:
+        existing_id = _LONG_AUDIO_IDEMPOTENCY.get(req.idempotency_key)
+        existing = _LONG_AUDIO_JOBS.get(existing_id) if existing_id else None
+        if existing:
+            return _LONG_AUDIO_JOBS.public(existing)
+    job = _LONG_AUDIO_JOBS.create(text=text, voice=req.voice, speed=req.speed,
+                                  prosody_markup=req.prosody_markup, options=options)
+    if req.idempotency_key:
+        _LONG_AUDIO_IDEMPOTENCY[req.idempotency_key] = job.id
+    return _LONG_AUDIO_JOBS.public(job)
+
+
+@app.get("/api/long-audio/jobs/{job_id}")
+def get_long_audio_job(job_id: str):
+    job = _LONG_AUDIO_JOBS.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Long Audio job not found")
+    return _LONG_AUDIO_JOBS.public(job)
+
+
+@app.delete("/api/long-audio/jobs/{job_id}")
+def cancel_long_audio_job(job_id: str):
+    job = _LONG_AUDIO_JOBS.cancel(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Long Audio job not found")
+    return _LONG_AUDIO_JOBS.public(job)
+
+
+@app.get("/api/long-audio/jobs/{job_id}/audio")
+def get_long_audio_result(job_id: str):
+    job = _LONG_AUDIO_JOBS.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Long Audio job not found")
+    if job.state != "COMPLETED" or not job.output_path or not job.output_path.exists():
+        raise HTTPException(status_code=409, detail="Long Audio result is not ready")
+    return FileResponse(str(job.output_path), media_type="audio/wav", filename=f"{job_id}.wav")
 
 
 @app.post("/api/tts/clone")

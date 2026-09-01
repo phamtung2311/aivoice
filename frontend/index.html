@@ -34,6 +34,19 @@
             <div id="editorWrap" class="editorWrap">
               <textarea id="text" class="editor" placeholder="Nhập hoặc dán văn bản tiếng Việt tại đây... Ví dụ: Xin chào mọi người. Hôm nay chúng ta sẽ cùng nhau khám phá giọng đọc AI." aria-label="Văn bản để chuyển thành giọng nói"></textarea>
             </div>
+            <div class="prosodyEditor">
+              <label for="ttsScript">TTS Script (có thể chỉnh trực tiếp)</label>
+              <textarea id="ttsScript" class="editor" rows="4" placeholder="Sao chép từ văn bản gốc, rồi dùng |, || hoặc ||| để đặt nghỉ."></textarea>
+              <div class="emotionBar" role="toolbar" aria-label="Điều khiển nhịp nghỉ podcast">
+                <span class="muted small">Nghỉ:</span>
+                <button type="button" class="secondary small" data-prosody-marker="|">+ Nghỉ nhẹ</button>
+                <button type="button" class="secondary small" data-prosody-marker="||">+ Nghỉ vừa</button>
+                <button type="button" class="secondary small" data-prosody-marker="|||">+ Nghỉ dài</button>
+                <button id="suggestProsodyBtn" type="button" class="secondary small">✨ Đề xuất nhịp đọc</button>
+                <button id="resetTtsScriptBtn" type="button" class="secondary small">Đặt lại từ văn bản gốc</button>
+                <span class="muted small">| ≈ 70 ms · || ≈ 140 ms · ||| ≈ 260 ms</span>
+              </div>
+            </div>
             <div class="emotionBar" role="toolbar" aria-label="Chèn biểu cảm vào văn bản">
               <span class="muted small">Chèn biểu cảm:</span>
               <button type="button" class="secondary small" data-emotion-tag="[cười]">+ Cười</button>
@@ -116,10 +129,12 @@
 
             <div class="actions">
               <button id="speak" class="primary" aria-label="Tạo giọng nói từ văn bản">🔊 Tạo giọng nói</button>
+              <button id="sendToAudioStudioBtn" class="secondary" type="button" aria-label="Chuyển văn bản sang Audio Studio">🎬 Tạo Audio dài</button>
               <button id="cancelBtn" class="dangerBtn" type="button" disabled hidden aria-label="Hủy chuyển đổi giọng nói">✕ Hủy</button>
               <button id="downloadBtn" class="secondary" disabled aria-label="Tải file âm thanh WAV">⬇ Tải WAV</button>
             </div>
             <div id="status" class="status" aria-live="polite"></div>
+            <div class="muted small">Văn bản dài vẫn có thể tạo ở đây. Với podcast nhiều phút, dùng “Tạo Audio dài” để có tiến độ theo từng đoạn và hủy an toàn.</div>
           </section>
 
           <!-- Card: Giong da luu -->

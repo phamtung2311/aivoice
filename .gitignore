@@ -26,6 +26,9 @@ models/
 # Local user voice profiles (biometric data — never commit)
 data/voices/
 
+# Recoverable local Long Audio job chunks and final WAVs
+data/jobs/
+
 # Local Voice Lab results and user-selected manifest
 data/voice_lab/experiments.json
 data/voice_lab/branded_voice.json
@@ -33,6 +36,23 @@ data/voice_lab/temperature_candidates.json
 
 # Local session artifacts
 *.ses
+
+# Research-only Review Film voice renders and local experiment state
+experiments/special_voice_review/outputs/
+experiments/special_voice_review/reference_audio/
+experiments/special_voice_review/measurements.json
+
+# Research-only Meme / Breath voice references, renders and local state
+experiments/special_voice_meme/outputs/
+experiments/special_voice_meme/reference_audio/
+experiments/special_voice_meme/measurements.json
+
+# Research-only Podcast Brand Voice references and renders (directory markers only)
+experiments/special_voice_podcast/outputs/*
+!experiments/special_voice_podcast/outputs/.gitkeep
+experiments/special_voice_podcast/reference_audio/*
+!experiments/special_voice_podcast/reference_audio/.gitkeep
+experiments/special_voice_podcast/measurements.json
 
 # OS/editor
 .DS_Store

@@ -1,14 +1,17 @@
 import os
 import logging
+import tempfile
 from pathlib import Path
 from typing import Optional, List
 
 import numpy as np
+import soundfile as sf
 
 from .model import ModelLoader
 from .text import preprocess_text, split_into_sentences, chunk_sentences
 from .audio import edge_silence_samples, join_audios, resample_audio, save_wav
 from .exceptions import (ModelLoadError, GenerationError, InvalidInputError)
+from .prosody import PODCAST_PROSODY_VERSION, parse_prosody_script
 
 logger = logging.getLogger(__name__)
 
@@ -62,6 +65,27 @@ class TTSEngine:
             return self._model.get_user_voice_names()
         except Exception:
             return []
+
+    def get_special_voice_names(self) -> List[str]:
+        if self._model is None:
+            self._load_model()
+        try:
+            return self._model.get_special_voice_names()
+        except Exception:
+            return []
+
+    def get_voice_metadata(self, name: str) -> dict:
+        if self._model is None:
+            self._load_model()
+        try:
+            return self._model.get_voice_metadata(name)
+        except Exception:
+            return {}
+
+    def install_special_voice(self, name: str, ref_audio: str, metadata: dict) -> str:
+        if self._model is None:
+            self._load_model()
+        return self._model.install_special_voice(name, ref_audio, metadata)
 
     def add_saved_voice(self, name: str, ref_audio: str, description: str = "") -> str:
         if self._model is None:
@@ -219,4 +243,65 @@ class TTSEngine:
             "final_peak": round(float(np.max(np.abs(joined))), 6),
             "final_rms": round(float(np.sqrt(np.mean(np.square(joined)))), 6),
         } if quality_diagnostics else None
+        return str(out_path)
+
+    def generate_prosody(
+        self,
+        tts_script: str,
+        voice: Optional[str] = None,
+        speed: float = 1.0,
+        out_path: Optional[str] = None,
+        **kwargs,
+    ) -> str:
+        """Generate user-marked segments and fill only pause-silence deficits.
+
+        A marked boundary deliberately does not inherit the normal punctuation
+        join target: its explicit target replaces it. Generated edge silence is
+        retained, and only the remaining deficit is inserted.
+        """
+        if not (0.5 <= speed <= 2.0):
+            raise InvalidInputError("Speed must be between 0.5 and 2.0")
+        segments = parse_prosody_script(tts_script)
+        audios = []
+        sr = None
+        with tempfile.TemporaryDirectory(prefix="aivoice_prosody_") as temp_dir:
+            for index, segment in enumerate(segments):
+                part_path = Path(temp_dir) / f"segment_{index}.wav"
+                # Reuse the established clean-text path for every segment. This
+                # guarantees markup itself can never be passed to VieNeu.
+                self.generate(segment.text, voice=voice, speed=1.0, out_path=str(part_path), **kwargs)
+                audio, part_sr = sf.read(str(part_path), dtype="float32", always_2d=False)
+                if audio.size == 0:
+                    raise GenerationError(f"Prosody segment {index} has no valid waveform")
+                if sr is None:
+                    sr = int(part_sr)
+                elif sr != int(part_sr):
+                    raise GenerationError("Prosody segments have incompatible sample rates")
+                audios.append(np.asarray(audio, dtype=np.float32))
+
+        assert sr is not None
+        gaps = []
+        for index, segment in enumerate(segments[:-1]):
+            _leading_previous, trailing_previous = edge_silence_samples(audios[index])
+            leading_next, _trailing_next = edge_silence_samples(audios[index + 1])
+            existing_ms = (trailing_previous + leading_next) * 1000 / sr
+            gaps.append(max(0, int((segment.pause_after_ms - existing_ms) * sr / 1000)))
+        joined = join_audios(audios, sr, gap_samples=gaps)
+        if speed != 1.0:
+            joined = resample_audio(joined, sr, speed)
+
+        if out_path is None:
+            out_dir = Path("output/tests")
+            out_dir.mkdir(parents=True, exist_ok=True)
+            out_path = out_dir / f"tts_prosody_{abs(hash(tts_script)) % 100000}.wav"
+        try:
+            save_wav(str(out_path), joined, sr)
+        except Exception as e:
+            raise GenerationError(f"Failed to save prosody WAV: {e}") from e
+        self.last_generation_diagnostics = {
+            "prosody_version": PODCAST_PROSODY_VERSION,
+            "segment_count": len(segments),
+            "explicit_pause_targets_ms": [segment.pause_after_ms for segment in segments[:-1]],
+            "inserted_gap_ms": [round(gap * 1000 / sr, 2) for gap in gaps],
+        }
         return str(out_path)

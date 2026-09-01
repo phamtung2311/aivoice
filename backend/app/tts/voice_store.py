@@ -21,6 +21,7 @@ DEFAULT_STORE_FILE = DEFAULT_STORE_DIR / "voices.json"
 
 # Maximum length for a user-chosen voice name.
 VOICE_NAME_MAX_LENGTH = 64
+PROFILE_METADATA_FIELDS = ("category", "is_special", "special_type", "recommended_use", "display_name")
 
 
 def store_path() -> Path:
@@ -79,21 +80,30 @@ def serialize_profile(v: Dict[str, Any], default_style: Optional[str] = None) ->
     """
     emb = v.get("speaker_emb")
     codes = v.get("codes")
-    return {
+    profile = {
         "description": v.get("description", ""),
         "gender": v.get("gender", ""),
         "style": v.get("style", default_style),
         "speaker_emb": [round(float(x), 6) for x in np.asarray(emb).reshape(-1)] if emb is not None else None,
         "codes": np.asarray(codes, dtype=int).tolist() if codes is not None else None,
     }
+    # Additive metadata: older profiles omit these keys and retain their schema.
+    for key in PROFILE_METADATA_FIELDS:
+        if key in v:
+            profile[key] = v.get(key)
+    return profile
 
 
 def deserialize_profile(d: Dict[str, Any], default_style: Optional[str] = None) -> Dict[str, Any]:
     """Rebuild native arrays from the persisted JSON shape (float32 emb, int64 codes)."""
-    return {
+    profile = {
         "description": d.get("description", ""),
         "gender": d.get("gender", ""),
         "style": d.get("style", default_style),
         "speaker_emb": np.asarray(d.get("speaker_emb"), dtype=np.float32) if d.get("speaker_emb") is not None else None,
         "codes": np.asarray(d.get("codes"), dtype=np.int64) if d.get("codes") is not None else None,
     }
+    for key in PROFILE_METADATA_FIELDS:
+        if key in d:
+            profile[key] = d.get(key)
+    return profile

@@ -1,0 +1,11 @@
+.venv/
+.python/
+.tooling/
+.uv-cache/
+.hf-cache/
+models/
+reference_audio/*.wav
+vietnamese_outputs/*.wav
+audition/*.wav
+model_download.log
+tokenizer_download.log

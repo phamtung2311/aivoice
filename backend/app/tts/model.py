@@ -60,8 +60,30 @@ class ModelLoader:
         return sorted(self._preset_names)
 
     def get_user_voice_names(self) -> list:
+        return sorted(set(self._local_voice_names()) - set(self.get_special_voice_names()))
+
+    def _local_voice_names(self) -> list:
         all_voices = set(self.get_voices() or [])
         return sorted(all_voices - set(self._preset_names))
+
+    def get_special_voice_names(self) -> list:
+        try:
+            profiles = getattr(self._v, "_preset_voices", {})
+            return sorted(name for name, profile in profiles.items()
+                          if name not in self._preset_names and isinstance(profile, dict)
+                          and bool(profile.get("is_special")))
+        except Exception:
+            return []
+
+    def get_voice_metadata(self, name: str) -> dict:
+        try:
+            profile = getattr(self._v, "_preset_voices", {}).get(name, {})
+            if not isinstance(profile, dict):
+                return {}
+            fields = ("display_name", "description", "category", "is_special", "special_type", "recommended_use")
+            return {field: profile[field] for field in fields if field in profile}
+        except Exception:
+            return {}
 
     def _user_profiles(self) -> Dict[str, dict]:
         """Serialize currently-registered user voices to plain Python (vieneu JSON shape)."""
@@ -71,7 +93,7 @@ class ModelLoader:
         except Exception:
             all_v = {}
         default_style = getattr(self._v, "default_style", None)
-        for name in self.get_user_voice_names():
+        for name in self._local_voice_names():
             v = all_v.get(name)
             if not isinstance(v, dict):
                 continue
@@ -98,7 +120,7 @@ class ModelLoader:
         """
         if name in self.get_preset_names():
             raise ValueError("Tên giọng trùng với giọng mặc định có sẵn.")
-        if name in self.get_user_voice_names():
+        if name in self.get_voices():
             raise ValueError("Tên giọng đã tồn tại.")
         add = getattr(self._v, "add_voice", None)
         if not callable(add):
@@ -113,9 +135,32 @@ class ModelLoader:
         self._persist_user_voices()
         return name
 
+    def install_special_voice(self, name: str, ref_audio: str, metadata: Dict[str, object], denoise: bool = True) -> str:
+        """Encode a validated local reference once, then persist a native profile.
+
+        A pre-existing special profile is deliberately reused without touching the
+        raw WAV.  This is provisioning, not an alternate inference path.
+        """
+        existing = getattr(self._v, "_preset_voices", {}).get(name)
+        if isinstance(existing, dict) and existing.get("is_special"):
+            return name
+        if name in self.get_voices():
+            raise ValueError("Tên Special Voice trùng với giọng hiện có.")
+        add = getattr(self._v, "add_voice", None)
+        if not callable(add):
+            raise RuntimeError("Voice profile không được hỗ trợ bởi backend TTS.")
+        add(name, ref_audio, denoise=denoise, save=False)
+        profile = getattr(self._v, "_preset_voices", {}).get(name)
+        if not isinstance(profile, dict):
+            raise RuntimeError("Không thể tạo native Special Voice profile.")
+        profile.update({key: value for key, value in metadata.items() if key != "reference_path"})
+        profile["is_special"] = True
+        self._persist_user_voices()
+        return name
+
     def remove_saved_voice(self, name: str) -> bool:
         """Delete a user voice only. Return False if it is a preset (not removable)."""
-        if name in self._preset_names:
+        if name in self._preset_names or name in self.get_special_voice_names():
             return False
         rem = getattr(self._v, "remove_voice", None)
         if callable(rem):

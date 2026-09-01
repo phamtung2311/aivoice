@@ -5,7 +5,11 @@ const voiceSelect = document.getElementById('voice')
 const speedInput = document.getElementById('speed')
 const speedVal = document.getElementById('speedVal')
 const textArea = document.getElementById('text')
+const ttsScriptArea = document.getElementById('ttsScript')
+const resetTtsScriptBtn = document.getElementById('resetTtsScriptBtn')
+const suggestProsodyBtn = document.getElementById('suggestProsodyBtn')
 const speakBtn = document.getElementById('speak')
+const sendToAudioStudioBtn = document.getElementById('sendToAudioStudioBtn')
 const status = document.getElementById('status')
 const audioEl = document.getElementById('audio')
 const uploadInput = document.getElementById('uploadInput')
@@ -83,7 +87,8 @@ const SAVE_VOICE_FORMAT_HELP = 'Hỗ trợ lưu giọng từ WAV, MP3 và M4A. F
 let currentBlobUrl = null
 let currentBlob = null
 let maxTextLength = 10000 // fallback; will try to read from /api/health if provided
-const TTS_REQUEST_TIMEOUT_MS = 180000
+// A CPU inference may legitimately take minutes.  Only the server, network, or
+// an explicit user cancellation can make this request terminal.
 const AUDIO_DECODE_TIMEOUT_MS = 10000
 const REF_MAX_SECONDS = 8.0
 const REF_MAX_BYTES = 5 * 1024 * 1024 // 5 MiB, must match server REF_MAX_BYTES
@@ -107,6 +112,7 @@ let voiceLabCurrentSampleState = null
 let voiceLabGenerating = false
 const voiceLabReferences = new Map()
 let temperatureCandidates = new Map()
+let ttsScriptSuggestionVersion = null
 
 // ── Phase 13: constants & state ──────────────────────────────────────────────
 // Fixed sample sentence used ONLY for voice preview (never inserted into the
@@ -214,7 +220,7 @@ function isActiveRequest(request){ return activeTtsRequest === request }
 
 function finishRequest(request){
   if(!isActiveRequest(request)) return false
-  if(request.timeoutId !== null) clearTimeout(request.timeoutId)
+  if(request.heartbeatId !== null) clearInterval(request.heartbeatId)
   activeTtsRequest = null
   setGeneratingState(false)
   return true
@@ -229,11 +235,7 @@ function abortActiveRequest(reason, announce=true){
   request.controller.abort()
 
   if(announce){
-    if(reason === 'timeout'){
-      setStatus('Chuyển đổi mất quá nhiều thời gian. Hãy thử lại với đoạn văn ngắn hơn.', true)
-    }else{
-      setStatus('Đã hủy chuyển đổi. Bạn có thể thử lại.')
-    }
+    setStatus('Đã dừng chờ kết quả. Nếu VieNeu đang suy luận, máy chủ sẽ hoàn tất lần đó trước khi nhận việc nặng tiếp theo.')
   }
   return true
 }
@@ -349,12 +351,14 @@ async function loadHealthAndVoices(preferredVoice=null){
     const voicesList = (Array.isArray(j.voices) ? j.voices : (Array.isArray(j) ? j : []))
       .filter(v => v && typeof v.id === 'string' && v.id.trim())
     if(!voicesList.length) throw new Error('Backend returned no valid voices')
-    // Group by type (preset vs saved); keep legacy fallback (no type => preset).
+    // Group additive Special Voice profiles without changing the normal TTS path.
     const presets = []
     const saved = []
+    const special = []
     voicesList.forEach(v => {
-      const item = { id: v.id, name: v.name, type: v.type === 'saved' ? 'saved' : 'preset' }
-      ;(item.type === 'saved' ? saved : presets).push(item)
+      const type = v.type === 'special' ? 'special' : v.type === 'saved' ? 'saved' : 'preset'
+      const item = { id: v.id, name: v.name, type, description: v.description || '' }
+      ;(item.type === 'special' ? special : item.type === 'saved' ? saved : presets).push(item)
     })
     voiceSelect.innerHTML = ''
     voiceSelect.disabled = false
@@ -370,13 +374,14 @@ async function loadHealthAndVoices(preferredVoice=null){
       voiceSelect.appendChild(g)
     }
     addGroup('Giọng mặc định', presets)
+    addGroup('SPECIAL VOICES', special)
     addGroup('Giọng đã lưu', saved)
     validVoiceIds = new Set(voicesList.map(v => v.id))
     voicesReady = Boolean(selectValidVoice(preferredVoice))
     // maintain a display map of saved voices for the saved-voices panel
     savedVoiceNames = saved.map(v => v.id)
     // Phase 13: preview list (preset + saved voices with per-voice ▶ button)
-    renderVoicePreviewList(presets, saved)
+    renderVoicePreviewList(presets, saved, special)
     renderSavedVoices()
     renderTemperatureCandidateState()
     renderAudioStudio()
@@ -419,6 +424,50 @@ voiceSelect.addEventListener('change', ()=>{
   renderTemperatureCandidateState()
 })
 textArea.addEventListener('input', ()=>{ updateTextValidation(); scheduleSmartTextPreview() })
+
+function currentTtsScript(){
+  // An empty script is deliberately treated as ordinary TTS for compatibility.
+  return (ttsScriptArea?.value || '').trim()
+}
+
+function insertProsodyMarker(marker){
+  if(!ttsScriptArea) return
+  const start = ttsScriptArea.selectionStart ?? ttsScriptArea.value.length
+  const end = ttsScriptArea.selectionEnd ?? ttsScriptArea.value.length
+  ttsScriptArea.value = ttsScriptArea.value.slice(0, start) + marker + ttsScriptArea.value.slice(end)
+  const pos = start + marker.length
+  ttsScriptArea.focus(); ttsScriptArea.setSelectionRange(pos, pos)
+  ttsScriptArea.dispatchEvent(new Event('input'))
+}
+
+document.querySelectorAll('[data-prosody-marker]').forEach(btn=>btn.addEventListener('click', ()=>insertProsodyMarker(btn.dataset.prosodyMarker)))
+resetTtsScriptBtn?.addEventListener('click', ()=>{
+  if(ttsScriptArea){ ttsScriptArea.value = textArea.value; ttsScriptSuggestionVersion = null; ttsScriptArea.dispatchEvent(new Event('input')) }
+})
+
+suggestProsodyBtn?.addEventListener('click', async ()=>{
+  const original = textArea.value || ''
+  if(!original.trim()){ setStatus('Hãy nhập Văn bản gốc trước khi đề xuất nhịp đọc.', true); return }
+  const current = ttsScriptArea?.value || ''
+  if(current.trim() && current !== original && !window.confirm('TTS Script hiện có chỉnh sửa. Thay bằng đề xuất mới từ Văn bản gốc?')) return
+  suggestProsodyBtn.disabled = true
+  setStatus('Đang đề xuất nhịp đọc...')
+  try{
+    const response = await fetch(API + '/api/tts/prosody/suggest', {
+      method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text: original}),
+    })
+    if(!response.ok) throw new Error(await readApiErrorDetail(response))
+    const proposal = await response.json()
+    if(!ttsScriptArea || typeof proposal.suggested_script !== 'string') throw new Error('Đề xuất không hợp lệ')
+    ttsScriptArea.value = proposal.suggested_script
+    ttsScriptSuggestionVersion = typeof proposal.suggestion_version === 'string' ? proposal.suggestion_version : null
+    ttsScriptArea.dispatchEvent(new Event('input'))
+    setStatus(`Đã tạo đề xuất (${Array.isArray(proposal.suggestions) ? proposal.suggestions.length : 0} điểm nghỉ). Hãy xem và chỉnh trước khi tạo audio.`)
+  }catch(error){
+    console.error(error)
+    setStatus('Không thể tạo đề xuất nhịp đọc cục bộ. Hãy thử lại.', true)
+  }finally{ suggestProsodyBtn.disabled = false }
+})
 
 const emotionSelect = document.getElementById('emotion')
 
@@ -656,7 +705,7 @@ async function startVoicePreview(voiceName, btn){
   }
 }
 
-function renderVoicePreviewList(presets, saved){
+function renderVoicePreviewList(presets, saved, special=[]){
   if(!voicePreviewList) return
   voicePreviewList.innerHTML = ''
   const addRow = (name)=>{
@@ -687,6 +736,7 @@ function renderVoicePreviewList(presets, saved){
     items.forEach(v => addRow(typeof v === 'string' ? v : v.id))
   }
   addGroup('Giọng mặc định', presets)
+  addGroup('SPECIAL VOICES', special)
   addGroup('Giọng đã lưu', saved)
 }
 
@@ -1001,6 +1051,12 @@ function normalizeHistoryItem(item){
     speed,
     createdAt: Number.isFinite(createdAt) ? createdAt : Date.now(),
     hasAudio: Boolean(item.hasAudio),
+    originalText: typeof item.originalText === 'string' ? item.originalText : item.text,
+    effectiveTtsScript: typeof item.effectiveTtsScript === 'string' ? item.effectiveTtsScript : item.text,
+    prosodyMarkupEnabled: Boolean(item.prosodyMarkupEnabled),
+    prosodyVersion: typeof item.prosodyVersion === 'string' ? item.prosodyVersion : null,
+    pausePresetVersion: typeof item.pausePresetVersion === 'string' ? item.pausePresetVersion : null,
+    suggestionVersion: typeof item.suggestionVersion === 'string' ? item.suggestionVersion : null,
   }
 }
 
@@ -1031,9 +1087,13 @@ function makeHistoryId(){
   return 'h_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8)
 }
 
-async function addHistoryEntryWithAudio(text, voice, speed, blob){
+async function addHistoryEntryWithAudio(text, voice, speed, blob, prosody={}){
   const id = makeHistoryId()
-  const entry = { id, text, voice, speed, createdAt: Date.now(), hasAudio: false }
+  const entry = { id, text, voice, speed, createdAt: Date.now(), hasAudio: false,
+    originalText: prosody.originalText || text, effectiveTtsScript: prosody.effectiveTtsScript || text,
+    prosodyMarkupEnabled: Boolean(prosody.enabled), prosodyVersion: prosody.enabled ? 'podcast_prosody_v1' : null,
+    pausePresetVersion: prosody.enabled ? 'podcast_prosody_v1' : null,
+    suggestionVersion: typeof prosody.suggestionVersion === 'string' ? prosody.suggestionVersion : null }
   let stored = false
   try{
     if(!(blob instanceof Blob) || blob.size <= 44) throw new Error('Generated audio Blob is invalid')
@@ -1162,12 +1222,14 @@ function markHistoryAudioUnavailable(id){
 }
 
 function regenerateFromHistory(item){
-  textArea.value = item.text
+  textArea.value = item.originalText || item.text
   textArea.dispatchEvent(new Event('input'))
+  if(ttsScriptArea) ttsScriptArea.value = item.effectiveTtsScript || item.text
+  ttsScriptSuggestionVersion = item.suggestionVersion || null
   const voice = selectValidVoice(item.voice)
   speedInput.value = String(item.speed)
   speedInput.dispatchEvent(new Event('input'))
-  synthesize(item.text, voice, item.speed)
+  synthesize(item.originalText || item.text, voice, item.speed, item.effectiveTtsScript || '')
 }
 
 function maybeUpdateHistoryControls(){
@@ -1238,7 +1300,7 @@ function renderHistory(){
   maybeUpdateHistoryControls()
 }
 
-async function synthesize(text, voice, speed){
+async function synthesize(text, voice, speed, requestedScript=''){
   // This also protects against a programmatic second invocation while a request is active.
   abortActiveRequest('cancelled', false)
 
@@ -1264,21 +1326,25 @@ async function synthesize(text, voice, speed){
   const request = {
     id: ++nextTtsRequestId,
     controller,
-    timeoutId: null,
+    heartbeatId: null,
     abortReason: null,
   }
   activeTtsRequest = request
   setGeneratingState(true)
+  const startedAt = performance.now()
   setStatus('Đang tạo giọng nói... Bạn có thể hủy nếu không muốn chờ tiếp.')
-  request.timeoutId = setTimeout(()=>{
-    if(isActiveRequest(request)) abortActiveRequest('timeout')
-  }, TTS_REQUEST_TIMEOUT_MS)
+  request.heartbeatId = setInterval(()=>{
+    if(isActiveRequest(request)) setStatus(`Đang tạo giọng nói... ${Math.floor((performance.now()-startedAt)/1000)} giây`)
+  }, 1000)
 
   try{
     const t0 = performance.now()
     // Phase 21.1: main TTS uses preset/saved voices only via /api/tts.
     // Reference-based cloning requests live exclusively in Voice Lab (/api/tts/clone).
     const payload = {text, voice, speed}
+    const ttsScript = String(requestedScript || '').trim()
+    const prosodyEnabled = Boolean(ttsScript && /\|/.test(ttsScript))
+    if(ttsScript){ payload.tts_script = ttsScript; payload.prosody_markup = prosodyEnabled }
     payload.smart_text_processing = Boolean(smartTextProcessing?.checked)
     const preferred = !advancedOpen ? preferredSamplingForVoice(voice) : null
     if(advancedOpen){
@@ -1323,7 +1389,10 @@ async function synthesize(text, voice, speed){
     if(regenerateBtn) regenerateBtn.disabled = false
 
     // Persist this generated audio into history (IndexedDB blob + metadata).
-    const historyAudioSaved = await addHistoryEntryWithAudio(text, voice, speed, blob)
+    const historyAudioSaved = await addHistoryEntryWithAudio(text, voice, speed, blob, {
+      originalText: text, effectiveTtsScript: ttsScript || text, enabled: prosodyEnabled,
+      suggestionVersion: ttsScriptSuggestionVersion,
+    })
     if(!historyAudioSaved) setStatus(storageFailureUserMessage('Đã tạo audio nhưng chưa lưu được vào lịch sử.'), false)
   }catch(err){
     // Cancellation and timeout announce their own terminal state immediately.
@@ -1335,10 +1404,8 @@ async function synthesize(text, voice, speed){
       setStatus('Máy chủ trả về dữ liệu âm thanh không hợp lệ. Hãy thử lại.', true)
     }else if(err && err.kind === 'playback-failed'){
       setStatus('Không thể phát tệp âm thanh này. Hãy thử tạo lại.', true)
-    }else if(request.abortReason === 'timeout'){
-      setStatus('Chuyển đổi mất quá nhiều thời gian. Hãy thử lại với đoạn văn ngắn hơn.', true)
     }else if(request.abortReason === 'cancelled' || (err && err.name === 'AbortError')){
-      setStatus('Đã hủy chuyển đổi. Bạn có thể thử lại.')
+      setStatus('Đã dừng chờ kết quả. Máy chủ có thể hoàn tất đoạn đang suy luận trước khi nhận việc tiếp theo.')
     }else{
       console.error(err)
       setStatus('Không thể kết nối tới máy chủ TTS cục bộ. Hãy kiểm tra backend đang chạy rồi thử lại.', true)
@@ -1450,7 +1517,7 @@ speakBtn.addEventListener('click', ()=>{
   const text = textArea.value || ''
   const voice = voiceSelect.value || null
   const speed = parseFloat(speedInput.value)
-  synthesize(text, voice, speed)
+  synthesize(text, voice, speed, currentTtsScript())
 })
 
 // Phase 14: result card — regenerate with the current text/voice/speed
@@ -1458,7 +1525,7 @@ if(regenerateBtn){
   regenerateBtn.addEventListener('click', ()=>{
     if(isGenerating) return
     if(!textArea.value.trim()){ setStatus('Chưa có văn bản để tạo lại.', true); return }
-    synthesize(textArea.value, voiceSelect.value || null, parseFloat(speedInput.value))
+    synthesize(textArea.value, voiceSelect.value || null, parseFloat(speedInput.value), currentTtsScript())
   })
 }
 
@@ -1472,6 +1539,12 @@ if(openVoiceLabBtn){
 }
 
 cancelBtn.addEventListener('click', ()=>{ abortActiveRequest('cancelled') })
+sendToAudioStudioBtn?.addEventListener('click', ()=>{
+  const text = String(textArea?.value || '')
+  if(!text.trim()){ setStatus('Hãy nhập văn bản trước khi chuyển sang Audio Studio.', true); return }
+  sessionStorage.setItem('aivoice_audio_studio_handoff', JSON.stringify({text, voice:voiceSelect?.value || '', speed:Number(speedInput?.value || 1), tts_script:String(ttsScriptArea?.value || '')}))
+  window.location.href = 'audio-studio.html'
+})
 clearTextBtn.addEventListener('click', ()=>{
   if(!textArea.value) return
   textArea.value = ''

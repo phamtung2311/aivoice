@@ -49,7 +49,7 @@ def test_segment_editor_has_targeted_generate_and_local_blob_storage():
     assert 'id="studioProjectsList"' in STUDIO_HTML
     assert "generate.disabled=generating||!item.text.trim()" in STUDIO_APP
     assert "if(!item.voice&&voices.length){item.voice=voices[0];save()}" in STUDIO_APP
-    assert 'audio-studio.js?v=1.0.1' in STUDIO_HTML
+    assert 'audio-studio.js?v=1.0.2' in STUDIO_HTML
 
 
 def test_play_all_is_sequential_and_export_is_browser_only_wav_merge():
