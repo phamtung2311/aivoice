@@ -1,0 +1,16 @@
+{
+  "identity": "K-A",
+  "attempt": 1,
+  "generation_seconds": 240.543,
+  "peak_process_rss_mb": 5005.6,
+  "prompt": "Adult male with warm resonance, a full medium-deep tone, subtle natural vocal texture, and a slightly deeper natural male register with slightly fuller low-mid resonance. Intelligent conversational delivery with relaxed human imperfections, soft close-mic presence, calm confidence, and a recognizable but believable podcast-host identity. Use a natural medium conversational rhythm with connected phrasing and short natural pauses only at sentence or clause boundaries. Avoid extreme bass, unnaturally lowered pitch, booming resonance, movie-trailer voice, radio voice, slow dramatic delivery, long pauses between ordinary words, excessive breathiness, audible breath acting, whispery delivery, generic TTS cadence, theatrical delivery, and imitation of any real person.",
+  "audio": {
+    "duration_seconds": 6.56,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.582031,
+    "rms": 0.073452,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  }
+}

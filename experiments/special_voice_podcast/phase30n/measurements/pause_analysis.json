@@ -1,0 +1,61 @@
+{
+  "text": "Có những điều nghe qua tưởng như rất đơn giản, nhưng khi dành thêm một chút thời gian để suy nghĩ, chúng ta lại thấy phía sau đó là cả một câu chuyện dài. Và có lẽ điều thú vị nhất không nằm ở việc tìm ra câu trả lời thật nhanh, mà ở cách mỗi người tự nhìn lại trải nghiệm của mình, rồi nhận ra một điều mà trước đây mình chưa từng chú ý.",
+  "chunk_lengths": [
+    154,
+    183
+  ],
+  "records": [
+    {
+      "variant": "N-CONTROL",
+      "explicit_join_target_ms": 130,
+      "boundary_normalization": false,
+      "audio": {
+        "duration_seconds": 19.33,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.798737,
+        "rms": 0.107454,
+        "clipped_samples": 0
+      }
+    },
+    {
+      "variant": "N-A",
+      "explicit_join_target_ms": 85,
+      "boundary_normalization": false,
+      "audio": {
+        "duration_seconds": 19.285,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.798737,
+        "rms": 0.107579,
+        "clipped_samples": 0
+      }
+    },
+    {
+      "variant": "N-B",
+      "explicit_join_target_ms": 130,
+      "boundary_normalization": true,
+      "audio": {
+        "duration_seconds": 19.056,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.798737,
+        "rms": 0.108223,
+        "clipped_samples": 0
+      }
+    },
+    {
+      "variant": "N-C",
+      "explicit_join_target_ms": 85,
+      "boundary_normalization": true,
+      "audio": {
+        "duration_seconds": 19.011,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.798737,
+        "rms": 0.108351,
+        "clipped_samples": 0
+      }
+    }
+  ]
+}

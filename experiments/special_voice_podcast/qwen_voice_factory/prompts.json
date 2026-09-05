@@ -1,0 +1,9 @@
+{
+  "english_reference_text": "In this quiet moment, we can slow down, listen closely, and let a simple thought unfold with clarity.",
+  "vietnamese_test_text": "Có những câu chuyện không cần phải kể thật nhanh. Chỉ cần một giọng nói đủ gần gũi, một khoảng dừng đúng lúc, và đôi khi chính những điều rất bình thường lại khiến chúng ta muốn ngồi lại, lắng nghe lâu hơn một chút.",
+  "candidates": {
+    "A": "Adult male with a naturally deep, warm and full-bodied voice. Smooth intimate delivery, calm and reflective, with gentle expressive variation. He should sound like a thoughtful podcast storyteller speaking naturally to one listener. Avoid announcer delivery, movie-trailer bass, theatrical acting, cartoon characterisation, and robotic speech.",
+    "B": "Adult male with a medium-deep to deep voice and a clean but characterful timbre. Calm confidence, intelligent conversational delivery, intimate microphone presence and subtle vocal texture. He should sound like a distinctive long-form podcast host rather than a commercial announcer. Avoid generic TTS cadence, exaggerated bass, theatrical delivery, and imitation of any real person.",
+    "C": "Adult male with a deep voice, warm resonance and subtle natural vocal texture. Slight natural rasp is acceptable but must remain soft and believable. Mature, controlled and expressive, serious but approachable, memorable without sounding theatrical. Avoid extreme rasp, movie-trailer delivery, artificial bass and celebrity imitation."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "language": "vi",
+  "sentences": [
+    {"id": "normal", "category": "normal_statement", "text": "Hôm nay tôi kể bạn nghe một chuyện rất bình thường, cho đến khi chi tiết cuối cùng xuất hiện."},
+    {"id": "punchline", "category": "short_punchline", "text": "Và rồi mọi người im lặng, vì cái điều vô lý nhất lại hoàn toàn có thật."},
+    {"id": "question", "category": "question", "text": "Bạn có từng mở điện thoại lúc nửa đêm và thấy thông báo do chính mình gửi không?"},
+    {"id": "exclamation", "category": "exclamation", "text": "Khoan đã, chiếc hộp đó không hề trống!"},
+    {"id": "sarcastic", "category": "sarcastic_looking", "text": "Đúng rồi, kế hoạch này nghe an toàn đến mức chẳng ai muốn thử lần thứ hai."},
+    {"id": "numbers_internet", "category": "numbers_english", "text": "Sau 3 phút, đoạn clip đã có 20 nghìn lượt xem và một bình luận chỉ ghi: wow."},
+    {"id": "long", "category": "longer_sentence", "text": "Cậu ấy bước qua hành lang tối, nghe tiếng quạt quay chậm phía sau lưng, rồi nhận ra căn phòng cuối cùng đang phát lại đúng cuộc trò chuyện mà mình vừa nói cách đây vài phút."},
+    {"id": "fast", "category": "fast_conversational", "text": "Không, không, đợi một chút, nếu người giữ chìa khóa đã rời đi thì ai vừa mở cửa cho chúng ta?"},
+    {"id": "calm", "category": "calm_sentence", "text": "Cuối cùng, mọi thứ trở về yên tĩnh như thể chưa từng có chuyện gì xảy ra."}
+  ]
+}

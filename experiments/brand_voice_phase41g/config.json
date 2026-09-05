@@ -1,0 +1,64 @@
+{
+  "phase": "41G",
+  "purpose": "final_long_form_podcast_confirmation",
+  "frozen_stack": {
+    "speaker": "Synthetic Candidate 03",
+    "phase41e_policy": "v3_semantic_focus",
+    "phase41f_tempo": 0.98,
+    "phase41e_winner_sha256": "51e4bd659d4d3d9d9dae236f08d5d6c9aaa704cf825553cd81cf5707bb874569",
+    "phase41f_winner_sha256": "a643129523b912e9e8efc06f25746a09d45efd8862d0ac58534a1e7d212bc423"
+  },
+  "speaker_identity": {
+    "canonical_root": "experiments/brand_voice_phase41b/baseline/PODCAST_SYNTHETIC_CANDIDATE_03",
+    "speaker_emb_array_sha256": "980d5856f58a8619b6abf0c3935de74ddfb5c333b9b8fae2fd5c3b6ef7067771",
+    "speaker_emb_npy_sha256": "c763159d8ed6ed4b0f1916f8b0762d1902743d293fcd7874541966d7f9ee10a1",
+    "reference_codes_npy_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5",
+    "status": "candidate",
+    "is_final_brand_voice": false
+  },
+  "candidate_b_identity": {
+    "canonical_root": "experiments/brand_voice_phase40b/baseline/PODCAST_CANDIDATE_B_BASELINE",
+    "speaker_emb_npy_sha256": "09ce43e1facce2878df2e4bc78581213804d1beca638e6861f8794ba3f63986e",
+    "reference_codes_npy_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5"
+  },
+  "podcast_text": {
+    "path": "experiments/brand_voice_phase41g/podcast_text.txt",
+    "canonical_utf8_sha256": "04e27a95375cef05ff87bd2d930b581254f039350e092b1b2dd0939cefcfecb7",
+    "file_sha256": "547ba4195a4d1e14a06763209204a5a9f5ebd48b3f23ed84d3659bff7bc5c5ce",
+    "characters": 8271,
+    "words": 1839,
+    "sentences": 86,
+    "punctuation": {".": 86, ",": 83, ";": 2, ":": 0, "?": 0, "!": 0, "…": 0}
+  },
+  "historical_source_characters_per_second": 19.193190975020144,
+  "post_tempo_factor": 0.98,
+  "manual_inserted_silence_seconds": 0.0,
+  "inference": {
+    "mode": "v3turbo",
+    "backend": "onnx",
+    "temperature": 0.8,
+    "top_k": 25,
+    "top_p": 0.95,
+    "repetition_penalty": 1.2,
+    "repetition_window": 64,
+    "denoise": true,
+    "use_ref_codes": true,
+    "silence_p": 0.15,
+    "crossfade_p": 0.0,
+    "apply_watermark": true,
+    "sample_rate": 48000,
+    "max_new_frames": 600,
+    "max_chars": 800,
+    "max_chars_chunk_safety": 350,
+    "batch_size": 1
+  },
+  "inference_config_sha256": "66693f2920ea4a9cc49299f6b6d90f4669ce2ead0f75b5b64e9de40417287d68",
+  "stochastic_seed_status": "unsupported",
+  "output": {
+    "chunk_directory": "experiments/brand_voice_phase41g/audio/chunks",
+    "original_final": "experiments/brand_voice_phase41g/audio/longform_original.wav",
+    "tempo_final": "experiments/brand_voice_phase41g/audio/longform_tempo_98.wav",
+    "manifest": "experiments/brand_voice_phase41g/manifest.json",
+    "checkpoint": "experiments/brand_voice_phase41g/resume_state.json"
+  }
+}

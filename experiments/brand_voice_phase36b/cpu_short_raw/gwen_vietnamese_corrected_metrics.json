@@ -1,0 +1,27 @@
+{
+  "language": "Vietnamese",
+  "reference_text": "A quiet evening settles over the city. I speak clearly, naturally, and without rushing.",
+  "target_text_passed": "Một câu chuyện rõ ràng cần được kể liền mạch, có điểm nhấn đúng chỗ và kết thúc bằng một ý thật đáng nhớ.",
+  "normalization": "identity NFC",
+  "config": {
+    "temperature": 0.3,
+    "top_k": 20,
+    "top_p": 0.9,
+    "max_new_tokens": 4096,
+    "repetition_penalty": 2.0,
+    "subtalker_do_sample": true,
+    "subtalker_temperature": 0.1,
+    "subtalker_top_k": 20,
+    "subtalker_top_p": 1.0
+  },
+  "generation_seconds": 817.062,
+  "rtf": 93.7,
+  "audio": {
+    "duration_seconds": 8.72,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.761719,
+    "rms": 0.082379,
+    "clipped_samples": 0
+  }
+}

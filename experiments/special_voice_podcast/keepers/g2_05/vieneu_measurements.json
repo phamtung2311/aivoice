@@ -1,0 +1,33 @@
+{
+  "identity": "G2-E",
+  "source_audio": {
+    "duration_seconds": 8.72,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.386719,
+    "rms": 0.06156,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "encode_seconds": 2.48,
+  "generation_seconds": 82.532,
+  "attempt": 1,
+  "speaker_emb_shape": [
+    192
+  ],
+  "reference_codes_shape": [
+    101,
+    16
+  ],
+  "audio": {
+    "duration_seconds": 13.52,
+    "sample_rate": 48000,
+    "channels": 1,
+    "peak": 0.703766,
+    "rms": 0.098832,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "peak_process_rss_mb": 3676.98,
+  "technical_status": "valid"
+}

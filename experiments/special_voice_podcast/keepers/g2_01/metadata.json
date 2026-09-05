@@ -1,0 +1,18 @@
+{
+  "keeper_id": "g2_01",
+  "phase": "30J",
+  "blind_audition_number": "01",
+  "original_identity": "G2-A",
+  "user_verdict": "fairly good; slightly too slow",
+  "preserved_at_utc": "2026-08-31T14:23:20.074919+00:00",
+  "english_generation_text": "In this quiet moment, we can slow down, listen closely, and let a simple thought unfold with clarity.",
+  "voicedesign_prompt": "Adult male with a naturally deep, warm and full-bodied voice, close intimate microphone presence, calm reflective confidence, and a distinctive but believable personal timbre. Speak like a thoughtful long-form podcast storyteller to one listener, with gentle expressive variation and natural conversational phrasing. Make the character more recognizable while remaining natural. Avoid announcer delivery, artificial bass, theatrical acting, generic audiobook cadence, cartoon characterisation, and imitation of any real person.",
+  "original_paths": {
+    "qwen_source": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/reference_audio/g2_A.wav",
+    "vietnamese_output": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/vietnamese_outputs/vietnamese_G2_A.wav",
+    "speaker_embedding": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/conditioning/speaker_emb_A.npy",
+    "reference_codes": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/conditioning/reference_codes_A.npy"
+  },
+  "audio_modified": false,
+  "conditioning_reencoded": false
+}

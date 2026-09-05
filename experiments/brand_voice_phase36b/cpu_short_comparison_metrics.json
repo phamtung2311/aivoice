@@ -1,0 +1,36 @@
+{
+  "gwen": {
+    "duration_seconds": 9.2,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.652344,
+    "rms": 0.070506,
+    "clipped_samples": 0
+  },
+  "vieneu": {
+    "duration_seconds": 5.92,
+    "sample_rate": 48000,
+    "channels": 1,
+    "peak": 0.677185,
+    "rms": 0.111381,
+    "clipped_samples": 0
+  },
+  "audition": {
+    "Clip_A.wav": {
+      "duration_seconds": 5.92,
+      "sample_rate": 48000,
+      "channels": 1,
+      "peak": 0.547211,
+      "rms": 0.09,
+      "clipped_samples": 0
+    },
+    "Clip_B.wav": {
+      "duration_seconds": 9.2,
+      "sample_rate": 24000,
+      "channels": 1,
+      "peak": 0.832703,
+      "rms": 0.09,
+      "clipped_samples": 0
+    }
+  }
+}

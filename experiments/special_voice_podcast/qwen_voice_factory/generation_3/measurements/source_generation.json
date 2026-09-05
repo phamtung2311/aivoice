@@ -1,0 +1,74 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "offline": true,
+  "device": "cpu",
+  "dtype": "torch.bfloat16",
+  "memory_before_load": {
+    "ram_total_bytes": 16358825984,
+    "ram_available_bytes": 10497781760,
+    "ram_used_bytes": 5861044224,
+    "swap_used_bytes": 2282328064
+  },
+  "memory_after_load": {
+    "ram_total_bytes": 16358825984,
+    "ram_available_bytes": 9747120128,
+    "ram_used_bytes": 6611705856,
+    "swap_used_bytes": 2282278912
+  },
+  "memory_after_unload": {
+    "ram_total_bytes": 16358825984,
+    "ram_available_bytes": 9124909056,
+    "ram_used_bytes": 7233916928,
+    "swap_used_bytes": 2280804352
+  },
+  "records": [
+    {
+      "identity": "K-A",
+      "attempt": 1,
+      "generation_seconds": 240.543,
+      "peak_process_rss_mb": 5005.6,
+      "prompt": "Adult male with warm resonance, a full medium-deep tone, subtle natural vocal texture, and a slightly deeper natural male register with slightly fuller low-mid resonance. Intelligent conversational delivery with relaxed human imperfections, soft close-mic presence, calm confidence, and a recognizable but believable podcast-host identity. Use a natural medium conversational rhythm with connected phrasing and short natural pauses only at sentence or clause boundaries. Avoid extreme bass, unnaturally lowered pitch, booming resonance, movie-trailer voice, radio voice, slow dramatic delivery, long pauses between ordinary words, excessive breathiness, audible breath acting, whispery delivery, generic TTS cadence, theatrical delivery, and imitation of any real person.",
+      "audio": {
+        "duration_seconds": 6.56,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.582031,
+        "rms": 0.073452,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      }
+    },
+    {
+      "identity": "K-B",
+      "attempt": 1,
+      "generation_seconds": 321.207,
+      "peak_process_rss_mb": 5159.46,
+      "prompt": "Adult male with warm resonance, a full medium-deep tone, and subtle natural vocal texture. Keep the natural depth direction while adding slightly firmer vocal presence, clearer calm authority, stable energy, confidence, and body. Intelligent conversational delivery with relaxed human imperfections, approachability, soft close-mic podcast intimacy, and a memorable believable identity. Use a natural medium conversational rhythm with connected phrasing and short natural pauses only at sentence or clause boundaries. Avoid aggression, shouting, advertising delivery, newsreader delivery, hyper-masculine caricature, theatrical authority, artificial bass, slow dramatic delivery, long pauses between ordinary words, excessive breathiness, audible breath acting, whispery delivery, generic TTS cadence, and imitation of any real person.",
+      "audio": {
+        "duration_seconds": 8.8,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.699219,
+        "rms": 0.078623,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      }
+    },
+    {
+      "identity": "K-C",
+      "attempt": 1,
+      "generation_seconds": 328.639,
+      "peak_process_rss_mb": 5184.47,
+      "prompt": "Adult male with a slightly deeper but natural medium-deep register, warm full-bodied low-mid resonance, subtle believable vocal texture, and slightly firmer masculine presence. Calm confident intelligence, stable relaxed energy, human imperfections, approachable close-mic podcast intimacy, and a recognizable conversational identity. Naturalness is more important than depth or strength. Use a natural medium conversational rhythm with connected phrasing and short natural pauses only at sentence or clause boundaries. Avoid extreme bass, forced low pitch, booming resonance, aggression, shouting, movie-trailer voice, radio announcer style, advertising delivery, hyper-masculine caricature, theatrical authority, slow dramatic delivery, long pauses between ordinary words, excessive breathiness, audible breath acting, whispery delivery, generic TTS cadence, and imitation of any real person.",
+      "audio": {
+        "duration_seconds": 8.72,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.498047,
+        "rms": 0.05173,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      }
+    }
+  ]
+}

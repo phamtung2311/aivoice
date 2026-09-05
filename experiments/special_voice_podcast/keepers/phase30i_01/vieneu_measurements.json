@@ -1,0 +1,31 @@
+{
+  "identity": "C",
+  "source_audio": {
+    "duration_seconds": 8.96,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.585938,
+    "rms": 0.096027,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "encode_seconds": 0.971,
+  "generation_seconds": 12.239,
+  "audio": {
+    "duration_seconds": 11.84,
+    "sample_rate": 48000,
+    "channels": 1,
+    "peak": 0.649597,
+    "rms": 0.112049,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "peak_process_rss_mb": 2875.32,
+  "speaker_emb_shape": [
+    192
+  ],
+  "codes_shape": [
+    101,
+    16
+  ]
+}

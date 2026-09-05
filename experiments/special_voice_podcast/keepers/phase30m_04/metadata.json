@@ -1,0 +1,11 @@
+{
+  "keeper_id": "phase30m_04",
+  "phase": "30M",
+  "blind_number": "04",
+  "identity": "M-A",
+  "keeper_status": "PRIMARY_DISTINCTIVENESS_FINALIST",
+  "user_verdict": "primary selected; pause diagnosis pending controlled refinement",
+  "english_generation_text": "In this quiet moment, we can slow down, listen closely, and let a simple thought unfold with clarity.",
+  "voicedesign_prompt": "Adult male with a naturally medium-deep to deep warm full-bodied voice, calm conversational delivery, subtle believable vocal texture, a slight natural grain, smooth low-mid resonance, intimate microphone presence, and mature approachable character. Memorable without sounding performed. Use a natural medium conversational pace, connected phrases, short natural pauses, no prolonged gaps, no slow narration, no breathy dramatic pauses, and no audiobook acting. Avoid heavy rasp, hoarse or smoker voice, movie-trailer voice, radio announcer, commercial voice, forced bass, aggressive masculinity, theatrical delivery, breathy acting, celebrity imitation, and any real-person imitation.",
+  "audio_modified": false
+}

@@ -1,0 +1,9 @@
+# Local audio, speaker-conditioning and blind-test state. Keep only scripts and reports in git.
+sources/
+conditioning/
+raw_vietnamese/
+audition/
+metrics/
+private_mapping.json
+tmp_vieneu/
+__pycache__/

@@ -1,0 +1,68 @@
+{
+  "device": "cpu",
+  "dtype": "torch.bfloat16",
+  "memory_before_load": {
+    "ram_available_bytes": 8550858752,
+    "ram_used_bytes": 7807967232,
+    "swap_used_bytes": 796483584
+  },
+  "load_seconds": 1.271,
+  "memory_after_load": {
+    "ram_available_bytes": 8122372096,
+    "ram_used_bytes": 8236453888,
+    "swap_used_bytes": 1132507136
+  },
+  "peak_process_rss_mb": 5117.79,
+  "records": [
+    {
+      "identity": "A",
+      "generation_seconds": 371.127,
+      "peak_process_rss_mb": 4916.16,
+      "audio": {
+        "duration_seconds": 8.08,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.361328,
+        "rms": 0.062838,
+        "clipped_samples": 0,
+        "leading_silence_seconds": 0.008,
+        "trailing_silence_seconds": 0.125
+      }
+    },
+    {
+      "identity": "B",
+      "generation_seconds": 308.335,
+      "peak_process_rss_mb": 5117.79,
+      "audio": {
+        "duration_seconds": 7.12,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.648438,
+        "rms": 0.090596,
+        "clipped_samples": 0,
+        "leading_silence_seconds": 0.057,
+        "trailing_silence_seconds": 0.146
+      }
+    },
+    {
+      "identity": "C",
+      "generation_seconds": 670.45,
+      "peak_process_rss_mb": 5117.79,
+      "audio": {
+        "duration_seconds": 8.96,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.585938,
+        "rms": 0.096027,
+        "clipped_samples": 0,
+        "leading_silence_seconds": 0.042,
+        "trailing_silence_seconds": 0.125
+      }
+    }
+  ],
+  "memory_after_unload": {
+    "ram_available_bytes": 8006832128,
+    "ram_used_bytes": 8351993856,
+    "swap_used_bytes": 1601736704
+  }
+}

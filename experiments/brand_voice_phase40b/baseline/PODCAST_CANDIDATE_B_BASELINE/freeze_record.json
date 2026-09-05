@@ -1,0 +1,66 @@
+{
+  "package": "PODCAST_CANDIDATE_B_BASELINE",
+  "phase": "40B",
+  "task": "freeze_baseline",
+  "formula": {
+    "Phạm Tuyên": 0.75,
+    "Thanh Bình": 0.25
+  },
+  "formula_expr": "0.75 x Phạm Tuyên + 0.25 x Thanh Bình",
+  "blend_normalization_applied": false,
+  "reference_codes_preset": "Thanh Bình",
+  "reference_codes_style": "Bắc - kể chuyện",
+  "speaker_emb": {
+    "file": "speaker_emb.npy",
+    "shape": [
+      192
+    ],
+    "dtype": "float32",
+    "norm": 10.962793350219727,
+    "finite": true,
+    "sha256": "0c0cbc23228c89cfc27b0d109603b42b3fa0ca071cf728801455ec2cae752b53"
+  },
+  "reference_codes": {
+    "file": "reference_codes.npy",
+    "shape": [
+      42,
+      16
+    ],
+    "dtype": "int64",
+    "sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8"
+  },
+  "vieneu_version": "3.3.0",
+  "backend": "onnx",
+  "device": "cpu",
+  "sample_rate_hz": 48000,
+  "voice_asset_path": "/home/tung/ai voice/.venv/lib/python3.14/site-packages/vieneu/assets/voices_v3_turbo.json",
+  "voice_asset_sha256": "574e6acf03823c4cafdc43f106731ce5fce6de30228fe383831b8b9064ee0bd8",
+  "generation_parameters": {
+    "denoise": true,
+    "use_ref_codes": true,
+    "temperature": 0.8,
+    "top_k": 25,
+    "top_p": 0.95,
+    "max_new_frames": 300,
+    "repetition_penalty": 1.2,
+    "repetition_window": 64,
+    "max_chars": 256,
+    "silence_p": 0.15,
+    "crossfade_p": 0.0,
+    "apply_watermark": true
+  },
+  "phase40a_provenance": {
+    "phase": "40A",
+    "candidate": "B",
+    "human_qa": "INTERESTING",
+    "reference_dir": "experiments/brand_voice_phase40a",
+    "embedding_geometry": "experiments/brand_voice_phase40a/embedding_geometry.json",
+    "audition_wav": "experiments/brand_voice_phase40a/audio/candidate_B.wav",
+    "audition_sha256": "7a280b94c8802b99e29dc4f5b57e2e481c9fb0928973d3d9e6d72fe40b55e066"
+  },
+  "canonical_source": "This package (.npy files) is the only canonical source for Phase 40B cross-text validation. The rounded data/voices/voices.json copy is UI/library-only.",
+  "started_utc": "2026-09-03T03:10:23.218189+00:00",
+  "repository_commit": "UNKNOWN",
+  "python": "3.14.7 (main, Aug 10 2026, 00:00:00) [GCC 16.1.1 20260515 (Red Hat 16.1.1-2)]",
+  "platform": "Linux-7.1.10-200.fc44.x86_64-x86_64-with-glibc2.43"
+}

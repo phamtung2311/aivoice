@@ -1,0 +1,53 @@
+{
+  "version": 2,
+  "canonical_speaker_emb_sha256": "980d5856f58a8619b6abf0c3935de74ddfb5c333b9b8fae2fd5c3b6ef7067771",
+  "canonical_speaker_emb_npy_sha256": "c763159d8ed6ed4b0f1916f8b0762d1902743d293fcd7874541966d7f9ee10a1",
+  "reference_codes_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5",
+  "inference_config_sha256": "5517fe2334e73d740d3ad8ffc3243b525286689538621518b78469cd87d29320",
+  "completed_tests": [],
+  "chunks": {
+    "01_short_monologue": [
+      {
+        "test_id": "01_short_monologue",
+        "chunk_index": 0,
+        "chunk_text_sha256": "8bf2b656134e4c4641567325fabb03d2df569e9c5918c20320a5f9a562fccf7e",
+        "inference_config_sha256": "5517fe2334e73d740d3ad8ffc3243b525286689538621518b78469cd87d29320",
+        "canonical_speaker_emb_sha256": "980d5856f58a8619b6abf0c3935de74ddfb5c333b9b8fae2fd5c3b6ef7067771",
+        "reference_codes_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5",
+        "generated_chunk_wav_sha256": "e438898a18c0133610509a905bd775c5d948833471b6c653cfa25c5f6420ef1a",
+        "generated_chunk_duration": 16.72
+      },
+      {
+        "test_id": "01_short_monologue",
+        "chunk_index": 1,
+        "chunk_text_sha256": "a53bbdff8fec30e91a7f57f650efe1010627d3b0fba857fcb30f3c9c6ac88a94",
+        "inference_config_sha256": "5517fe2334e73d740d3ad8ffc3243b525286689538621518b78469cd87d29320",
+        "canonical_speaker_emb_sha256": "980d5856f58a8619b6abf0c3935de74ddfb5c333b9b8fae2fd5c3b6ef7067771",
+        "reference_codes_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5",
+        "generated_chunk_wav_sha256": "d4dceaa526349c65a7bf85f2fe9e83818564bff53877ae13997363187c48eea5",
+        "generated_chunk_duration": 13.36
+      },
+      {
+        "test_id": "01_short_monologue",
+        "chunk_index": 2,
+        "chunk_text_sha256": "283e7ffdd2538d3f42cc903d0562c4a5c9a5c18c698b641a6c32623359a400a5",
+        "inference_config_sha256": "5517fe2334e73d740d3ad8ffc3243b525286689538621518b78469cd87d29320",
+        "canonical_speaker_emb_sha256": "980d5856f58a8619b6abf0c3935de74ddfb5c333b9b8fae2fd5c3b6ef7067771",
+        "reference_codes_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5",
+        "generated_chunk_wav_sha256": "d43708e32fb6bd215b68ee7610910eb421f0f6b0e955a14eb97228dab5af92b4",
+        "generated_chunk_duration": 18.96
+      },
+      {
+        "test_id": "01_short_monologue",
+        "chunk_index": 3,
+        "chunk_text_sha256": "49824a189d282d1360b6c2072a289c89cc306b5d966427742642e3ea5506dffd",
+        "inference_config_sha256": "5517fe2334e73d740d3ad8ffc3243b525286689538621518b78469cd87d29320",
+        "canonical_speaker_emb_sha256": "980d5856f58a8619b6abf0c3935de74ddfb5c333b9b8fae2fd5c3b6ef7067771",
+        "reference_codes_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5",
+        "generated_chunk_wav_sha256": "dd66e662e07d9f90928982b8ae6e078ad951e05a4349a381cdc812878d1b363b",
+        "generated_chunk_duration": 17.84
+      }
+    ]
+  },
+  "done_chunks": {}
+}

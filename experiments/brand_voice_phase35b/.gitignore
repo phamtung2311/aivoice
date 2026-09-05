@@ -1,0 +1,7 @@
+BEST_KNOWN_BRAND_VOICE_CHECKPOINT/*.wav
+BEST_KNOWN_BRAND_VOICE_CHECKPOINT/*.npy
+raw_outputs/
+audition/
+metrics/
+private_mapping.json
+__pycache__/

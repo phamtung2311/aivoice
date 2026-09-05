@@ -1,0 +1,29 @@
+{
+  "keeper_id": "phase30i_01",
+  "phase": "30I",
+  "blind_audition_number": "01",
+  "original_identity": "C",
+  "user_verdict": "good; human-like; fairly acceptable",
+  "preserved_at_utc": "2026-08-31T13:22:01.681208+00:00",
+  "english_generation_text": "In this quiet moment, we can slow down, listen closely, and let a simple thought unfold with clarity.",
+  "voicedesign_prompt": "Adult male with a deep voice, warm resonance and subtle natural vocal texture. Slight natural rasp is acceptable but must remain soft and believable. Mature, controlled and expressive, serious but approachable, memorable without sounding theatrical. Avoid extreme rasp, movie-trailer delivery, artificial bass and celebrity imitation.",
+  "original_paths": {
+    "qwen_source": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/reference_audio/qwen_candidate_C.wav",
+    "vietnamese_audition": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/audition/vietnamese_01.wav",
+    "source_measurements": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/measurements/source_generation.json",
+    "vieneu_measurements": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/measurements/vieneu_generation.json"
+  },
+  "conditioning": {
+    "encoder": "existing VieNeu ONNX reference encoder",
+    "denoise": false,
+    "use_ref_codes": true,
+    "speaker_embedding_shape": [
+      192
+    ],
+    "reference_codes_shape": [
+      101,
+      16
+    ]
+  },
+  "audio_modified": false
+}

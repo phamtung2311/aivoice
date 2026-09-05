@@ -1,0 +1,16 @@
+{
+  "identity": "G2-E",
+  "attempt": 1,
+  "generation_seconds": 402.62,
+  "peak_process_rss_mb": 5192.1,
+  "prompt": "Mature adult male with a naturally deep, resonant, warm voice that is slightly weighty but controlled. Full-body tone, thoughtful calm delivery, close intimate microphone presence, and natural expressive restraint. He should sound like a seasoned conversational storyteller, human and approachable rather than grand. Avoid extreme bass, movie-trailer style, artificial resonance, theatrical acting, generic audiobook cadence, and imitation of any real person.",
+  "audio": {
+    "duration_seconds": 8.72,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.386719,
+    "rms": 0.06156,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  }
+}

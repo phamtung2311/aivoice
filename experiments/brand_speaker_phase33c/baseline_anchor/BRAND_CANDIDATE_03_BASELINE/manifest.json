@@ -1,0 +1,22 @@
+{
+  "name": "BRAND_CANDIDATE_03_BASELINE",
+  "immutable": true,
+  "files": {
+    "qwen_source.wav": {
+      "sha256": "3f3f5c6771ed437297ffdd89c5ea2aebd2d34dd531235ad5dd12e93bf18b5f06",
+      "size_bytes": 334124
+    },
+    "speaker_emb.npy": {
+      "sha256": "93e0a4eced32b11dc3c12bee9c46b543a406f00a10ad1df8e00bb10a4fe9319b",
+      "size_bytes": 896
+    },
+    "reference_codes.npy": {
+      "sha256": "87421625c0ecfd0cf60e7f93aca028c1e854738d11f116c1b0de6970e610beb8",
+      "size_bytes": 11264
+    },
+    "phase33b_vietnamese_raw.wav": {
+      "sha256": "20c06eb998e675d50971bff1f33b85da3610e36c9fe47b2f3ea2a3b0d3e35b9c",
+      "size_bytes": 1367084
+    }
+  }
+}

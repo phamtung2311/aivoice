@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "language": "vi-VN",
+  "purpose": "Fixed texts for separating speaker identity from long-form prosody.",
+  "tests": [
+    {
+      "id": "test1_short",
+      "label": "Câu ngắn",
+      "focus": ["speaker_identity", "word_clarity"],
+      "text": "Có những ngày, điều ta cần nhất chỉ là một khoảng tĩnh."
+    },
+    {
+      "id": "test2_long_sentence",
+      "label": "Câu dài nhiều vế",
+      "focus": ["pitch_contour", "semantic_stress", "comma_rhythm", "sentence_ending"],
+      "text": "Khi ta ngừng cố gắng lấp đầy mọi khoảng trống bằng tiếng nói, công việc và những cuộc trò chuyện vội vàng, ta mới nhận ra rằng sự im lặng không hề rỗng, mà đang âm thầm giúp mình nghe rõ hơn điều thật sự quan trọng."
+    },
+    {
+      "id": "test3_podcast_paragraph",
+      "label": "Đoạn podcast 100–200 từ",
+      "focus": ["speaker_identity", "prosody", "transitions", "listening_fatigue"],
+      "text": "Chúng ta thường nghĩ rằng phải đi thật nhanh thì mới không bị bỏ lại phía sau. Vì thế, một ngày được lấp kín bằng công việc dễ khiến ta có cảm giác mình đang tiến về phía trước. Nhưng bận rộn không phải lúc nào cũng đồng nghĩa với trưởng thành. Có những chuyển động chỉ làm ta xa thêm khỏi điều mình muốn. Một khoảng tĩnh, dù chỉ vài phút, có thể giúp ta nhận ra sự khác biệt ấy. Khi nhịp thở chậm lại, những câu hỏi vốn bị che khuất bắt đầu hiện ra: việc này có thật sự cần thiết không, lựa chọn này đến từ mong muốn của mình hay từ nỗi sợ bị đánh giá, và điều gì sẽ còn ý nghĩa khi ngày hôm nay kết thúc? Ta không cần trả lời ngay. Đôi khi, chỉ cần đủ bình tĩnh để nghe câu hỏi cũng đã là một cách trở về với chính mình."
+    },
+    {
+      "id": "test4_long_form",
+      "label": "Long-form khoảng 1–2 phút",
+      "focus": ["long_form_stability", "semantic_focus", "pause_cadence", "listening_fatigue"],
+      "text": "Có một nghịch lý rất quen thuộc: càng muốn kiểm soát cuộc sống, ta càng dễ cảm thấy bất an. Ta lập thêm kế hoạch, kiểm tra thêm một lần, nghĩ trước mọi tình huống có thể xảy ra. Những việc ấy đôi khi hữu ích, nhưng cũng có thể khiến ta quên rằng không kế hoạch nào loại bỏ được hoàn toàn điều bất ngờ. Cuộc sống vẫn thay đổi, người khác vẫn có lựa chọn riêng, và chính ta của ngày mai cũng có thể nhìn mọi chuyện khác hôm nay.\n\nChấp nhận điều không chắc chắn không có nghĩa là buông xuôi. Đó là khi ta phân biệt được phần nào thuộc trách nhiệm của mình, và phần nào cần để thời gian trả lời. Ta vẫn chuẩn bị, vẫn làm điều cần làm, nhưng không bắt bản thân bảo đảm một kết quả tuyệt đối. Khoảng cách nhỏ giữa nỗ lực và kiểm soát ấy tạo ra nhiều tự do.\n\nHãy thử nhớ lại một điều đang khiến bạn lo lắng. Thay vì hỏi làm sao để chắc chắn mọi thứ sẽ ổn, hãy hỏi hôm nay mình có thể làm một việc tử tế và sáng suốt nào. Câu hỏi thứ hai nhỏ hơn, nhưng thực tế hơn. Nó đưa sự chú ý trở về hiện tại, nơi hành động của ta thật sự có ý nghĩa. Rồi sau khi đã làm phần của mình, hãy cho phép ngày hôm nay khép lại. Đôi khi, sự bình yên không đến từ việc biết hết câu trả lời, mà từ niềm tin rằng mình có thể gặp điều chưa biết bằng một tâm thế đủ vững vàng."
+    }
+  ]
+}

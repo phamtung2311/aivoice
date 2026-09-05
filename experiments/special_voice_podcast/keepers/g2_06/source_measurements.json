@@ -1,0 +1,16 @@
+{
+  "identity": "G2-B",
+  "attempt": 1,
+  "generation_seconds": 299.769,
+  "peak_process_rss_mb": 5099.45,
+  "prompt": "Adult male with warm resonance, a full medium-deep tone, and subtle natural vocal texture. Intelligent conversational delivery with relaxed human imperfections, soft close-mic presence, and calm confidence. He should feel like a memorable podcast host, not an engineered voice. Avoid exaggerated rasp, artificial bass, radio-commercial polish, theatrical delivery, generic TTS cadence, and imitation of any real person.",
+  "audio": {
+    "duration_seconds": 6.8,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.601562,
+    "rms": 0.067811,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  }
+}

@@ -1,0 +1,14 @@
+[
+  {"clip_id": "01", "category": "calm_introduction", "original_text": "Chào bạn, hôm nay chúng ta cùng bắt đầu bằng một câu chuyện nhỏ.", "normalized_text": "Chào bạn, hôm nay chúng ta cùng bắt đầu bằng một câu chuyện nhỏ."},
+  {"clip_id": "02", "category": "calm_introduction", "original_text": "Cảm ơn bạn đã dành ít phút để lắng nghe chương trình.", "normalized_text": "Cảm ơn bạn đã dành ít phút để lắng nghe chương trình."},
+  {"clip_id": "03", "category": "neutral_explanation", "original_text": "Một ý tưởng rõ ràng thường bắt đầu từ những điều rất đơn giản.", "normalized_text": "Một ý tưởng rõ ràng thường bắt đầu từ những điều rất đơn giản."},
+  {"clip_id": "04", "category": "neutral_explanation", "original_text": "Khi hiểu đúng vấn đề, chúng ta sẽ chọn được bước đi phù hợp.", "normalized_text": "Khi hiểu đúng vấn đề, chúng ta sẽ chọn được bước đi phù hợp."},
+  {"clip_id": "05", "category": "reflective_narration", "original_text": "Có những lúc chậm lại một chút lại giúp ta nhìn thấy điều quan trọng.", "normalized_text": "Có những lúc chậm lại một chút lại giúp ta nhìn thấy điều quan trọng."},
+  {"clip_id": "06", "category": "reflective_narration", "original_text": "Sau một ngày bận rộn, ai cũng cần một khoảng yên để suy nghĩ.", "normalized_text": "Sau một ngày bận rộn, ai cũng cần một khoảng yên để suy nghĩ."},
+  {"clip_id": "07", "category": "storytelling_conversation", "original_text": "Anh ấy đặt cuốn sách xuống rồi kể về cuộc gặp gỡ buổi sáng.", "normalized_text": "Anh ấy đặt cuốn sách xuống rồi kể về cuộc gặp gỡ buổi sáng."},
+  {"clip_id": "08", "category": "storytelling_conversation", "original_text": "Trong căn phòng nhỏ, mọi người lặng im nghe câu chuyện tiếp tục.", "normalized_text": "Trong căn phòng nhỏ, mọi người lặng im nghe câu chuyện tiếp tục."},
+  {"clip_id": "09", "category": "firm_authoritative", "original_text": "Điều cần làm trước tiên là giữ lời hứa với chính mình.", "normalized_text": "Điều cần làm trước tiên là giữ lời hứa với chính mình."},
+  {"clip_id": "10", "category": "firm_authoritative", "original_text": "Một quyết định tốt cần được đưa ra bằng sự bình tĩnh.", "normalized_text": "Một quyết định tốt cần được đưa ra bằng sự bình tĩnh."},
+  {"clip_id": "11", "category": "mixed_podcast_speech", "original_text": "Mỗi tuần, chúng ta chọn một chủ đề gần gũi để cùng trò chuyện.", "normalized_text": "Mỗi tuần, chúng ta chọn một chủ đề gần gũi để cùng trò chuyện."},
+  {"clip_id": "12", "category": "mixed_podcast_speech", "original_text": "Dù cuộc sống thay đổi, những điều tử tế vẫn luôn có giá trị.", "normalized_text": "Dù cuộc sống thay đổi, những điều tử tế vẫn luôn có giá trị."}
+]

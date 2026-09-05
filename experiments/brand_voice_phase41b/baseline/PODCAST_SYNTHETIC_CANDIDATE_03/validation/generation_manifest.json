@@ -1,0 +1,42 @@
+{
+  "texts": [
+    "Giá trị thực của con người không nằm ở những thành tựu phô trương, mà ở những quyết định nhỏ hàng ngày: chọn cảm thông thay vì vội vàng, chọn trung thực thay vì che giấu. Những điều giản dị ấy dần dần tạo nên chiều sâu của một đời người.",
+    "Để truyền đạt một ý tưởng sâu sắc, trước hết hãy sắp xếp suy nghĩ sao cho rõ ràng: mở vấn đề, dẫn giải bằng ví dụ đơn giản, và kết luận bằng một lời mời gọi suy ngẫm. Dạy người nghe cách tự hỏi, chứ không chỉ cung cấp câu trả lời.",
+    "Trong những buổi chiều yên ả, tôi nhớ lại một câu chuyện nhỏ: một người đi chậm trên đường, lặng lẽ nhận ra rằng mỗi bước chân mang theo một quyết định, và chính những quyết định đó đã ghép nên câu chuyện cuộc đời ông."
+  ],
+  "params": {
+    "denoise": true,
+    "use_ref_codes": true,
+    "temperature": 0.8,
+    "top_k": 25,
+    "top_p": 0.95,
+    "max_new_frames": 600,
+    "repetition_penalty": 1.2,
+    "repetition_window": 64,
+    "max_chars": 512,
+    "silence_p": 0.15,
+    "crossfade_p": 0.0,
+    "apply_watermark": true
+  },
+  "seed": null,
+  "results": [
+    {
+      "path": "experiments/brand_voice_phase41b/baseline/PODCAST_SYNTHETIC_CANDIDATE_03/validation/validation_passage_01.wav",
+      "duration": 11.92,
+      "sha256": "c6bfed0a57f1eb6c89ffa648830a81bb073f8d7a6062f398e533003d655f895e",
+      "rtf_est_seconds": 9.133958101272583
+    },
+    {
+      "path": "experiments/brand_voice_phase41b/baseline/PODCAST_SYNTHETIC_CANDIDATE_03/validation/validation_passage_02.wav",
+      "duration": 12.88,
+      "sha256": "ccd47b08aea5857c3454762a8714e37e73c08fa349d05a3968fe9853b286d6f8",
+      "rtf_est_seconds": 8.486610889434814
+    },
+    {
+      "path": "experiments/brand_voice_phase41b/baseline/PODCAST_SYNTHETIC_CANDIDATE_03/validation/validation_passage_03.wav",
+      "duration": 10.96,
+      "sha256": "bb48a6f7e93f41531cae053d6f3bb0254e23035df41b1172398d51b5b9e63aba",
+      "rtf_est_seconds": 9.946751832962036
+    }
+  ]
+}

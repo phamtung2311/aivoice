@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "canonical_speaker_emb_sha256": "test",
+  "canonical_speaker_emb_npy_sha256": "test",
+  "reference_codes_sha256": "test",
+  "inference_config_sha256": "test",
+  "completed_tests": [],
+  "chunks": {},
+  "done_chunks": {
+    "01_short_monologue": [
+      "0",
+      "1",
+      "2"
+    ],
+    "02_explanatory_section": [
+      "0",
+      "1"
+    ]
+  }
+}

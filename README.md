@@ -2,6 +2,12 @@
 
 Local Vietnamese AI voice generation and lightweight audio production. AIVoice runs on your machine: text, reference audio, generated WAV files, Voice Lab experiments, and Audio Studio projects stay local.
 
+## Project map
+
+`backend/` runtime · `frontend/` web UI · `assets/production_voices/` final identities · `docs/` restore records · `requirements/` dependency snapshots · `scripts/` utilities · `tests/` tests · `backups/` private backup · `experiments/` historical research.
+
+Production voice set: **AIVoice Podcast Voice Set v1** — `podcast_deep_warm`, `podcast_warm_storyteller`, `podcast_soft_baritone`.
+
 ## Installation
 
 Requirements: Python 3.11+, the included `.venv` (recommended), and FFmpeg for optional M4A reference support.
@@ -28,6 +34,7 @@ Serve `frontend/` with any local static server, then open its local URL. The fro
 - Optional Smart Text Processing for dates, money, time, percentages, fractions, decimals, and local brand pronunciations
 - Audio Studio for local multi-segment projects, targeted regeneration, sequential playback, and WAV export
 - Local history and browser IndexedDB audio persistence
+- One-click **🎙️ Podcast Brand Voice** with dynamic semantic planning, long-form recovery, natural V2 breathing pauses, and final 0.98x tempo
 - Dark/light theme, keyboard-visible focus, accessible status messages, and an About dialog
 
 ## Screenshots

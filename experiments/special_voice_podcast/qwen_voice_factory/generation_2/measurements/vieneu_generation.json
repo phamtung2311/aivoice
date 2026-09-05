@@ -1,0 +1,209 @@
+{
+  "vietnamese_test_text": "Có những câu chuyện không cần phải kể thật nhanh. Chỉ cần một giọng nói đủ gần gũi, một khoảng dừng đúng lúc, và đôi khi chính những điều rất bình thường lại khiến chúng ta muốn ngồi lại, lắng nghe lâu hơn một chút.",
+  "settings": {
+    "speed": 1.0,
+    "denoise": false,
+    "use_ref_codes": true,
+    "numpy_seed": 30109
+  },
+  "records": [
+    {
+      "identity": "G2-A",
+      "source_audio": {
+        "duration_seconds": 7.68,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.472656,
+        "rms": 0.062845,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 2.053,
+      "generation_seconds": 8.86,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        94,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 12.32,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.70636,
+        "rms": 0.09628,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2546.19,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "G2-B",
+      "source_audio": {
+        "duration_seconds": 6.8,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.601562,
+        "rms": 0.067811,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 0.793,
+      "generation_seconds": 8.778,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        84,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 11.76,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.559906,
+        "rms": 0.105293,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2622.77,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "G2-C",
+      "source_audio": {
+        "duration_seconds": 9.28,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.6875,
+        "rms": 0.07602,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 0.984,
+      "generation_seconds": 12.169,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        101,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 14.56,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.768341,
+        "rms": 0.09469,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 3387.79,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "G2-D",
+      "source_audio": {
+        "duration_seconds": 7.36,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.625,
+        "rms": 0.084758,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 0.823,
+      "generation_seconds": 20.613,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        90,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 11.84,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.781921,
+        "rms": 0.107406,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 3405.93,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "G2-E",
+      "source_audio": {
+        "duration_seconds": 8.72,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.386719,
+        "rms": 0.06156,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 2.48,
+      "generation_seconds": 82.532,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        101,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 13.52,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.703766,
+        "rms": 0.098832,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 3676.98,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "G2-F",
+      "source_audio": {
+        "duration_seconds": 7.84,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.726562,
+        "rms": 0.091802,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 4.695,
+      "generation_seconds": 134.025,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        97,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 11.68,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.869293,
+        "rms": 0.104067,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 3676.98,
+      "technical_status": "valid"
+    }
+  ]
+}

@@ -36,7 +36,7 @@ def parse_prosody_script(text: str) -> list[ProsodySegment]:
     segments: list[ProsodySegment] = []
     pending_text: str | None = None
     pending_pause: int | None = None
-    for part in parts:
+    for index, part in enumerate(parts):
         if part in MARKER_PAUSES_MS:
             if pending_text is None or not pending_text.strip() or pending_pause is not None:
                 raise ValueError("Each prosody marker must follow one spoken segment")
@@ -46,14 +46,16 @@ def parse_prosody_script(text: str) -> list[ProsodySegment]:
             pending_text = part.strip()
         elif pending_pause is not None:
             if not part.strip():
+                if index == len(parts) - 1:
+                    break  # A final marker requests silence after the last words.
                 raise ValueError("Each prosody marker must be followed by spoken text")
             segments.append(ProsodySegment(pending_text, pending_pause))
             pending_text, pending_pause = part.strip(), None
         else:
             pending_text += part
-    if pending_text is None or not pending_text.strip() or pending_pause is not None:
+    if pending_text is None or not pending_text.strip():
         raise ValueError("Prosody script must end with spoken text")
-    segments.append(ProsodySegment(pending_text, None))
+    segments.append(ProsodySegment(pending_text, pending_pause))
     return segments
 
 

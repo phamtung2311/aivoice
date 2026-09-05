@@ -1,0 +1,145 @@
+{
+  "phase": "40A",
+  "execution_status": "PASS",
+  "human_gate": "PENDING HUMAN QA",
+  "shared_vietnamese_audition_text": "Giữa những đổi thay, điều giữ chúng ta đứng vững không phải là câu trả lời có sẵn, mà là khả năng nhìn rõ điều mình tin và sống nhất quán với nó.",
+  "reference_code_anchor": "Thanh Bình",
+  "inference_defaults": {
+    "denoise": true,
+    "use_ref_codes": true,
+    "temperature": 0.8,
+    "top_k": 25,
+    "top_p": 0.95,
+    "max_new_frames": 300,
+    "repetition_penalty": 1.2,
+    "repetition_window": 64,
+    "max_chars": 256,
+    "silence_p": 0.15,
+    "crossfade_p": 0.0,
+    "apply_watermark": true,
+    "batch_size": null
+  },
+  "records": [
+    {
+      "candidate": "A",
+      "formula": {
+        "Minh Đức": 0.75,
+        "Phạm Tuyên": 0.25
+      },
+      "speaker_emb_sha256": "477609ebcb3da0c471e1eebc76d60ef7cce1511f277d690b49ac0fcd97fb5c0f",
+      "fixed_reference_codes_preset": "Thanh Bình",
+      "fixed_reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+      "numpy_seed": 40001,
+      "generation_seconds": 6.52385891799986,
+      "rtf": 0.6969934741452842,
+      "peak_process_rss_mib": 1333.91796875,
+      "audio": {
+        "path": "audio/candidate_A.wav",
+        "sha256": "f18ac858d5a093e1f8a1c461f37c3d34a02d9a11a5bbce9eeff4f749e9c7ee30",
+        "size_bytes": 898604,
+        "duration_seconds": 9.36,
+        "sample_rate_hz": 48000,
+        "channels": 1,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "frames_header": 449280,
+        "frames_read": 449280,
+        "all_samples_finite": true,
+        "peak_abs": 0.572998046875,
+        "rms": 0.1022562355259424,
+        "clipped_samples_abs_ge_0_999": 0
+      }
+    },
+    {
+      "candidate": "B",
+      "formula": {
+        "Phạm Tuyên": 0.75,
+        "Thanh Bình": 0.25
+      },
+      "speaker_emb_sha256": "0c0cbc23228c89cfc27b0d109603b42b3fa0ca071cf728801455ec2cae752b53",
+      "fixed_reference_codes_preset": "Thanh Bình",
+      "fixed_reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+      "numpy_seed": 40001,
+      "generation_seconds": 5.125189698000213,
+      "rtf": 0.6160083771634871,
+      "peak_process_rss_mib": 1340.453125,
+      "audio": {
+        "path": "audio/candidate_B.wav",
+        "sha256": "7a280b94c8802b99e29dc4f5b57e2e481c9fb0928973d3d9e6d72fe40b55e066",
+        "size_bytes": 798764,
+        "duration_seconds": 8.32,
+        "sample_rate_hz": 48000,
+        "channels": 1,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "frames_header": 399360,
+        "frames_read": 399360,
+        "all_samples_finite": true,
+        "peak_abs": 0.76727294921875,
+        "rms": 0.09835842472464301,
+        "clipped_samples_abs_ge_0_999": 0
+      }
+    },
+    {
+      "candidate": "C",
+      "formula": {
+        "Thanh Bình": 0.75,
+        "Minh Đức": 0.25
+      },
+      "speaker_emb_sha256": "a1929ad5fde654a6d1536908d02bd7a72c63578bdaef9aff08265dc88b6bd82c",
+      "fixed_reference_codes_preset": "Thanh Bình",
+      "fixed_reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+      "numpy_seed": 40001,
+      "generation_seconds": 3.625198587000341,
+      "rtf": 0.4979668388736732,
+      "peak_process_rss_mib": 1340.609375,
+      "audio": {
+        "path": "audio/candidate_C.wav",
+        "sha256": "5d85261756ee754f30a08321f25e717605b15856261183233e5af6ba4a8b5e81",
+        "size_bytes": 698924,
+        "duration_seconds": 7.28,
+        "sample_rate_hz": 48000,
+        "channels": 1,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "frames_header": 349440,
+        "frames_read": 349440,
+        "all_samples_finite": true,
+        "peak_abs": 0.64276123046875,
+        "rms": 0.10739968415340763,
+        "clipped_samples_abs_ge_0_999": 0
+      }
+    },
+    {
+      "candidate": "D",
+      "formula": {
+        "Minh Đức": 0.3333333333333333,
+        "Phạm Tuyên": 0.3333333333333333,
+        "Thanh Bình": 0.3333333333333333
+      },
+      "speaker_emb_sha256": "64f99d2e4303bc8816e88852a9b3f6a6a3e6db1b432eeddcb43e35175156f008",
+      "fixed_reference_codes_preset": "Thanh Bình",
+      "fixed_reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+      "numpy_seed": 40001,
+      "generation_seconds": 4.357032266000715,
+      "rtf": 0.539236666584247,
+      "peak_process_rss_mib": 1340.609375,
+      "audio": {
+        "path": "audio/candidate_D.wav",
+        "sha256": "121599abb7b45e45345666ec37601f1d2d622d11e46519af5aa8e8ebe7f79f39",
+        "size_bytes": 775724,
+        "duration_seconds": 8.08,
+        "sample_rate_hz": 48000,
+        "channels": 1,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "frames_header": 387840,
+        "frames_read": 387840,
+        "all_samples_finite": true,
+        "peak_abs": 0.743408203125,
+        "rms": 0.09570882696307274,
+        "clipped_samples_abs_ge_0_999": 0
+      }
+    }
+  ]
+}

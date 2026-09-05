@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "purpose": "Phase 28 zero-cost Kaggle inference-only PoC",
+  "core_required_assets": [
+    {
+      "name": "Vietnamese IndexTTS2 core",
+      "source": "dinhthuan/index-tts-2-vietnamese",
+      "revision": "4bbf2dea317dc2b6f1abfb526da373efc980745b",
+      "destination": "model",
+      "files": [
+        "config.yaml", "gpt.pth", "s2mel.pth", "bpe.model", "feat1.pt", "feat2.pt", "wav2vec2bert_stats.pt"
+      ],
+      "expected_bytes": {
+        "gpt.pth": 1742414058,
+        "s2mel.pth": 1202198223,
+        "bpe.model": 431664,
+        "feat1.pt": 57170,
+        "feat2.pt": 374866,
+        "wav2vec2bert_stats.pt": 9343
+      },
+      "sha256": null,
+      "required": true,
+      "purpose": "Vietnamese IndexTTS2 inference core"
+    },
+    {
+      "name": "Wav2Vec2-BERT feature encoder",
+      "source": "facebook/w2v-bert-2.0",
+      "revision": null,
+      "destination": "hf-cache",
+      "files": ["config.json", "model.safetensors", "preprocessor_config.json"],
+      "expected_bytes": {"model.safetensors": 2322063736},
+      "sha256": null,
+      "required": true,
+      "purpose": "speaker and emotion feature extraction"
+    },
+    {
+      "name": "MaskGCT semantic codec",
+      "source": "amphion/MaskGCT",
+      "revision": null,
+      "destination": "hf-cache",
+      "files": ["semantic_codec/model.safetensors"],
+      "expected_bytes": {"semantic_codec/model.safetensors": 177183712},
+      "sha256": null,
+      "required": true,
+      "purpose": "semantic codec only"
+    },
+    {
+      "name": "CAMPPlus",
+      "source": "funasr/campplus",
+      "revision": null,
+      "destination": "hf-cache",
+      "files": ["campplus_cn_common.bin"],
+      "expected_bytes": {"campplus_cn_common.bin": 28036335},
+      "sha256": null,
+      "required": true,
+      "purpose": "speaker/style conditioning"
+    },
+    {
+      "name": "BigVGAN generator",
+      "source": "nvidia/bigvgan_v2_22khz_80band_256x",
+      "revision": null,
+      "destination": "hf-cache",
+      "files": ["config.json", "bigvgan_generator.pt"],
+      "expected_bytes": {"bigvgan_generator.pt": 449228171},
+      "sha256": null,
+      "required": true,
+      "purpose": "vocoder generator only"
+    }
+  ],
+  "optional_assets": [],
+  "explicitly_skipped_assets": [
+    {
+      "name": "Qwen text-emotion classifier",
+      "source": "dinhthuan/index-tts-2-vietnamese",
+      "files": ["qwen0.6bemo4-merge/"],
+      "status": "SKIPPED_FOR_INITIAL_POC",
+      "reason": "Mode C shared audio and Mode B vector do not require use_emo_text; avoid ~1.19 GB model and classifier uncertainty."
+    },
+    {
+      "name": "MaskGCT non-semantic models",
+      "status": "SKIPPED_FOR_INITIAL_POC",
+      "reason": "The audited source calls only semantic_codec/model.safetensors."
+    },
+    {
+      "name": "BigVGAN discriminator and optimizer files",
+      "status": "SKIPPED_FOR_INITIAL_POC",
+      "reason": "Inference source loads only config.json and bigvgan_generator.pt."
+    }
+  ],
+  "source_code": {
+    "repository": "https://github.com/iamdinhthuan/index-tts-finetune-vietnamese.git",
+    "commit": "f63b1879d4b46aac456bd00640a4833a2ae071f4",
+    "purpose": "pinned community inference implementation"
+  },
+  "actual_download_record": null
+}

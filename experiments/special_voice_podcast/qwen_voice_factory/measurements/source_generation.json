@@ -1,0 +1,71 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "offline": true,
+  "device": "cpu",
+  "dtype": "torch.bfloat16",
+  "memory_before_load": {
+    "ram_total_bytes": 16358825984,
+    "ram_available_bytes": 8882925568,
+    "ram_used_bytes": 7475900416,
+    "swap_used_bytes": 1554333696
+  },
+  "memory_after_load": {
+    "ram_total_bytes": 16358825984,
+    "ram_available_bytes": 8340271104,
+    "ram_used_bytes": 8018554880,
+    "swap_used_bytes": 1554333696
+  },
+  "memory_after_unload": {
+    "ram_total_bytes": 16358825984,
+    "ram_available_bytes": 8340103168,
+    "ram_used_bytes": 8018722816,
+    "swap_used_bytes": 1554333696
+  },
+  "records": [
+    {
+      "identity": "A",
+      "preserved_existing": true,
+      "audio": {
+        "duration_seconds": 8.08,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.361328,
+        "rms": 0.062838,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0,
+        "leading_silence_seconds": 0.008,
+        "trailing_silence_seconds": 0.125
+      }
+    },
+    {
+      "identity": "B",
+      "preserved_existing": true,
+      "audio": {
+        "duration_seconds": 7.12,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.648438,
+        "rms": 0.090596,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0,
+        "leading_silence_seconds": 0.057,
+        "trailing_silence_seconds": 0.146
+      }
+    },
+    {
+      "identity": "C",
+      "preserved_existing": true,
+      "audio": {
+        "duration_seconds": 8.96,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.585938,
+        "rms": 0.096027,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0,
+        "leading_silence_seconds": 0.042,
+        "trailing_silence_seconds": 0.125
+      }
+    }
+  ]
+}

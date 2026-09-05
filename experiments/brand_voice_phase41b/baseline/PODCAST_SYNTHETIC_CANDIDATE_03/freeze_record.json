@@ -1,0 +1,6 @@
+{
+  "decision": "KEEP",
+  "decision_source": "human_blind_listening",
+  "clip_label": "clip_03.wav",
+  "real_candidate_file": "experiments/brand_voice_phase41a/runs/auditions/candidate_01.wav"
+}

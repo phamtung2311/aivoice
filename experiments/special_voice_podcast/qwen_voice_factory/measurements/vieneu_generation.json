@@ -1,0 +1,97 @@
+{
+  "records": [
+    {
+      "identity": "A",
+      "source_audio": {
+        "duration_seconds": 8.08,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.361328,
+        "rms": 0.062838,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 2.089,
+      "generation_seconds": 13.065,
+      "audio": {
+        "duration_seconds": 13.44,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.622437,
+        "rms": 0.100309,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2821.15,
+      "speaker_emb_shape": [
+        192
+      ],
+      "codes_shape": [
+        99,
+        16
+      ]
+    },
+    {
+      "identity": "B",
+      "source_audio": {
+        "duration_seconds": 7.12,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.648438,
+        "rms": 0.090596,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 0.72,
+      "generation_seconds": 11.576,
+      "audio": {
+        "duration_seconds": 10.48,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.661072,
+        "rms": 0.105427,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2860.84,
+      "speaker_emb_shape": [
+        192
+      ],
+      "codes_shape": [
+        87,
+        16
+      ]
+    },
+    {
+      "identity": "C",
+      "source_audio": {
+        "duration_seconds": 8.96,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.585938,
+        "rms": 0.096027,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 0.971,
+      "generation_seconds": 12.239,
+      "audio": {
+        "duration_seconds": 11.84,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.649597,
+        "rms": 0.112049,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2875.32,
+      "speaker_emb_shape": [
+        192
+      ],
+      "codes_shape": [
+        101,
+        16
+      ]
+    }
+  ]
+}

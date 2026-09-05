@@ -1,0 +1,329 @@
+{
+  "phase": "41E",
+  "canonical_source_text": "Để hiểu rõ điều gì khiến một con người sống với sự bình tĩnh, ta phải nhìn vào cách họ xử lý thời gian. Không phải trong những khoảnh khắc vinh quang, mà trong những giây phút thầm lặng khi mọi thứ quanh họ đang vội. Một người có thể nói rất nhiều, nhưng nếu họ không biết khi nào nên dừng lại, họ sẽ không bao giờ thực sự được nghe. Điều quan trọng không phải là ta đi nhanh đến đâu, mà là ta có biết mình đang đi về đâu hay không. Ta thường tưởng sức nặng của một lời nói nằm ở âm lượng, trong khi nó thật ra nằm ở sự chính xác và khoảng lặng bao quanh. Khi ta chậm lại để lắng nghe, ta bắt đầu nhận ra rằng sự rõ ràng không đến từ sự la hét của ý chí, mà từ sự ổn định của nội tâm. Vì vậy, cách ta nói lên điều mình tin tưởng không chỉ là cách truyền đạt ý tưởng, nó còn cho thấy cách ta sống cùng những ý tưởng ấy. Một người có thể giải thích rõ ràng nhưng vẫn chưa thực sự chạm tới người nghe nếu họ không biết nhấn đúng điểm. Suy cho cùng, cảm giác được hiểu là điều mà người ta nhớ lâu hơn bất kỳ câu văn hoa nào. Người nghe không chỉ cần một câu trả lời đúng; họ cần một nhịp dẫn đủ rõ để tự nhìn thấy điều quan trọng đối với mình. Và đó là lý do vì sao một giọng nói tốt không chỉ cần đúng, mà còn cần biết khi nào nên dừng, khi nào nên nhấn, và khi nào nên để người nghe tự mình suy ngẫm.",
+  "canonical_source_utf8_sha256": "12ad8cb1c8483eff48786494eb034580e602982fd90329fd73ce1ad641964dc2",
+  "canonical_spoken_lexical_text": "Để hiểu rõ điều gì khiến một con người sống với sự bình tĩnh, ta phải nhìn vào cách họ xử lý thời gian Không phải trong những khoảnh khắc vinh quang, mà trong những giây phút thầm lặng khi mọi thứ quanh họ đang vội Một người có thể nói rất nhiều, nhưng nếu họ không biết khi nào nên dừng lại, họ sẽ không bao giờ thực sự được nghe Điều quan trọng không phải là ta đi nhanh đến đâu, mà là ta có biết mình đang đi về đâu hay không Ta thường tưởng sức nặng của một lời nói nằm ở âm lượng, trong khi nó thật ra nằm ở sự chính xác và khoảng lặng bao quanh Khi ta chậm lại để lắng nghe, ta bắt đầu nhận ra rằng sự rõ ràng không đến từ sự la hét của ý chí, mà từ sự ổn định của nội tâm Vì vậy, cách ta nói lên điều mình tin tưởng không chỉ là cách truyền đạt ý tưởng, nó còn cho thấy cách ta sống cùng những ý tưởng ấy Một người có thể giải thích rõ ràng nhưng vẫn chưa thực sự chạm tới người nghe nếu họ không biết nhấn đúng điểm Suy cho cùng, cảm giác được hiểu là điều mà người ta nhớ lâu hơn bất kỳ câu văn hoa nào Người nghe không chỉ cần một câu trả lời đúng; họ cần một nhịp dẫn đủ rõ để tự nhìn thấy điều quan trọng đối với mình Và đó là lý do vì sao một giọng nói tốt không chỉ cần đúng, mà còn cần biết khi nào nên dừng, khi nào nên nhấn, và khi nào nên để người nghe tự mình suy ngẫm",
+  "canonical_spoken_lexical_sha256": "b710666f473dae64136bbb1e3d95fe9cf5ed373bbef3ad735b08adf4f6586076",
+  "lexical_reconstruction_rule": "Join text fields with one ASCII space. Phase 41D removes full stops before TTS; every variant intentionally uses that same spoken lexical form.",
+  "pause_policy": {
+    "classification": "experimental_heuristic",
+    "clause_boundary_seconds": 0.03,
+    "sentence_boundary_seconds": 0.06,
+    "thought_transition_seconds": 0.1,
+    "policy_note": "These values are experimental heuristics, not scientifically derived. Only Variant 2 inserts them during final WAV assembly."
+  },
+  "variants": {
+    "v0_phase41d_control": {
+      "description": "Exact Phase 41D chunk_text_for_longform control with max_chars=350.",
+      "chunk_count": 4,
+      "chunks": [
+        {
+          "variant": "v0_phase41d_control",
+          "chunk_index": 0,
+          "text": "Để hiểu rõ điều gì khiến một con người sống với sự bình tĩnh, ta phải nhìn vào cách họ xử lý thời gian Không phải trong những khoảnh khắc vinh quang, mà trong những giây phút thầm lặng khi mọi thứ quanh họ đang vội Một người có thể nói rất nhiều, nhưng nếu họ không biết khi nào nên dừng lại, họ sẽ không bao giờ thực sự được nghe",
+          "char_count": 330,
+          "text_sha256": "cab3a87ea9af47625b43ad5355486216a87183e5adf692dce03fd48defbe4af4",
+          "semantic_role": "opening_context",
+          "boundary_before": "paragraph_start",
+          "boundary_after": "phase41d_greedy_boundary",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v0_phase41d_control",
+          "chunk_index": 1,
+          "text": "Điều quan trọng không phải là ta đi nhanh đến đâu, mà là ta có biết mình đang đi về đâu hay không Ta thường tưởng sức nặng của một lời nói nằm ở âm lượng, trong khi nó thật ra nằm ở sự chính xác và khoảng lặng bao quanh Khi ta chậm lại để lắng nghe, ta bắt đầu nhận ra rằng sự rõ ràng không đến từ sự la hét của ý chí, mà từ sự ổn định của nội tâm",
+          "char_count": 347,
+          "text_sha256": "7314e232c78f62cf1a1023a587b03c97b469635b5ce15990bcf3f09952c366ec",
+          "semantic_role": "central_principle",
+          "boundary_before": "phase41d_greedy_boundary",
+          "boundary_after": "phase41d_greedy_boundary",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v0_phase41d_control",
+          "chunk_index": 2,
+          "text": "Vì vậy, cách ta nói lên điều mình tin tưởng không chỉ là cách truyền đạt ý tưởng, nó còn cho thấy cách ta sống cùng những ý tưởng ấy Một người có thể giải thích rõ ràng nhưng vẫn chưa thực sự chạm tới người nghe nếu họ không biết nhấn đúng điểm Suy cho cùng, cảm giác được hiểu là điều mà người ta nhớ lâu hơn bất kỳ câu văn hoa nào",
+          "char_count": 332,
+          "text_sha256": "3d5fb41b65ce15fa58b68ad1dfd9a0feebb28e635955f6986add9a1f02e9085d",
+          "semantic_role": "communication_consequence",
+          "boundary_before": "phase41d_greedy_boundary",
+          "boundary_after": "phase41d_greedy_boundary",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v0_phase41d_control",
+          "chunk_index": 3,
+          "text": "Người nghe không chỉ cần một câu trả lời đúng; họ cần một nhịp dẫn đủ rõ để tự nhìn thấy điều quan trọng đối với mình Và đó là lý do vì sao một giọng nói tốt không chỉ cần đúng, mà còn cần biết khi nào nên dừng, khi nào nên nhấn, và khi nào nên để người nghe tự mình suy ngẫm",
+          "char_count": 275,
+          "text_sha256": "b139aa7d6752b526cca7b7526e876c58e3792d2a041ce9c24f96f2a965b7c2ff",
+          "semantic_role": "resolution",
+          "boundary_before": "phase41d_greedy_boundary",
+          "boundary_after": "paragraph_end",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        }
+      ]
+    },
+    "v1_semantic_chunking": {
+      "description": "Semantic grouping only; no manual pause or parameter change.",
+      "chunk_count": 6,
+      "chunks": [
+        {
+          "variant": "v1_semantic_chunking",
+          "chunk_index": 0,
+          "text": "Để hiểu rõ điều gì khiến một con người sống với sự bình tĩnh, ta phải nhìn vào cách họ xử lý thời gian Không phải trong những khoảnh khắc vinh quang, mà trong những giây phút thầm lặng khi mọi thứ quanh họ đang vội",
+          "char_count": 214,
+          "text_sha256": "d5776c7f3175817ea804267f4aaccf4766f8c49ad73718d805d8c71ee175e21c",
+          "semantic_role": "opening_and_contrast",
+          "boundary_before": "paragraph_start",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v1_semantic_chunking",
+          "chunk_index": 1,
+          "text": "Một người có thể nói rất nhiều, nhưng nếu họ không biết khi nào nên dừng lại, họ sẽ không bao giờ thực sự được nghe Điều quan trọng không phải là ta đi nhanh đến đâu, mà là ta có biết mình đang đi về đâu hay không",
+          "char_count": 213,
+          "text_sha256": "e7042062937b11bd4997665bd50da958dde742abffa15b9e3cf0c6604fbae880",
+          "semantic_role": "behavior_and_principle",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v1_semantic_chunking",
+          "chunk_index": 2,
+          "text": "Ta thường tưởng sức nặng của một lời nói nằm ở âm lượng, trong khi nó thật ra nằm ở sự chính xác và khoảng lặng bao quanh Khi ta chậm lại để lắng nghe, ta bắt đầu nhận ra rằng sự rõ ràng không đến từ sự la hét của ý chí, mà từ sự ổn định của nội tâm",
+          "char_count": 249,
+          "text_sha256": "cd159b7bc9449cf55867ed4469b42e886738a52ee7f274020b0a3774b90d6ae8",
+          "semantic_role": "setup_and_realization",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v1_semantic_chunking",
+          "chunk_index": 3,
+          "text": "Vì vậy, cách ta nói lên điều mình tin tưởng không chỉ là cách truyền đạt ý tưởng, nó còn cho thấy cách ta sống cùng những ý tưởng ấy Một người có thể giải thích rõ ràng nhưng vẫn chưa thực sự chạm tới người nghe nếu họ không biết nhấn đúng điểm",
+          "char_count": 244,
+          "text_sha256": "fd75fcb026fbfe676d8aa97c1ecb40bb053a2a7997d94cdef99993323180bee7",
+          "semantic_role": "expression_and_reception",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v1_semantic_chunking",
+          "chunk_index": 4,
+          "text": "Suy cho cùng, cảm giác được hiểu là điều mà người ta nhớ lâu hơn bất kỳ câu văn hoa nào Người nghe không chỉ cần một câu trả lời đúng; họ cần một nhịp dẫn đủ rõ để tự nhìn thấy điều quan trọng đối với mình",
+          "char_count": 205,
+          "text_sha256": "d2a9a1c18ea3367eaf10932c598395e8e63e19da222af647ce3b06033c5325af",
+          "semantic_role": "listener_resolution",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v1_semantic_chunking",
+          "chunk_index": 5,
+          "text": "Và đó là lý do vì sao một giọng nói tốt không chỉ cần đúng, mà còn cần biết khi nào nên dừng, khi nào nên nhấn, và khi nào nên để người nghe tự mình suy ngẫm",
+          "char_count": 157,
+          "text_sha256": "5492b105099f4f7173c2d4281e2a6adbdff622ab6a0e72f703b5ad9fc1227507",
+          "semantic_role": "closing_thought",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "paragraph_end",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        }
+      ]
+    },
+    "v2_natural_pacing": {
+      "description": "Byte-identical chunk texts and engine controls to V1; only restrained assembly pauses differ.",
+      "chunk_count": 6,
+      "chunks": [
+        {
+          "variant": "v2_natural_pacing",
+          "chunk_index": 0,
+          "text": "Để hiểu rõ điều gì khiến một con người sống với sự bình tĩnh, ta phải nhìn vào cách họ xử lý thời gian Không phải trong những khoảnh khắc vinh quang, mà trong những giây phút thầm lặng khi mọi thứ quanh họ đang vội",
+          "char_count": 214,
+          "text_sha256": "d5776c7f3175817ea804267f4aaccf4766f8c49ad73718d805d8c71ee175e21c",
+          "semantic_role": "opening_and_contrast",
+          "boundary_before": "paragraph_start",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.06,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v2_natural_pacing",
+          "chunk_index": 1,
+          "text": "Một người có thể nói rất nhiều, nhưng nếu họ không biết khi nào nên dừng lại, họ sẽ không bao giờ thực sự được nghe Điều quan trọng không phải là ta đi nhanh đến đâu, mà là ta có biết mình đang đi về đâu hay không",
+          "char_count": 213,
+          "text_sha256": "e7042062937b11bd4997665bd50da958dde742abffa15b9e3cf0c6604fbae880",
+          "semantic_role": "behavior_and_principle",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.1,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v2_natural_pacing",
+          "chunk_index": 2,
+          "text": "Ta thường tưởng sức nặng của một lời nói nằm ở âm lượng, trong khi nó thật ra nằm ở sự chính xác và khoảng lặng bao quanh Khi ta chậm lại để lắng nghe, ta bắt đầu nhận ra rằng sự rõ ràng không đến từ sự la hét của ý chí, mà từ sự ổn định của nội tâm",
+          "char_count": 249,
+          "text_sha256": "cd159b7bc9449cf55867ed4469b42e886738a52ee7f274020b0a3774b90d6ae8",
+          "semantic_role": "setup_and_realization",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.1,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v2_natural_pacing",
+          "chunk_index": 3,
+          "text": "Vì vậy, cách ta nói lên điều mình tin tưởng không chỉ là cách truyền đạt ý tưởng, nó còn cho thấy cách ta sống cùng những ý tưởng ấy Một người có thể giải thích rõ ràng nhưng vẫn chưa thực sự chạm tới người nghe nếu họ không biết nhấn đúng điểm",
+          "char_count": 244,
+          "text_sha256": "fd75fcb026fbfe676d8aa97c1ecb40bb053a2a7997d94cdef99993323180bee7",
+          "semantic_role": "expression_and_reception",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.06,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v2_natural_pacing",
+          "chunk_index": 4,
+          "text": "Suy cho cùng, cảm giác được hiểu là điều mà người ta nhớ lâu hơn bất kỳ câu văn hoa nào Người nghe không chỉ cần một câu trả lời đúng; họ cần một nhịp dẫn đủ rõ để tự nhìn thấy điều quan trọng đối với mình",
+          "char_count": 205,
+          "text_sha256": "d2a9a1c18ea3367eaf10932c598395e8e63e19da222af647ce3b06033c5325af",
+          "semantic_role": "listener_resolution",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "semantic_thought_boundary",
+          "pause_after_seconds": 0.1,
+          "focus_phrase": null
+        },
+        {
+          "variant": "v2_natural_pacing",
+          "chunk_index": 5,
+          "text": "Và đó là lý do vì sao một giọng nói tốt không chỉ cần đúng, mà còn cần biết khi nào nên dừng, khi nào nên nhấn, và khi nào nên để người nghe tự mình suy ngẫm",
+          "char_count": 157,
+          "text_sha256": "5492b105099f4f7173c2d4281e2a6adbdff622ab6a0e72f703b5ad9fc1227507",
+          "semantic_role": "closing_thought",
+          "boundary_before": "semantic_thought_boundary",
+          "boundary_after": "paragraph_end",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": null
+        }
+      ]
+    },
+    "v3_semantic_focus": {
+      "description": "Different setup/resolution boundaries and at most one primary focus phrase per major thought; no manual pauses or acoustic controls.",
+      "chunk_count": 8,
+      "chunks": [
+        {
+          "variant": "v3_semantic_focus",
+          "chunk_index": 0,
+          "text": "Để hiểu rõ điều gì khiến một con người sống với sự bình tĩnh, ta phải nhìn vào cách họ xử lý thời gian Không phải trong những khoảnh khắc vinh quang, mà trong những giây phút thầm lặng khi mọi thứ quanh họ đang vội",
+          "char_count": 214,
+          "text_sha256": "d5776c7f3175817ea804267f4aaccf4766f8c49ad73718d805d8c71ee175e21c",
+          "semantic_role": "context_then_contrast",
+          "boundary_before": "paragraph_start",
+          "boundary_after": "thought_transition",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": "những giây phút thầm lặng"
+        },
+        {
+          "variant": "v3_semantic_focus",
+          "chunk_index": 1,
+          "text": "Một người có thể nói rất nhiều, nhưng nếu họ không biết khi nào nên dừng lại, họ sẽ không bao giờ thực sự được nghe",
+          "char_count": 115,
+          "text_sha256": "830cf5664c21fdff74957807618e55a880ae7bec8bf872b53cc2c042b9635439",
+          "semantic_role": "behavior_resolution",
+          "boundary_before": "thought_transition",
+          "boundary_after": "thought_transition",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": "khi nào nên dừng lại"
+        },
+        {
+          "variant": "v3_semantic_focus",
+          "chunk_index": 2,
+          "text": "Điều quan trọng không phải là ta đi nhanh đến đâu, mà là ta có biết mình đang đi về đâu hay không Ta thường tưởng sức nặng của một lời nói nằm ở âm lượng,",
+          "char_count": 154,
+          "text_sha256": "3b605a3629f27fe637d13a547ff050cc63b07d349872afbec4eedc8adc2dd592",
+          "semantic_role": "principle_then_setup",
+          "boundary_before": "thought_transition",
+          "boundary_after": "setup_resolution_boundary",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": "biết mình đang đi về đâu"
+        },
+        {
+          "variant": "v3_semantic_focus",
+          "chunk_index": 3,
+          "text": "trong khi nó thật ra nằm ở sự chính xác và khoảng lặng bao quanh Khi ta chậm lại để lắng nghe, ta bắt đầu nhận ra rằng sự rõ ràng không đến từ sự la hét của ý chí, mà từ sự ổn định của nội tâm",
+          "char_count": 192,
+          "text_sha256": "527a1b13a10708c10058b1a9981e885d8f9e6981ec7829978798388c24e1837a",
+          "semantic_role": "contrast_resolution",
+          "boundary_before": "setup_resolution_boundary",
+          "boundary_after": "thought_transition",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": "sự ổn định của nội tâm"
+        },
+        {
+          "variant": "v3_semantic_focus",
+          "chunk_index": 4,
+          "text": "Vì vậy, cách ta nói lên điều mình tin tưởng không chỉ là cách truyền đạt ý tưởng, nó còn cho thấy cách ta sống cùng những ý tưởng ấy",
+          "char_count": 132,
+          "text_sha256": "90d88053692a1b2cb003da2d9cb81fd4484ceb1341b48a6deb242441cac489b2",
+          "semantic_role": "idea_and_lived_alignment",
+          "boundary_before": "thought_transition",
+          "boundary_after": "thought_transition",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": "cách ta sống cùng những ý tưởng ấy"
+        },
+        {
+          "variant": "v3_semantic_focus",
+          "chunk_index": 5,
+          "text": "Một người có thể giải thích rõ ràng nhưng vẫn chưa thực sự chạm tới người nghe nếu họ không biết nhấn đúng điểm Suy cho cùng, cảm giác được hiểu là điều mà người ta nhớ lâu hơn bất kỳ câu văn hoa nào",
+          "char_count": 199,
+          "text_sha256": "a587962d1b595e910cbbb487ca000f2552eb6894bb95402d74bc101575f916ae",
+          "semantic_role": "clarity_then_human_result",
+          "boundary_before": "thought_transition",
+          "boundary_after": "thought_transition",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": "cảm giác được hiểu"
+        },
+        {
+          "variant": "v3_semantic_focus",
+          "chunk_index": 6,
+          "text": "Người nghe không chỉ cần một câu trả lời đúng; họ cần một nhịp dẫn đủ rõ để tự nhìn thấy điều quan trọng đối với mình",
+          "char_count": 117,
+          "text_sha256": "6483f73665a8dd5b9b353cefc4f7855da3bb414d5cfa2a72467276f291ea38b2",
+          "semantic_role": "listener_agency",
+          "boundary_before": "thought_transition",
+          "boundary_after": "thought_transition",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": "điều quan trọng đối với mình"
+        },
+        {
+          "variant": "v3_semantic_focus",
+          "chunk_index": 7,
+          "text": "Và đó là lý do vì sao một giọng nói tốt không chỉ cần đúng, mà còn cần biết khi nào nên dừng, khi nào nên nhấn, và khi nào nên để người nghe tự mình suy ngẫm",
+          "char_count": 157,
+          "text_sha256": "5492b105099f4f7173c2d4281e2a6adbdff622ab6a0e72f703b5ad9fc1227507",
+          "semantic_role": "closing_resolution",
+          "boundary_before": "thought_transition",
+          "boundary_after": "paragraph_end",
+          "pause_after_seconds": 0.0,
+          "focus_phrase": "không chỉ cần đúng"
+        }
+      ]
+    }
+  }
+}

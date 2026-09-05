@@ -1,0 +1,38 @@
+{
+  "audit_date": "2026-09-02",
+  "official_source": {
+    "repository": "https://github.com/OpenBMB/VoxCPM",
+    "commit": "f772e498a45fbb5fb8e13fbf9b9c48be9fe33e69",
+    "latest_release_observed": "2.0.3",
+    "release_commit": "19b6bf7590025418821a86dcb817504e0ad7e5df",
+    "license": "Apache-2.0"
+  },
+  "official_model": {
+    "repository": "https://huggingface.co/openbmb/VoxCPM2",
+    "revision": "32279effe8c19989596f05d353d1447f51d9e915",
+    "license": "Apache-2.0",
+    "commercial_use_statement": "Official model card states Apache-2.0 and free for commercial use.",
+    "explicit_language": "Vietnamese (vi)",
+    "required_files": {
+      "model.safetensors": {
+        "bytes": 4580080592,
+        "sha256": "f7f964cfa9da23653baec6e6f7750719977ad944ed9f95fe52fe3a620506891d"
+      },
+      "audiovae.pth": {
+        "bytes": 376951122,
+        "sha256": "94b5d51e107e0507d4acc976cfdadb64edd6fd06d1f751dadbf2fd1594274bf1"
+      },
+      "tokenizer.json": {
+        "bytes": 3676772
+      }
+    },
+    "minimum_snapshot_bytes": 4960731866
+  },
+  "restrictions": {
+    "user_audio": "forbidden",
+    "candidate03_clone": "forbidden for this audition",
+    "corpus_generation": "forbidden",
+    "training": "forbidden",
+    "production_changes": "forbidden"
+  }
+}

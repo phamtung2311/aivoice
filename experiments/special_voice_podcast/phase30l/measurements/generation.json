@@ -1,0 +1,345 @@
+{
+  "settings": {
+    "speed": 1.0,
+    "denoise": false,
+    "use_ref_codes": true,
+    "numpy_seed_before_each_generation": 30109,
+    "normal_production_chunking": true
+  },
+  "tests": {
+    "test_01": {
+      "text_path": "/home/tung/ai voice/experiments/special_voice_podcast/phase30l/test_texts/test_01_conversational.txt",
+      "sha256": "06a4e808c27926537c94ce95453dc07b732e721103fc34c0ffda743973db3a93",
+      "characters": 472
+    },
+    "test_02": {
+      "text_path": "/home/tung/ai voice/experiments/special_voice_podcast/phase30l/test_texts/test_02_reflective.txt",
+      "sha256": "05d70e9387b4226c888ebadf66b1281f066f418d1c7b2e7bd49febf78c30b09e",
+      "characters": 528
+    },
+    "test_03": {
+      "text_path": "/home/tung/ai voice/experiments/special_voice_podcast/phase30l/test_texts/test_03_informational.txt",
+      "sha256": "40611b5746c69266b090138d1cde271c96619f2a892425b202255011f4d8633f",
+      "characters": 506
+    },
+    "test_04_longform": {
+      "text_path": "/home/tung/ai voice/experiments/special_voice_podcast/phase30l/test_texts/test_04_longform.txt",
+      "sha256": "60afef9f70a971149215cd5675ab82f725ba293c7eef31248076188bb9720413",
+      "characters": 6195
+    }
+  },
+  "records": [
+    {
+      "identity": "CONTROL",
+      "test": "test_01",
+      "preserved_existing": true,
+      "audio": {
+        "duration_seconds": 27.76,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.636963,
+        "rms": 0.1025,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "technical_status": "valid"
+    },
+    {
+      "identity": "CONTROL",
+      "test": "test_02",
+      "preserved_existing": true,
+      "audio": {
+        "duration_seconds": 30.8,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.815643,
+        "rms": 0.103691,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "technical_status": "valid"
+    },
+    {
+      "identity": "CONTROL",
+      "test": "test_03",
+      "preserved_existing": true,
+      "audio": {
+        "duration_seconds": 30.24,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.89798,
+        "rms": 0.102886,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "technical_status": "valid"
+    },
+    {
+      "identity": "CONTROL",
+      "test": "test_04_longform",
+      "attempt": 1,
+      "generation_seconds": 284.09,
+      "peak_process_rss_mb": 4731.94,
+      "audio": {
+        "duration_seconds": 370.936,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.911377,
+        "rms": 0.101735,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "technical_status": "valid",
+      "chunk_count": 33,
+      "chunk_character_lengths": [
+        216,
+        117,
+        150,
+        210,
+        208,
+        223,
+        218,
+        196,
+        151,
+        178,
+        240,
+        191,
+        171,
+        229,
+        161,
+        140,
+        147,
+        193,
+        94,
+        230,
+        188,
+        158,
+        182,
+        161,
+        210,
+        198,
+        232,
+        172,
+        220,
+        231,
+        172,
+        215,
+        150
+      ],
+      "chunk_durations_seconds": [
+        12.8,
+        6.4,
+        8.64,
+        11.44,
+        12.88,
+        13.2,
+        13.04,
+        11.12,
+        9.2,
+        11.28,
+        15.92,
+        10.88,
+        10.8,
+        13.2,
+        9.44,
+        8.24,
+        8.4,
+        11.36,
+        5.84,
+        13.2,
+        12.16,
+        8.96,
+        11.76,
+        9.76,
+        12.96,
+        12.0,
+        14.0,
+        10.4,
+        14.74,
+        14.0,
+        10.56,
+        12.48,
+        9.84
+      ],
+      "all_expected_chunks_synthesized": true
+    },
+    {
+      "identity": "K-A",
+      "test": "test_01",
+      "attempt": 1,
+      "generation_seconds": 21.391,
+      "peak_process_rss_mb": 4731.94,
+      "audio": {
+        "duration_seconds": 27.76,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.744171,
+        "rms": 0.104718,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "technical_status": "valid",
+      "chunk_count": 3,
+      "chunk_character_lengths": [
+        143,
+        155,
+        172
+      ],
+      "chunk_durations_seconds": [
+        8.48,
+        9.52,
+        9.76
+      ],
+      "all_expected_chunks_synthesized": true
+    },
+    {
+      "identity": "K-A",
+      "test": "test_02",
+      "attempt": 1,
+      "generation_seconds": 23.43,
+      "peak_process_rss_mb": 4731.94,
+      "audio": {
+        "duration_seconds": 28.64,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.855347,
+        "rms": 0.101262,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "technical_status": "valid",
+      "chunk_count": 4,
+      "chunk_character_lengths": [
+        116,
+        164,
+        86,
+        159
+      ],
+      "chunk_durations_seconds": [
+        6.56,
+        9.04,
+        4.4,
+        8.64
+      ],
+      "all_expected_chunks_synthesized": true
+    },
+    {
+      "identity": "K-A",
+      "test": "test_03",
+      "attempt": 1,
+      "generation_seconds": 21.836,
+      "peak_process_rss_mb": 4731.94,
+      "audio": {
+        "duration_seconds": 28.64,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.921448,
+        "rms": 0.101419,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "technical_status": "valid",
+      "chunk_count": 3,
+      "chunk_character_lengths": [
+        219,
+        99,
+        186
+      ],
+      "chunk_durations_seconds": [
+        12.96,
+        5.36,
+        10.32
+      ],
+      "all_expected_chunks_synthesized": true
+    },
+    {
+      "identity": "K-A",
+      "test": "test_04_longform",
+      "attempt": 1,
+      "generation_seconds": 204.02,
+      "peak_process_rss_mb": 5139.14,
+      "audio": {
+        "duration_seconds": 358.9,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.999969,
+        "rms": 0.104053,
+        "clipped_samples": 2,
+        "clipping_ratio": 1.2e-07
+      },
+      "technical_status": "valid",
+      "chunk_count": 33,
+      "chunk_character_lengths": [
+        216,
+        117,
+        150,
+        210,
+        208,
+        223,
+        218,
+        196,
+        151,
+        178,
+        240,
+        191,
+        171,
+        229,
+        161,
+        140,
+        147,
+        193,
+        94,
+        230,
+        188,
+        158,
+        182,
+        161,
+        210,
+        198,
+        232,
+        172,
+        220,
+        231,
+        172,
+        215,
+        150
+      ],
+      "chunk_durations_seconds": [
+        11.6,
+        6.4,
+        7.6,
+        11.52,
+        12.32,
+        12.72,
+        12.64,
+        11.04,
+        8.32,
+        10.32,
+        15.44,
+        11.36,
+        10.72,
+        13.36,
+        8.88,
+        8.0,
+        8.08,
+        11.68,
+        5.44,
+        13.28,
+        11.44,
+        8.64,
+        12.0,
+        8.64,
+        13.04,
+        11.2,
+        13.44,
+        10.08,
+        14.66,
+        13.36,
+        9.76,
+        12.96,
+        8.96
+      ],
+      "all_expected_chunks_synthesized": true
+    }
+  ]
+}

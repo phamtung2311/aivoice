@@ -1,0 +1,11 @@
+{
+  "phase": "40C",
+  "baseline_untouched": true,
+  "production_library_voice_untouched": true,
+  "reference_codes_changed": false,
+  "new_model_downloaded": false,
+  "model_changed": false,
+  "user_voice_recording_used": false,
+  "cloud_or_gpu_used": false,
+  "winner_rule": "A refinement wins only if clearly preferred to baseline while preserving naturalness and podcast fit."
+}

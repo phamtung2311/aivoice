@@ -1,0 +1,33 @@
+{
+  "identity": "G2-A",
+  "source_audio": {
+    "duration_seconds": 7.68,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.472656,
+    "rms": 0.062845,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "encode_seconds": 2.053,
+  "generation_seconds": 8.86,
+  "attempt": 1,
+  "speaker_emb_shape": [
+    192
+  ],
+  "reference_codes_shape": [
+    94,
+    16
+  ],
+  "audio": {
+    "duration_seconds": 12.32,
+    "sample_rate": 48000,
+    "channels": 1,
+    "peak": 0.70636,
+    "rms": 0.09628,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "peak_process_rss_mb": 2546.19,
+  "technical_status": "valid"
+}

@@ -1,0 +1,7 @@
+baseline_anchor/BRAND_CANDIDATE_03_BASELINE/*.wav
+baseline_anchor/BRAND_CANDIDATE_03_BASELINE/*.npy
+raw_outputs/
+audition/
+metrics/
+private_mapping.json
+__pycache__/

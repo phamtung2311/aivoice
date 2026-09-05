@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "language": "vi",
+  "sentences": [
+    {
+      "id": "intro",
+      "category": "intro",
+      "text": "Bộ phim bắt đầu bằng một sự kiện tưởng chừng hết sức bình thường, nhưng chỉ vài phút sau mọi chi tiết đều trở nên đáng ngờ."
+    },
+    {
+      "id": "narrative",
+      "category": "narrative",
+      "text": "Nhân vật chính trở về thị trấn ven biển sau mười năm xa cách và nhận ra rằng những người quen cũ đang cùng che giấu một bí mật."
+    },
+    {
+      "id": "suspense",
+      "category": "suspense",
+      "text": "Khi chiếc điện thoại reo lên lần thứ ba trong căn phòng tối, cô ấy mới hiểu người gọi biết chính xác mình đang đứng ở đâu."
+    },
+    {
+      "id": "reveal",
+      "category": "reveal",
+      "text": "Cú lật cuối không thay đổi câu chuyện bằng một lời giải thích dễ dãi; nó buộc người xem nhìn lại mọi manh mối đã xuất hiện từ đầu."
+    },
+    {
+      "id": "action",
+      "category": "action",
+      "text": "Cánh cửa nhà ga bật mở, tiếng còi vang lên, và cuộc truy đuổi bắt đầu trước khi bất kỳ ai kịp gọi tên người bỏ chạy."
+    },
+    {
+      "id": "reflective",
+      "category": "quiet_reflective",
+      "text": "Giữa nhịp kể dồn dập, bộ phim dành một khoảng lặng ngắn để nhân vật nhớ về lời hứa mà anh chưa từng giữ được."
+    },
+    {
+      "id": "names_numbers",
+      "category": "names_numbers",
+      "text": "Hồ sơ ghi rằng Minh Anh gặp bác sĩ Quang lúc 20 giờ 45, ngày 10 tháng 5 năm 2026, tại tầng 7 của khách sạn An Phú."
+    },
+    {
+      "id": "contrast",
+      "category": "contrast",
+      "text": "Điều đáng khen là phim không cố gắng làm mọi cảnh trở nên ồn ào; nó biết khi nào cần tăng nhịp và khi nào nên để im lặng lên tiếng."
+    },
+    {
+      "id": "long_sentence",
+      "category": "long_chunking",
+      "text": "Từ một bức ảnh cũ bị xé đôi, nhóm điều tra lần theo chuyến tàu số 27, gặp một người gác cổng đã nghỉ hưu, rồi phát hiện rằng căn nhà bỏ hoang ở cuối phố không hề trống như mọi người vẫn nghĩ, bởi phía sau cánh cửa khóa kín còn có một căn phòng lưu giữ toàn bộ nhật ký của nạn nhân."
+    },
+    {
+      "id": "closing",
+      "category": "closing",
+      "text": "Nếu bạn thích những câu chuyện chậm rãi nhưng luôn giữ một mối nguy lơ lửng, đây là bộ phim đáng để xem đến phút cuối."
+    }
+  ]
+}

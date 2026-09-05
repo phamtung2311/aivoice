@@ -1,0 +1,22 @@
+# Pinned runtime interface packages from the audited community source.
+# Kaggle's preinstalled CUDA-enabled torch/torchaudio MUST be retained: do not
+# pip-install a CPU wheel over it. verify_environment.py records actual versions.
+transformers==4.52.1
+tokenizers==0.21.0
+huggingface_hub==0.35.3
+modelscope==1.27.0
+omegaconf==2.3.0
+sentencepiece==0.2.1
+safetensors==0.5.3
+librosa==0.11.0
+soundfile==0.13.1
+einops==0.8.1
+accelerate==1.8.0
+numpy==1.26.4
+
+# Required but deliberately not installed from this file:
+# torch >= 2.6.0
+# torchaudio >= 2.6.0
+# The notebook first verifies Kaggle's CUDA build, then installs this file with
+# The notebook installs this list normally; torch is absent so its GPU build is
+# never replaced by a CPU wheel.

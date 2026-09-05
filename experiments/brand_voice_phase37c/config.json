@@ -1,0 +1,23 @@
+{
+  "phase": "37C",
+  "mode": "VoxCPM2 Voice Design",
+  "one_generation_only": true,
+  "source_commit": "f772e498a45fbb5fb8e13fbf9b9c48be9fe33e69",
+  "checkpoint_repository": "openbmb/VoxCPM2",
+  "checkpoint_revision": "32279effe8c19989596f05d353d1447f51d9e915",
+  "device": "cuda:0",
+  "seed": 2040417,
+  "cfg_value": 2.0,
+  "inference_timesteps": 10,
+  "normalize": false,
+  "denoise": false,
+  "retry_badcase": false,
+  "retry_badcase_max_times": 0,
+  "optimize": false,
+  "streaming": false,
+  "output_subtype": "FLOAT",
+  "target_file": "target.txt",
+  "voice_design_file": "voice_design.txt",
+  "output_filename": "candidate04_raw.wav",
+  "metrics_filename": "metrics.json"
+}

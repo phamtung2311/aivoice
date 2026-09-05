@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "purpose": "Controlled local VieNeu Review Film voice comparison",
+  "engine": {
+    "backend": "onnx",
+    "model": "current AIVoice VieNeu configuration",
+    "local_first": true
+  },
+  "profile": {
+    "id": "review_film_research_01",
+    "display_name": "Review phim — nghiên cứu",
+    "reference_role": "Selected natural narrator/reviewer delivery",
+    "text_profile": "none; reuse existing optional Smart Text Processing separately",
+    "chunking_profile": "existing TTSEngine outer chunking (240 characters)",
+    "pause_profile": "existing measured-gap behavior only"
+  },
+  "common": {
+    "speed": 1.0,
+    "max_chunk_chars": 240,
+    "denoise": true,
+    "use_ref_codes": true,
+    "quality_diagnostics": true
+  },
+  "candidates": {
+    "baseline": {
+      "label": "Ẩn danh 1",
+      "description": "Current native sampling defaults; no explicit overrides.",
+      "sampling": {}
+    },
+    "review_candidate_a": {
+      "label": "Ẩn danh 2",
+      "description": "Slightly lower diversity to test steadier review narration.",
+      "sampling": {
+        "temperature": 0.72,
+        "top_p": 0.92,
+        "repetition_penalty": 1.24
+      }
+    },
+    "review_candidate_b": {
+      "label": "Ẩn danh 3",
+      "description": "Slightly higher diversity to test natural phrase variation.",
+      "sampling": {
+        "temperature": 0.86,
+        "top_k": 30,
+        "top_p": 0.96,
+        "repetition_penalty": 1.18
+      }
+    },
+    "review_candidate_c": {
+      "label": "Ẩn danh 4",
+      "description": "Balanced diversity with modest repetition control.",
+      "sampling": {
+        "temperature": 0.78,
+        "top_p": 0.94,
+        "repetition_penalty": 1.28
+      }
+    }
+  }
+}

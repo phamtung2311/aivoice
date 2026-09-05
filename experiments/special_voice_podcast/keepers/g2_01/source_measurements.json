@@ -1,0 +1,16 @@
+{
+  "identity": "G2-A",
+  "attempt": 1,
+  "generation_seconds": 595.434,
+  "peak_process_rss_mb": 5066.45,
+  "prompt": "Adult male with a naturally deep, warm and full-bodied voice, close intimate microphone presence, calm reflective confidence, and a distinctive but believable personal timbre. Speak like a thoughtful long-form podcast storyteller to one listener, with gentle expressive variation and natural conversational phrasing. Make the character more recognizable while remaining natural. Avoid announcer delivery, artificial bass, theatrical acting, generic audiobook cadence, cartoon characterisation, and imitation of any real person.",
+  "audio": {
+    "duration_seconds": 7.68,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.472656,
+    "rms": 0.062845,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  }
+}

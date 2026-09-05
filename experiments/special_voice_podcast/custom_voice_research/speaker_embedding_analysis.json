@@ -1,0 +1,33 @@
+{
+  "method": "read-only NumPy analysis; no inference or profile mutation",
+  "preset_count": 20,
+  "speaker_embedding": {
+    "shape": [
+      20,
+      192
+    ],
+    "dtype": "float32",
+    "value_min": -4.399827003479004,
+    "value_max": 3.261159896850586,
+    "mean": -0.06364899128675461,
+    "std": 0.9457854628562927,
+    "norm_min": 10.81389045715332,
+    "norm_max": 18.822559356689453,
+    "norm_mean": 13.029899597167969,
+    "pairwise_cosine_min": 0.0366162434220314,
+    "pairwise_cosine_max": 0.657137393951416,
+    "pairwise_cosine_mean": 0.2646859884262085,
+    "pairwise_euclidean_min": 11.162768363952637,
+    "pairwise_euclidean_max": 20.984678268432617,
+    "pairwise_euclidean_mean": 15.844738006591797
+  },
+  "reference_codes": {
+    "dtype": "int64",
+    "n_vq": 16,
+    "frame_count_min": 39,
+    "frame_count_max": 76,
+    "token_min": 0,
+    "token_max": 1023
+  },
+  "interpretation_limit": "Numerical separation does not validate interpolation, mixing, or synthetic speaker creation."
+}

@@ -1,0 +1,414 @@
+{
+  "phase": "30J",
+  "created_at_utc": "2026-08-31T13:22:01.681208+00:00",
+  "integrity_algorithm": "sha256",
+  "keepers": [
+    {
+      "keeper_id": "phase30i_01",
+      "phase30i_blind_number": "01",
+      "original_identity": "C",
+      "verdict": "good; human-like; fairly acceptable",
+      "voicedesign_prompt": "Adult male with a deep voice, warm resonance and subtle natural vocal texture. Slight natural rasp is acceptable but must remain soft and believable. Mature, controlled and expressive, serious but approachable, memorable without sounding theatrical. Avoid extreme rasp, movie-trailer delivery, artificial bass and celebrity imitation.",
+      "qwen_source_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/qwen_source.wav",
+      "vietnamese_sample_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/vietnamese_sample.wav",
+      "speaker_embedding_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/speaker_emb.npy",
+      "reference_codes_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/reference_codes.npy",
+      "preserved_at_utc": "2026-08-31T13:22:01.681208+00:00",
+      "files": {
+        "metadata.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/metadata.json",
+          "size_bytes": 1554,
+          "sha256": "eb79522cf283150d319dd2c529579ec39579dcc433a5c69f51107d295d99ddc7"
+        },
+        "qwen_source.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/qwen_source.wav",
+          "size_bytes": 430124,
+          "sha256": "43c26d673510d0b0a465b8f2eda0c6d92409bbb56afeff30e9d2bf36633ed5ee"
+        },
+        "reference_codes.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/reference_codes.npy",
+          "size_bytes": 13056,
+          "sha256": "bb51c53d85561a5e64db63217dcd4b41d3d8fc6c2d8c2bff11f420ae2f13cff2"
+        },
+        "source_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/source_measurements.json",
+          "size_bytes": 317,
+          "sha256": "02e7e5bd72f8b8fcfef48d6ce65ba09c80af9a222b98d6e4602d603b571cc416"
+        },
+        "speaker_emb.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/speaker_emb.npy",
+          "size_bytes": 896,
+          "sha256": "d2b51bca163969f70ab7ee86e2ae4c912bc95c60c766027c2e5d6b1002b61dc6"
+        },
+        "vieneu_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/vieneu_measurements.json",
+          "size_bytes": 577,
+          "sha256": "72b8545aa919b15cfd121d974a6458d7708c689da9b32d5e4086e1629bb125f8"
+        },
+        "vietnamese_sample.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_01/vietnamese_sample.wav",
+          "size_bytes": 1136684,
+          "sha256": "614ea0e19e4a89d0b6e5c3535e1a9eeff35e3479ae174c0373f1d8dd61dea3a0"
+        }
+      }
+    },
+    {
+      "keeper_id": "phase30i_02",
+      "phase30i_blind_number": "02",
+      "original_identity": "B",
+      "verdict": "good; human-like; fairly acceptable",
+      "voicedesign_prompt": "Adult male with a medium-deep to deep voice and a clean but characterful timbre. Calm confidence, intelligent conversational delivery, intimate microphone presence and subtle vocal texture. He should sound like a distinctive long-form podcast host rather than a commercial announcer. Avoid generic TTS cadence, exaggerated bass, theatrical delivery, and imitation of any real person.",
+      "qwen_source_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/qwen_source.wav",
+      "vietnamese_sample_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/vietnamese_sample.wav",
+      "speaker_embedding_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/speaker_emb.npy",
+      "reference_codes_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/reference_codes.npy",
+      "preserved_at_utc": "2026-08-31T13:22:01.681208+00:00",
+      "files": {
+        "metadata.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/metadata.json",
+          "size_bytes": 1602,
+          "sha256": "4e2225fa96ecf71b8d276b5af943ee673415a9731ed92924ad44bbadc8326e89"
+        },
+        "qwen_source.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/qwen_source.wav",
+          "size_bytes": 341804,
+          "sha256": "a5e85e865c7fe2f534262f282e5aa47e9d8b449a81115ad1a905519d41e36190"
+        },
+        "reference_codes.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/reference_codes.npy",
+          "size_bytes": 11264,
+          "sha256": "d71ee0357c4c700c11305db02518885d189b1089c8b5586041c1b4dc1fdb1134"
+        },
+        "source_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/source_measurements.json",
+          "size_bytes": 317,
+          "sha256": "23e8b21ef338882cf669372b0d0727252d7d2f3423bd7ce9702e966777eb1f90"
+        },
+        "speaker_emb.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/speaker_emb.npy",
+          "size_bytes": 896,
+          "sha256": "11ec5e8f9094e08b6e869a16eda91a87eb75090a460e11127b1ba0980ddaa22a"
+        },
+        "vieneu_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/vieneu_measurements.json",
+          "size_bytes": 575,
+          "sha256": "a165f7104eec9410a0c61419e88a0ba342b8b3f23b2898ffd48716cbed6e25d4"
+        },
+        "vietnamese_sample.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30i_02/vietnamese_sample.wav",
+          "size_bytes": 1006124,
+          "sha256": "65d9c5fc3b1d3c6cd60241eaeaf2258c377d6992fd77e0dd841949b81555637b"
+        }
+      }
+    },
+    {
+      "keeper_id": "g2_01",
+      "phase30j_blind_number": "01",
+      "original_identity": "G2-A",
+      "verdict": "fairly good; slightly too slow",
+      "voicedesign_prompt": "Adult male with a naturally deep, warm and full-bodied voice, close intimate microphone presence, calm reflective confidence, and a distinctive but believable personal timbre. Speak like a thoughtful long-form podcast storyteller to one listener, with gentle expressive variation and natural conversational phrasing. Make the character more recognizable while remaining natural. Avoid announcer delivery, artificial bass, theatrical acting, generic audiobook cadence, cartoon characterisation, and imitation of any real person.",
+      "qwen_source_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/qwen_source.wav",
+      "vietnamese_sample_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/vietnamese_sample.wav",
+      "speaker_embedding_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/speaker_emb.npy",
+      "reference_codes_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/reference_codes.npy",
+      "preserved_at_utc": "2026-08-31T14:23:20.074919+00:00",
+      "files": {
+        "metadata.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/metadata.json",
+          "size_bytes": 1574,
+          "sha256": "28633e0b16c8e6767555c895c0e99454caf553403833da7d43aa519f49a92494"
+        },
+        "qwen_source.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/qwen_source.wav",
+          "size_bytes": 368684,
+          "sha256": "e245ac7b37d0765e552fc6594f2d994cd9d28099e9e7b13bdea0a36a46d91a51"
+        },
+        "reference_codes.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/reference_codes.npy",
+          "size_bytes": 12160,
+          "sha256": "68bb5fa1edffd8cea14a175b42ea44d9653240b7589fb310f82a1bb07129d003"
+        },
+        "source_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/source_measurements.json",
+          "size_bytes": 839,
+          "sha256": "f1c5e977316d7e15870ccd1b700286a04fbdd17630a98212acde28a6c818c607"
+        },
+        "speaker_emb.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/speaker_emb.npy",
+          "size_bytes": 896,
+          "sha256": "1c5e5e36be699620c46efa208f42764b1c2075da3f67cfb9edb2d6336f32f718"
+        },
+        "vieneu_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/vieneu_measurements.json",
+          "size_bytes": 632,
+          "sha256": "d4898c84e7d33d4453ea6ec465d66d20a65426ed8234f38d63dbd510523fae7d"
+        },
+        "vietnamese_sample.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_01/vietnamese_sample.wav",
+          "size_bytes": 1182764,
+          "sha256": "c5e604b8a08a50b5e90c1e273e17b55abdafdc05475ab61dacdcfb3cbe72df01"
+        }
+      }
+    },
+    {
+      "keeper_id": "g2_05",
+      "phase30j_blind_number": "05",
+      "original_identity": "G2-E",
+      "verdict": "fairly good",
+      "voicedesign_prompt": "Mature adult male with a naturally deep, resonant, warm voice that is slightly weighty but controlled. Full-body tone, thoughtful calm delivery, close intimate microphone presence, and natural expressive restraint. He should sound like a seasoned conversational storyteller, human and approachable rather than grand. Avoid extreme bass, movie-trailer style, artificial resonance, theatrical acting, generic audiobook cadence, and imitation of any real person.",
+      "qwen_source_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/qwen_source.wav",
+      "vietnamese_sample_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/vietnamese_sample.wav",
+      "speaker_embedding_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/speaker_emb.npy",
+      "reference_codes_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/reference_codes.npy",
+      "preserved_at_utc": "2026-08-31T14:23:20.074919+00:00",
+      "files": {
+        "metadata.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/metadata.json",
+          "size_bytes": 1487,
+          "sha256": "d6a36a1c02e73ce4836801383fb2349d1a4e686f9f48f43b055767143c303900"
+        },
+        "qwen_source.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/qwen_source.wav",
+          "size_bytes": 418604,
+          "sha256": "161fb84b18e76d63a2344a10831040c60d30a57b0d87af18b533621977f18adf"
+        },
+        "reference_codes.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/reference_codes.npy",
+          "size_bytes": 13056,
+          "sha256": "0f59332c07280962f76182302b1af62aaea23d7a3d96956c008630af6949d131"
+        },
+        "source_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/source_measurements.json",
+          "size_bytes": 768,
+          "sha256": "ad96680608b208ee16afeb57c57fe30ec3f243daab241d0acc83987c878a4f0a"
+        },
+        "speaker_emb.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/speaker_emb.npy",
+          "size_bytes": 896,
+          "sha256": "136e2f18d827bf5e1f19cc1692a78af8f927589af0ed3efcdf9c61cf7e0c486d"
+        },
+        "vieneu_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/vieneu_measurements.json",
+          "size_bytes": 635,
+          "sha256": "8a7da2424aa7ebe72cd07ee4908ad461d03592352fb190f81c3fbed10a058df9"
+        },
+        "vietnamese_sample.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_05/vietnamese_sample.wav",
+          "size_bytes": 1297964,
+          "sha256": "3e1e66c5865ceb23e838ed9a75000764cf9dba04090236f0f1aca58d5bd34330"
+        }
+      }
+    },
+    {
+      "keeper_id": "g2_06",
+      "phase30j_blind_number": "06",
+      "original_identity": "G2-B",
+      "verdict": "highest potential of the six; primary candidate",
+      "voicedesign_prompt": "Adult male with warm resonance, a full medium-deep tone, and subtle natural vocal texture. Intelligent conversational delivery with relaxed human imperfections, soft close-mic presence, and calm confidence. He should feel like a memorable podcast host, not an engineered voice. Avoid exaggerated rasp, artificial bass, radio-commercial polish, theatrical delivery, generic TTS cadence, and imitation of any real person.",
+      "qwen_source_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/qwen_source.wav",
+      "vietnamese_sample_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/vietnamese_sample.wav",
+      "speaker_embedding_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/speaker_emb.npy",
+      "reference_codes_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/reference_codes.npy",
+      "preserved_at_utc": "2026-08-31T14:23:20.074919+00:00",
+      "files": {
+        "metadata.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/metadata.json",
+          "size_bytes": 1483,
+          "sha256": "e1c904bd96b6ca224b9a470ae624e1a952317620f0af39a230805092e181b605"
+        },
+        "qwen_source.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/qwen_source.wav",
+          "size_bytes": 326444,
+          "sha256": "b28da4010c0caa433f7aa832a2eadde98a591296a6850fe2b2e3d53bf2574d58"
+        },
+        "reference_codes.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/reference_codes.npy",
+          "size_bytes": 10880,
+          "sha256": "0a3a13278e965986373b368cc049f325c97047bd1b3ff701969c51873211e642"
+        },
+        "source_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/source_measurements.json",
+          "size_bytes": 730,
+          "sha256": "94692e1851698f1efc5ad56368cebe1d4d40c109a1c507caf65f3d332b9395a7"
+        },
+        "speaker_emb.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/speaker_emb.npy",
+          "size_bytes": 896,
+          "sha256": "8a7f64f160ca3b9cbb43803df71b055744fe2c8d3f0fc07a2b88b0cf028591d7"
+        },
+        "vieneu_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/vieneu_measurements.json",
+          "size_bytes": 634,
+          "sha256": "e5995bad97f87d64ddd1b61a25c12776bac13b7d1966372511ad6d513c728116"
+        },
+        "vietnamese_sample.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/vietnamese_sample.wav",
+          "size_bytes": 1129004,
+          "sha256": "eea9d667cac29e4c8d428a51a2e6bfb390936228f305307262ef8754942d7374"
+        }
+      }
+    },
+    {
+      "keeper_id": "phase30k_01",
+      "phase30k_blind_number": "01",
+      "original_identity": "CONTROL",
+      "verdict": "okay / selected",
+      "canonical_keeper_link": "g2_06",
+      "preserved_at_utc": "2026-08-31T14:51:08.493679+00:00",
+      "files": {
+        "finalist_link.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_01/finalist_link.json",
+          "size_bytes": 933,
+          "sha256": "4dad0a46709e2860d72805c2db0351efbc519bbbee3c13f9406d631b22a7a809"
+        }
+      }
+    },
+    {
+      "keeper_id": "phase30k_04",
+      "phase30k_blind_number": "04",
+      "original_identity": "K-A",
+      "verdict": "okay / selected",
+      "keeper_status": "LONG_FORM_BASELINE_KEEPER",
+      "voicedesign_prompt": "Adult male with warm resonance, a full medium-deep tone, subtle natural vocal texture, and a slightly deeper natural male register with slightly fuller low-mid resonance. Intelligent conversational delivery with relaxed human imperfections, soft close-mic presence, calm confidence, and a recognizable but believable podcast-host identity. Use a natural medium conversational rhythm with connected phrasing and short natural pauses only at sentence or clause boundaries. Avoid extreme bass, unnaturally lowered pitch, booming resonance, movie-trailer voice, radio voice, slow dramatic delivery, long pauses between ordinary words, excessive breathiness, audible breath acting, whispery delivery, generic TTS cadence, theatrical delivery, and imitation of any real person.",
+      "qwen_source_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/qwen_source.wav",
+      "vietnamese_sample_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/vietnamese_sample.wav",
+      "speaker_embedding_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/speaker_emb.npy",
+      "reference_codes_path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/reference_codes.npy",
+      "preserved_at_utc": "2026-08-31T14:51:08.493679+00:00",
+      "files": {
+        "metadata.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/metadata.json",
+          "size_bytes": 1710,
+          "sha256": "0c8c077aa1393ff5ea36d82750f9087312b32cea80cdbd93be3f7ccb6114cef1"
+        },
+        "qwen_source.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/qwen_source.wav",
+          "size_bytes": 314924,
+          "sha256": "e4d648f021febe4444848df45456ee4118421cb5c612aef2848afd87239bd5ed"
+        },
+        "reference_codes.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/reference_codes.npy",
+          "size_bytes": 10112,
+          "sha256": "bfe713c0c5f84cce2101ca82903e2242e0837d2d3db426466333aa91ae264bc7"
+        },
+        "source_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/source_measurements.json",
+          "size_bytes": 1081,
+          "sha256": "88a1caf939cbf1c274076bc06d46721a113ffd4f237442b791d59d8bceaf03d8"
+        },
+        "speaker_emb.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/speaker_emb.npy",
+          "size_bytes": 896,
+          "sha256": "f5cf66bd03fe87d2e9ae255059f58a5adf1f75b929c25b846fcffbb0e947f4ec"
+        },
+        "vieneu_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/vieneu_measurements.json",
+          "size_bytes": 635,
+          "sha256": "86da01878403e9ba356feedae25d89e6aa1dff98cf168fb9db6b588113999c46"
+        },
+        "vietnamese_sample.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30k_04/vietnamese_sample.wav",
+          "size_bytes": 1090604,
+          "sha256": "f1fec997f8a1af66492e335272d7b91471dc0e5eeaf452a9377da6be5af38dc4"
+        }
+      }
+    },
+    {
+      "keeper_id": "phase30m_04",
+      "phase30m_blind_number": "04",
+      "original_identity": "M-A",
+      "keeper_status": "PRIMARY_DISTINCTIVENESS_FINALIST",
+      "files": {
+        "metadata.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_04/metadata.json",
+          "size_bytes": 1110,
+          "sha256": "6c4809eb2dcba0968ea7d5f9b325d37ed1baba63874a79ea89c5288f0d22d3b5"
+        },
+        "qwen_source.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_04/qwen_source.wav",
+          "size_bytes": 418604,
+          "sha256": "12bcb040d5eeb66688fccbd526ea7417f8eae39a77d51f83b82c9d8977781b9b"
+        },
+        "reference_codes.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_04/reference_codes.npy",
+          "size_bytes": 13056,
+          "sha256": "c9ce56716157e68c757ca2fb13d72bb07ee01e8cdf81e855e7dc30b014658d4b"
+        },
+        "source_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_04/source_measurements.json",
+          "size_bytes": 994,
+          "sha256": "473fd1cbd5a730a18baac2662913a78fea837617011707326443639ddba911ee"
+        },
+        "speaker_emb.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_04/speaker_emb.npy",
+          "size_bytes": 896,
+          "sha256": "35fb11f3ecf65a27fa2a4f89b8a427016620b067cf8e33858cdbf017eff8f692"
+        },
+        "test_01.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_04/test_01.wav",
+          "size_bytes": 1912364,
+          "sha256": "5634c0732223087cad758b57430117b715e960f03c338316b71e16ba6cebc000"
+        },
+        "test_02.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_04/test_02.wav",
+          "size_bytes": 1858604,
+          "sha256": "4291c0cb12288782a08e9317aaaebe0605e90a145adb3cba6f3e3406fe1d2140"
+        },
+        "vieneu_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_04/vieneu_measurements.json",
+          "size_bytes": 1029,
+          "sha256": "ca1358e6773aa51bbd243de1845e69c1555b582e8286cccdc541304a8fba231d"
+        }
+      }
+    },
+    {
+      "keeper_id": "phase30m_02",
+      "phase30m_blind_number": "02",
+      "original_identity": "M-C",
+      "keeper_status": "SECONDARY_DISTINCTIVENESS_FINALIST",
+      "files": {
+        "metadata.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_02/metadata.json",
+          "size_bytes": 1077,
+          "sha256": "2ff149ed37b54853f2e2ffe0003adbe1ad337a5d1bfbcc1399b357e815ce1225"
+        },
+        "qwen_source.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_02/qwen_source.wav",
+          "size_bytes": 372524,
+          "sha256": "b95e6e77d54b46e02631edc1ca584d74f55bd64d010158fe2b56f463528898af"
+        },
+        "reference_codes.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_02/reference_codes.npy",
+          "size_bytes": 12160,
+          "sha256": "7bdfa33624a167d787ea8bcd935ccddf9038cd51904bf3e4456277b43017a85c"
+        },
+        "source_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_02/source_measurements.json",
+          "size_bytes": 1006,
+          "sha256": "de32e47f4baee8704ae41284df75be38714b89bf7a74e1684d73a3f3a37ba625"
+        },
+        "speaker_emb.npy": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_02/speaker_emb.npy",
+          "size_bytes": 896,
+          "sha256": "daf12e2bf4bd424292613ec50a4f9ababbdeb8ca7833df0634f67b6ae18a34c1"
+        },
+        "test_01.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_02/test_01.wav",
+          "size_bytes": 1996844,
+          "sha256": "a97b1e94c881f3f9405a52a536f18a4e9d72e63278a21dbafdbb7d3940760bb6"
+        },
+        "test_02.wav": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_02/test_02.wav",
+          "size_bytes": 2012204,
+          "sha256": "3218e27ab36b1faf32b9ce17bdb2f884b2ab827b704e2e3dcfbaeed0e5bdde31"
+        },
+        "vieneu_measurements.json": {
+          "path": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/phase30m_02/vieneu_measurements.json",
+          "size_bytes": 1026,
+          "sha256": "9637c48b2d76ac39d7cf51724a5ffc701b106743f59fe2c12e12681c9bac6fd0"
+        }
+      }
+    }
+  ],
+  "updated_at_utc": "2026-08-31T15:00:00+00:00"
+}

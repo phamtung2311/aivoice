@@ -1,0 +1,11 @@
+{
+  "selected_phase34_clip": "Clip_C.wav",
+  "strategy": "A — current baseline",
+  "outer_inference_calls": 4,
+  "joiner_inserted_gap_ms": [0, 0, 0],
+  "boundaries": [
+    {"after_chunk": 0, "chunk_end_s": 14.24, "next_audible_s": 14.359, "effective_edge_silence_ms": 227.75, "generated_trailing_ms": 108.48, "generated_next_leading_ms": 119.27, "joiner_inserted_ms": 0, "type": "sentence/chunk"},
+    {"after_chunk": 1, "chunk_end_s": 27.60, "next_audible_s": 27.819, "effective_edge_silence_ms": 356.75, "generated_trailing_ms": 137.56, "generated_next_leading_ms": 219.19, "joiner_inserted_ms": 0, "type": "sentence/chunk"},
+    {"after_chunk": 2, "chunk_end_s": 38.72, "next_audible_s": 38.967, "effective_edge_silence_ms": 352.52, "generated_trailing_ms": 105.25, "generated_next_leading_ms": 247.27, "joiner_inserted_ms": 0, "type": "sentence/chunk"}
+  ]
+}

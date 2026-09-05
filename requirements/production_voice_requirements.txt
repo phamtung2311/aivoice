@@ -1,0 +1,8 @@
+# AIVOICE PODCAST VOICE SET v1; Python 3.14.7
+vieneu==3.3.0
+onnxruntime==1.29.0
+numpy
+soundfile
+fastapi
+uvicorn[standard]
+python-multipart

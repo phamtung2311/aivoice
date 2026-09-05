@@ -1,0 +1,33 @@
+{
+  "identity": "K-A",
+  "source_audio": {
+    "duration_seconds": 6.56,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.582031,
+    "rms": 0.073452,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "encode_seconds": 1.898,
+  "generation_seconds": 10.726,
+  "attempt": 1,
+  "speaker_emb_shape": [
+    192
+  ],
+  "reference_codes_shape": [
+    78,
+    16
+  ],
+  "audio": {
+    "duration_seconds": 11.36,
+    "sample_rate": 48000,
+    "channels": 1,
+    "peak": 0.869232,
+    "rms": 0.099541,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "peak_process_rss_mb": 2292.59,
+  "technical_status": "valid"
+}

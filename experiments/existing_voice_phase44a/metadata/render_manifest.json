@@ -1,0 +1,242 @@
+{
+  "01_A": {
+    "preset": "Phạm Tuyên",
+    "path": "outputs/existing01_A.wav",
+    "sha256": "c141a7fbaefec6c414eadfa1712d19175192f524628605db62b3a1a997e75587",
+    "duration_seconds": 23.12,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 13.302710468000441
+  },
+  "01_B": {
+    "preset": "Phạm Tuyên",
+    "path": "outputs/existing01_B.wav",
+    "sha256": "221dd5f4bb28bd0fb34274e38982d00268265f3bd0c56e04bc7b95f3eb5f9fc2",
+    "duration_seconds": 26.35,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 14.998650871999416
+  },
+  "01_C": {
+    "preset": "Phạm Tuyên",
+    "path": "outputs/existing01_C.wav",
+    "sha256": "d02051604e3417c1f57c5c65eebac14caac4d075c6bf500e7844371459569bdd",
+    "duration_seconds": 13.64,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 9.917102313000214
+  },
+  "02_A": {
+    "preset": "Minh Đức",
+    "path": "outputs/existing02_A.wav",
+    "sha256": "dfc0491b2da85f802d2ebd98b7a72a7a9f66d8aed1c9dfa8685220ec66f22f56",
+    "duration_seconds": 25.6,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 16.502287907998834
+  },
+  "02_B": {
+    "preset": "Minh Đức",
+    "path": "outputs/existing02_B.wav",
+    "sha256": "fcfd8a79ca507f94ff0544257bddd5873d06f0020199b6528faf4ff695ce6fcc",
+    "duration_seconds": 28.43,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 16.55954032599766
+  },
+  "02_C": {
+    "preset": "Minh Đức",
+    "path": "outputs/existing02_C.wav",
+    "sha256": "01449292cf61abf3207eb870a29b8e95e46e2ea8e1e634c164f2ecf75389670c",
+    "duration_seconds": 15.24,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 8.441202187001181
+  },
+  "03_A": {
+    "preset": "Thanh Bình",
+    "path": "outputs/existing03_A.wav",
+    "sha256": "f68dcc54562fc9c1cee3bf930511dd247c11cdb121f9ef85ceb1132f7845a4dd",
+    "duration_seconds": 21.84,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 11.619776165000076
+  },
+  "03_B": {
+    "preset": "Thanh Bình",
+    "path": "outputs/existing03_B.wav",
+    "sha256": "e823eb80c9fbd587b58e70a4c84d1c52c13aa5c7e0522cc229f972ce359f4d6a",
+    "duration_seconds": 24.59,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 14.336967011000525
+  },
+  "03_C": {
+    "preset": "Thanh Bình",
+    "path": "outputs/existing03_C.wav",
+    "sha256": "360b8e189e9f9fa0c41232b6966c52644a1320aa33ff5d7588c3aa69ea24c8eb",
+    "duration_seconds": 13.32,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 8.792898996001895
+  },
+  "04_A": {
+    "preset": "Quang Sơn",
+    "path": "outputs/existing04_A.wav",
+    "sha256": "82c30312e420ee8391f198d86a3446ebbe5f44bd6bfd24e6dc69f0b39a7f3f21",
+    "duration_seconds": 31.44,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 17.751077795001038
+  },
+  "04_B": {
+    "preset": "Quang Sơn",
+    "path": "outputs/existing04_B.wav",
+    "sha256": "f3ea063ad0eb2fe1e5d1566a72f71829cf0bc392e3eb5033d7d07adad5b23be6",
+    "duration_seconds": 32.91,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 18.112140649001958
+  },
+  "04_C": {
+    "preset": "Quang Sơn",
+    "path": "outputs/existing04_C.wav",
+    "sha256": "46814de38761de9d492440d723389309ea30cd4dfb2385f574f8968f93827dbc",
+    "duration_seconds": 18.76,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 10.789890793999803
+  },
+  "05_A": {
+    "preset": "Xuân Vĩnh",
+    "path": "outputs/existing05_A.wav",
+    "sha256": "4c45ded7e9ca8bf2c7041f3469ee7eab9aef3d45e3bb72d5928d6e0994d5e1e1",
+    "duration_seconds": 25.68,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 13.616515978999814
+  },
+  "05_B": {
+    "preset": "Xuân Vĩnh",
+    "path": "outputs/existing05_B.wav",
+    "sha256": "815b6402befd8b55a6647e4c4ceadab0eb673914528c0bd947c5c79b67a38b6f",
+    "duration_seconds": 29.07,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 14.679951206002443
+  },
+  "05_C": {
+    "preset": "Xuân Vĩnh",
+    "path": "outputs/existing05_C.wav",
+    "sha256": "4557738c641a77797401ff570bd5c078aac7fa54d623695a53bd19563003059f",
+    "duration_seconds": 15.96,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 8.316174414998386
+  },
+  "06_A": {
+    "preset": "Thái Sơn",
+    "path": "outputs/existing06_A.wav",
+    "sha256": "c315bf6fc04222c1c6ead614263e401ada44e4d7a8a6489e9cffc721af04c157",
+    "duration_seconds": 24.16,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 12.286900826999045
+  },
+  "06_B": {
+    "preset": "Thái Sơn",
+    "path": "outputs/existing06_B.wav",
+    "sha256": "473885bd9914d1998db2f92f1dbfe2fa2cbc1b2c2a68408a865ff1e239a2e495",
+    "duration_seconds": 27.39,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 13.728676257000188
+  },
+  "06_C": {
+    "preset": "Thái Sơn",
+    "path": "outputs/existing06_C.wav",
+    "sha256": "7d1caeaf87456c1e52d28f766a18c5b2d1f01f3afc2bc29179e349f58c917b2b",
+    "duration_seconds": 14.44,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 8.828080635998049
+  },
+  "07_A": {
+    "preset": "Minh Triết",
+    "path": "outputs/existing07_A.wav",
+    "sha256": "43bbbb9d43c5cf3063959dde5179edb7589653772f7e07faca2a6e3a379fb7ce",
+    "duration_seconds": 21.44,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 11.03922903900093
+  },
+  "07_B": {
+    "preset": "Minh Triết",
+    "path": "outputs/existing07_B.wav",
+    "sha256": "4e4279dbd63109bcf09a6ba33f926c3df39e6035adcb4920445c9cce56620df4",
+    "duration_seconds": 23.71,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 11.491454806000547
+  },
+  "07_C": {
+    "preset": "Minh Triết",
+    "path": "outputs/existing07_C.wav",
+    "sha256": "1f1c4daa16c041d3f127ebd9a947c118afe50ef2426ccd3490a5b3eb279f33df",
+    "duration_seconds": 12.76,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 7.088224792001711
+  },
+  "08_A": {
+    "preset": "Đức Trí",
+    "path": "outputs/existing08_A.wav",
+    "sha256": "c75872224406ef75711555781b67c51ee3b5a076329088edd22f18324f90cdda",
+    "duration_seconds": 29.68,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 14.093200319999596
+  },
+  "08_B": {
+    "preset": "Đức Trí",
+    "path": "outputs/existing08_B.wav",
+    "sha256": "2047924ca08afb585bad8cb8f23252b4e0239312a04d2f8593076d2e4c467743",
+    "duration_seconds": 33.31,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 16.892022322997946
+  },
+  "08_C": {
+    "preset": "Đức Trí",
+    "path": "outputs/existing08_C.wav",
+    "sha256": "b55f8fa84e51a742f8522da8a4d86d5596a970348a495f3f11f2328793148ec3",
+    "duration_seconds": 18.76,
+    "sample_rate": 48000,
+    "channels": 1,
+    "attempts": 1,
+    "generation_seconds": 9.796394509001402
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "phase": "41E",
+  "variants": {
+    "v0_phase41d_control": {
+      "final_file": "experiments/brand_voice_phase41e/audio/v0_phase41d_control_final.wav",
+      "final_sha256": "765d4258c3da5af8709738faf66b3526b115d6352a321414d582edbc19d3cea9",
+      "duration_seconds": 65.36,
+      "chunk_count": 4,
+      "manual_pause_seconds": 0.0
+    },
+    "v1_semantic_chunking": {
+      "final_file": "experiments/brand_voice_phase41e/audio/v1_semantic_chunking_final.wav",
+      "final_sha256": "16000b1cd0f7880ec2ff6c7566de57d17f4e12471c4a9af61044c7e6f38d927e",
+      "duration_seconds": 66.16,
+      "chunk_count": 6,
+      "manual_pause_seconds": 0.0
+    },
+    "v2_natural_pacing": {
+      "final_file": "experiments/brand_voice_phase41e/audio/v2_natural_pacing_final.wav",
+      "final_sha256": "0c2baa5225cc71e76d7b92fb9197def2335c3c775433a9f1873d77d882405508",
+      "duration_seconds": 69.14,
+      "chunk_count": 6,
+      "manual_pause_seconds": 0.42000000000000004
+    },
+    "v3_semantic_focus": {
+      "final_file": "experiments/brand_voice_phase41e/audio/v3_semantic_focus_final.wav",
+      "final_sha256": "51e4bd659d4d3d9d9dae236f08d5d6c9aaa704cf825553cd81cf5707bb874569",
+      "duration_seconds": 68.88,
+      "chunk_count": 8,
+      "manual_pause_seconds": 0.0
+    }
+  }
+}

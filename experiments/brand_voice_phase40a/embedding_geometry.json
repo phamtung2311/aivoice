@@ -1,0 +1,824 @@
+{
+  "vieneu_version": "3.3.0",
+  "voice_asset_path": "/home/tung/ai voice/.venv/lib/python3.14/site-packages/vieneu/assets/voices_v3_turbo.json",
+  "voice_asset_sha256": "574e6acf03823c4cafdc43f106731ce5fce6de30228fe383831b8b9064ee0bd8",
+  "total_preset_count": 20,
+  "male_preset_count": 9,
+  "all_preset_shapes": {
+    "Minh Đức": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        50,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Phạm Tuyên": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        62,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Thái Sơn": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        49,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Xuân Vĩnh": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        40,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Thanh Bình": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        42,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Trúc Ly": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        62,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Ngọc Linh": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        58,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Đoan Trang": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        57,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Mai Anh": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        50,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Thục Đoan": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        39,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Minh Triết": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        56,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Thùy Dung": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        54,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Quang Sơn": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        43,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Ngọc Trân": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        45,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Mỹ Duyên": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        74,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Quỳnh Anh": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        70,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Đức Trí": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        76,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Kim Thanh": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        72,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Ngọc Huyền": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        63,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    },
+    "Adam": {
+      "speaker_emb": [
+        192
+      ],
+      "reference_codes": [
+        39,
+        16
+      ],
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true
+    }
+  },
+  "male_inventory": [
+    {
+      "name": "Minh Đức",
+      "region": "Bắc",
+      "style": "tin_tuc",
+      "description": "Nam · Bắc · Phong cách tin tức",
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        50,
+        16
+      ],
+      "speaker_emb_norm": 12.432239532470703,
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true,
+      "speaker_emb_sha256": "760b762fdf315028259f7311698cb004d97a7be05aecfdd96c30960a94258e20",
+      "reference_codes_sha256": "6c88832b6ceade9e969919d5b81b64cc14b2fe5c419e739d0ba81ce625e78d5c"
+    },
+    {
+      "name": "Phạm Tuyên",
+      "region": "Bắc",
+      "style": "tu_nhien",
+      "description": "Nam · Bắc · Phong cách tự nhiên",
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        62,
+        16
+      ],
+      "speaker_emb_norm": 12.945850372314453,
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true,
+      "speaker_emb_sha256": "bc224d1b0345b71f04f2138538c4c4c6bfc2e130ebda244013d74ab2cc174482",
+      "reference_codes_sha256": "a7636756d58330d0525846f562e908571b16f9b151aaaff04627b8ff009e7bb9"
+    },
+    {
+      "name": "Thái Sơn",
+      "region": "Nam",
+      "style": "doc_truyen",
+      "description": "Nam · Nam · Phong cách kể chuyện",
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        49,
+        16
+      ],
+      "speaker_emb_norm": 13.191869735717773,
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true,
+      "speaker_emb_sha256": "d91680b9248d88889e668ac417492f9049c4de25f89ab1d45250a16bc454b5cd",
+      "reference_codes_sha256": "85e1180b78bbcf8574686072f9ee63205f2f31fd9756829f6791908d6a5f0b04"
+    },
+    {
+      "name": "Xuân Vĩnh",
+      "region": "Nam",
+      "style": "tu_nhien",
+      "description": "Nam · Nam · Phong cách tự nhiên",
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        40,
+        16
+      ],
+      "speaker_emb_norm": 12.822335243225098,
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true,
+      "speaker_emb_sha256": "fb828bafb3abf936f076df1542ef03744c53c092ffad5e11b6d5f0cc4f8f9ef3",
+      "reference_codes_sha256": "14a97c04b95a13f71a74b1cb546baae9ec1a3b45531d74240b1e2dd435b2afd3"
+    },
+    {
+      "name": "Thanh Bình",
+      "region": "Bắc",
+      "style": "doc_truyen",
+      "description": "Nam · Bắc · Phong cách kể chuyện",
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        42,
+        16
+      ],
+      "speaker_emb_norm": 12.207490921020508,
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true,
+      "speaker_emb_sha256": "15a1c0177e1fb235d4fcf61f93c0aa4ca0051417a914b6b69aa981d1bfdec7e7",
+      "reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8"
+    },
+    {
+      "name": "Minh Triết",
+      "region": "Nam",
+      "style": "tin_tuc",
+      "description": "Nam · Nam · Phong cách tin tức",
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        56,
+        16
+      ],
+      "speaker_emb_norm": 10.81389045715332,
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true,
+      "speaker_emb_sha256": "c883763d316e1e11407c4d1dea3e43a24011a8eb438ad743909689b6ffe2f071",
+      "reference_codes_sha256": "aef8156d184b37075a4e696574ebf46f409ea018af7fea5f553e5416b52279ad"
+    },
+    {
+      "name": "Quang Sơn",
+      "region": "Trung",
+      "style": "tu_nhien",
+      "description": "Nam · Trung · Phong cách tự nhiên",
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        43,
+        16
+      ],
+      "speaker_emb_norm": 10.991061210632324,
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true,
+      "speaker_emb_sha256": "c9497a93a61cfa1fb10ef0cb23f5da73e3e3f878825000feeef2fbac904cee36",
+      "reference_codes_sha256": "17d0426b0d457ba2eeb5ff789ba9643bb56636a8f43dafdb30edaa78f98cde53"
+    },
+    {
+      "name": "Đức Trí",
+      "region": "Nam",
+      "style": "doc_truyen",
+      "description": "Nam · Nam · Phong cách đọc truyện",
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        76,
+        16
+      ],
+      "speaker_emb_norm": 12.293865203857422,
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true,
+      "speaker_emb_sha256": "52e5afce1c1d44de2c8831c5bc62f27823096aa4cfaf94e3157c626e5ff09d3a",
+      "reference_codes_sha256": "5b2c640b3663dfef2f9f2dad2cc4ad57fa6c085dde042fa77def5301bd7ff24f"
+    },
+    {
+      "name": "Adam",
+      "region": "Nam",
+      "style": "tu_nhien",
+      "description": "Nam · Nam · Giọng đọc tự nhiên",
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        39,
+        16
+      ],
+      "speaker_emb_norm": 18.822561264038086,
+      "speaker_emb_finite": true,
+      "reference_codes_finite": true,
+      "speaker_emb_sha256": "8b02cee0e000dc5812ea8fe309071354ee381868ff0653933117a5d12e84a1e4",
+      "reference_codes_sha256": "1d84869e2936ba0358af955690712bf02403a2607b64ddf360c4e421c857ace9"
+    }
+  ],
+  "male_pairwise": [
+    {
+      "left": "Minh Đức",
+      "right": "Phạm Tuyên",
+      "cosine_similarity": 0.3859582841396332,
+      "euclidean_distance": 14.06836223602295
+    },
+    {
+      "left": "Minh Đức",
+      "right": "Thái Sơn",
+      "cosine_similarity": 0.2781035602092743,
+      "euclidean_distance": 15.406671524047852
+    },
+    {
+      "left": "Minh Đức",
+      "right": "Xuân Vĩnh",
+      "cosine_similarity": 0.3971938192844391,
+      "euclidean_distance": 13.868642807006836
+    },
+    {
+      "left": "Minh Đức",
+      "right": "Thanh Bình",
+      "cosine_similarity": 0.4614747166633606,
+      "euclidean_distance": 12.787128448486328
+    },
+    {
+      "left": "Minh Đức",
+      "right": "Minh Triết",
+      "cosine_similarity": 0.16629253327846527,
+      "euclidean_distance": 15.05947494506836
+    },
+    {
+      "left": "Minh Đức",
+      "right": "Quang Sơn",
+      "cosine_similarity": 0.43878886103630066,
+      "euclidean_distance": 12.467906951904297
+    },
+    {
+      "left": "Minh Đức",
+      "right": "Đức Trí",
+      "cosine_similarity": 0.454811155796051,
+      "euclidean_distance": 12.910181999206543
+    },
+    {
+      "left": "Minh Đức",
+      "right": "Adam",
+      "cosine_similarity": 0.3863925635814667,
+      "euclidean_distance": 18.111116409301758
+    },
+    {
+      "left": "Phạm Tuyên",
+      "right": "Thái Sơn",
+      "cosine_similarity": 0.2513405382633209,
+      "euclidean_distance": 15.992892265319824
+    },
+    {
+      "left": "Phạm Tuyên",
+      "right": "Xuân Vĩnh",
+      "cosine_similarity": 0.3214283287525177,
+      "euclidean_distance": 15.009852409362793
+    },
+    {
+      "left": "Phạm Tuyên",
+      "right": "Thanh Bình",
+      "cosine_similarity": 0.28004851937294006,
+      "euclidean_distance": 15.103053092956543
+    },
+    {
+      "left": "Phạm Tuyên",
+      "right": "Minh Triết",
+      "cosine_similarity": 0.29399409890174866,
+      "euclidean_distance": 14.220402717590332
+    },
+    {
+      "left": "Phạm Tuyên",
+      "right": "Quang Sơn",
+      "cosine_similarity": 0.5755592584609985,
+      "euclidean_distance": 11.162768363952637
+    },
+    {
+      "left": "Phạm Tuyên",
+      "right": "Đức Trí",
+      "cosine_similarity": 0.35843968391418457,
+      "euclidean_distance": 14.305229187011719
+    },
+    {
+      "left": "Phạm Tuyên",
+      "right": "Adam",
+      "cosine_similarity": 0.4074227809906006,
+      "euclidean_distance": 17.981298446655273
+    },
+    {
+      "left": "Thái Sơn",
+      "right": "Xuân Vĩnh",
+      "cosine_similarity": 0.19219286739826202,
+      "euclidean_distance": 16.535375595092773
+    },
+    {
+      "left": "Thái Sơn",
+      "right": "Thanh Bình",
+      "cosine_similarity": 0.32161420583724976,
+      "euclidean_distance": 14.81428337097168
+    },
+    {
+      "left": "Thái Sơn",
+      "right": "Minh Triết",
+      "cosine_similarity": 0.29713794589042664,
+      "euclidean_distance": 14.359281539916992
+    },
+    {
+      "left": "Thái Sơn",
+      "right": "Quang Sơn",
+      "cosine_similarity": 0.311567097902298,
+      "euclidean_distance": 14.299612998962402
+    },
+    {
+      "left": "Thái Sơn",
+      "right": "Đức Trí",
+      "cosine_similarity": 0.3066904544830322,
+      "euclidean_distance": 15.022882461547852
+    },
+    {
+      "left": "Thái Sơn",
+      "right": "Adam",
+      "cosine_similarity": 0.29072117805480957,
+      "euclidean_distance": 19.59436798095703
+    },
+    {
+      "left": "Xuân Vĩnh",
+      "right": "Thanh Bình",
+      "cosine_similarity": 0.2174507975578308,
+      "euclidean_distance": 15.663991928100586
+    },
+    {
+      "left": "Xuân Vĩnh",
+      "right": "Minh Triết",
+      "cosine_similarity": 0.1920093446969986,
+      "euclidean_distance": 15.103137016296387
+    },
+    {
+      "left": "Xuân Vĩnh",
+      "right": "Quang Sơn",
+      "cosine_similarity": 0.35758331418037415,
+      "euclidean_distance": 13.58037281036377
+    },
+    {
+      "left": "Xuân Vĩnh",
+      "right": "Đức Trí",
+      "cosine_similarity": 0.18981988728046417,
+      "euclidean_distance": 15.990825653076172
+    },
+    {
+      "left": "Xuân Vĩnh",
+      "right": "Adam",
+      "cosine_similarity": 0.4229797124862671,
+      "euclidean_distance": 17.73497772216797
+    },
+    {
+      "left": "Thanh Bình",
+      "right": "Minh Triết",
+      "cosine_similarity": 0.2202424854040146,
+      "euclidean_distance": 14.415770530700684
+    },
+    {
+      "left": "Thanh Bình",
+      "right": "Quang Sơn",
+      "cosine_similarity": 0.4493268132209778,
+      "euclidean_distance": 12.216830253601074
+    },
+    {
+      "left": "Thanh Bình",
+      "right": "Đức Trí",
+      "cosine_similarity": 0.4007830023765564,
+      "euclidean_distance": 13.411381721496582
+    },
+    {
+      "left": "Thanh Bình",
+      "right": "Adam",
+      "cosine_similarity": 0.49694791436195374,
+      "euclidean_distance": 16.581253051757812
+    },
+    {
+      "left": "Minh Triết",
+      "right": "Quang Sơn",
+      "cosine_similarity": 0.3110407590866089,
+      "euclidean_distance": 12.798650741577148
+    },
+    {
+      "left": "Minh Triết",
+      "right": "Đức Trí",
+      "cosine_similarity": 0.1382090151309967,
+      "euclidean_distance": 15.209572792053223
+    },
+    {
+      "left": "Minh Triết",
+      "right": "Adam",
+      "cosine_similarity": 0.09677396714687347,
+      "euclidean_distance": 20.78059959411621
+    },
+    {
+      "left": "Quang Sơn",
+      "right": "Đức Trí",
+      "cosine_similarity": 0.3605102598667145,
+      "euclidean_distance": 13.210463523864746
+    },
+    {
+      "left": "Quang Sơn",
+      "right": "Adam",
+      "cosine_similarity": 0.41665345430374146,
+      "euclidean_distance": 17.398210525512695
+    },
+    {
+      "left": "Đức Trí",
+      "right": "Adam",
+      "cosine_similarity": 0.24223579466342926,
+      "euclidean_distance": 19.83230209350586
+    }
+  ],
+  "pca_explained_variance_ratio": [
+    0.26750085888622455,
+    0.15465937063285118,
+    0.1455519311374149,
+    0.12598309834284033,
+    0.10469706299312928,
+    0.08027064181926698,
+    0.06904569058729548,
+    0.0522913456009773,
+    1.0503319055385053e-32
+  ],
+  "pca_coordinates": {
+    "Minh Đức": [
+      -0.824527878935918,
+      -0.6037980756156762,
+      4.932587658665934,
+      3.491226853884758,
+      -0.01299315438550111,
+      -5.2491961013437,
+      3.9015628629024794,
+      0.5243927301339414,
+      1.1474181905934947e-15
+    ],
+    "Phạm Tuyên": [
+      -0.8330559846998938,
+      -4.423941738434837,
+      0.6335072393392401,
+      -6.95296048382693,
+      -3.0649936109997626,
+      -1.1737887585977536,
+      0.055768980704714026,
+      -3.3548244353646997,
+      2.156033153886982e-15
+    ],
+    "Thái Sơn": [
+      -3.4629791024317456,
+      6.545731482538822,
+      -6.077478207741095,
+      1.5020185396764785,
+      -4.497317019240966,
+      -1.8122930005406197,
+      -0.7239130841774545,
+      -0.36630546793238206,
+      -6.653599337179144e-17
+    ],
+    "Xuân Vĩnh": [
+      1.2234837947035455,
+      -6.972174919622821,
+      -2.1021772012316067,
+      6.649443092423831,
+      -1.042209982134544,
+      1.615197773965525,
+      -2.2061051514816876,
+      -1.1015365541158908,
+      1.1110709412113886e-15
+    ],
+    "Thanh Bình": [
+      0.8183695301215762,
+      4.363701838869064,
+      2.4991380001783288,
+      0.4232606713895625,
+      5.794534146940716,
+      -0.5725256306858106,
+      -3.312739201728558,
+      -3.1028136941652873,
+      5.545563032242899e-16
+    ],
+    "Minh Triết": [
+      -5.726571294960366,
+      -1.408599011912448,
+      -4.954102827267298,
+      -1.3717968504285787,
+      5.028780684958531,
+      2.1854094149195316,
+      3.807884629062494,
+      0.6374862489125526,
+      1.3065197211924219e-15
+    ],
+    "Quang Sơn": [
+      -1.218954264421496,
+      -1.8471917360198724,
+      0.44825586169715426,
+      -2.856227035399075,
+      0.8605549481400123,
+      -1.8275536862003283,
+      -3.9118866388656635,
+      4.977142104453034,
+      -1.6411902058655087e-15
+    ],
+    "Đức Trí": [
+      -3.7077047345007235,
+      2.6696139622184756,
+      6.146541415058465,
+      0.30843641271732697,
+      -2.887018817419809,
+      5.542353844754101,
+      0.5508756470721412,
+      0.8347622826471248,
+      4.1902015410929984e-16
+    ],
+    "Adam": [
+      13.731939935125022,
+      1.6766581979792925,
+      -1.5262719386991224,
+      -1.1934012004373697,
+      -0.1793371958586803,
+      1.2923961437290634,
+      1.8385519565115325,
+      0.9516967854316074,
+      -3.1080360137552633e-15
+    ]
+  },
+  "regional_policy": "Northern male embeddings only; accent allocation between embedding and codes is not proven separable.",
+  "reference_code_anchor": "Thanh Bình",
+  "reference_code_anchor_reason": "Northern male storytelling preset; preferred over news for reflective cadence and neutral-Vietnamese risk control.",
+  "reference_codes_shape": [
+    42,
+    16
+  ],
+  "reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+  "normalization_contract": "No speaker embedding input normalization. ONNX runtime applies Linear projection then LayerNorm to the projected anchor.",
+  "blend_normalization_applied": false,
+  "blends": {
+    "A": {
+      "weights": {
+        "Minh Đức": 0.75,
+        "Phạm Tuyên": 0.25
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_norm": 10.986783027648926,
+      "speaker_emb_finite": true,
+      "speaker_emb_sha256": "477609ebcb3da0c471e1eebc76d60ef7cce1511f277d690b49ac0fcd97fb5c0f"
+    },
+    "B": {
+      "weights": {
+        "Phạm Tuyên": 0.75,
+        "Thanh Bình": 0.25
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_norm": 10.962793350219727,
+      "speaker_emb_finite": true,
+      "speaker_emb_sha256": "0c0cbc23228c89cfc27b0d109603b42b3fa0ca071cf728801455ec2cae752b53"
+    },
+    "C": {
+      "weights": {
+        "Thanh Bình": 0.75,
+        "Minh Đức": 0.25
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_norm": 10.942989349365234,
+      "speaker_emb_finite": true,
+      "speaker_emb_sha256": "a1929ad5fde654a6d1536908d02bd7a72c63578bdaef9aff08265dc88b6bd82c"
+    },
+    "D": {
+      "weights": {
+        "Minh Đức": 0.3333333333333333,
+        "Phạm Tuyên": 0.3333333333333333,
+        "Thanh Bình": 0.3333333333333333
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_norm": 9.568488121032715,
+      "speaker_emb_finite": true,
+      "speaker_emb_sha256": "64f99d2e4303bc8816e88852a9b3f6a6a3e6db1b432eeddcb43e35175156f008"
+    }
+  },
+  "blend_pairwise": [
+    {
+      "left": "A",
+      "right": "B",
+      "cosine_similarity": 0.6829925775527954,
+      "euclidean_distance": 8.738709449768066
+    },
+    {
+      "left": "A",
+      "right": "C",
+      "cosine_similarity": 0.6700281500816345,
+      "euclidean_distance": 8.907626152038574
+    },
+    {
+      "left": "A",
+      "right": "D",
+      "cosine_similarity": 0.8990066647529602,
+      "euclidean_distance": 4.821392059326172
+    },
+    {
+      "left": "B",
+      "right": "C",
+      "cosine_similarity": 0.5740079879760742,
+      "euclidean_distance": 10.10986042022705
+    },
+    {
+      "left": "B",
+      "right": "D",
+      "cosine_similarity": 0.8621372580528259,
+      "euclidean_distance": 5.555805683135986
+    },
+    {
+      "left": "C",
+      "right": "D",
+      "cosine_similarity": 0.856881320476532,
+      "euclidean_distance": 5.644516944885254
+    }
+  ],
+  "manual_voice_dict_runtime_gate": "PASS",
+  "production_voice_registration": false
+}

@@ -21,7 +21,15 @@ DEFAULT_STORE_FILE = DEFAULT_STORE_DIR / "voices.json"
 
 # Maximum length for a user-chosen voice name.
 VOICE_NAME_MAX_LENGTH = 64
-PROFILE_METADATA_FIELDS = ("category", "is_special", "special_type", "recommended_use", "display_name")
+PROFILE_METADATA_FIELDS = (
+    "category",
+    "is_special",
+    "special_type",
+    "recommended_use",
+    "display_name",
+    "status",
+    "is_final_brand_voice",
+)
 
 
 def store_path() -> Path:

@@ -1,0 +1,16 @@
+{
+  "device": "cpu",
+  "dtype": "torch.bfloat16",
+  "memory_before_load": {
+    "ram_available_bytes": 8391995392,
+    "ram_used_bytes": 7966830592,
+    "swap_used_bytes": 1230790656
+  },
+  "load_seconds": 1.246,
+  "memory_after_load": {
+    "ram_available_bytes": 8129847296,
+    "ram_used_bytes": 8228978688,
+    "swap_used_bytes": 1696612352
+  },
+  "peak_process_rss_mb": 1675.88
+}

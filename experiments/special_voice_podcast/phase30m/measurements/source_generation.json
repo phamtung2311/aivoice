@@ -1,0 +1,60 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "offline": true,
+  "device": "cpu",
+  "dtype": "torch.bfloat16",
+  "memory_before_load": {
+    "ram_available_bytes": 9751912448,
+    "swap_used_bytes": 2923352064
+  },
+  "records": [
+    {
+      "identity": "M-A",
+      "attempt": 1,
+      "generation_seconds": 316.548,
+      "prompt": "Adult male with a naturally medium-deep to deep warm full-bodied voice, calm conversational delivery, subtle believable vocal texture, a slight natural grain, smooth low-mid resonance, intimate microphone presence, and mature approachable character. Memorable without sounding performed. Use a natural medium conversational pace, connected phrases, short natural pauses, no prolonged gaps, no slow narration, no breathy dramatic pauses, and no audiobook acting. Avoid heavy rasp, hoarse or smoker voice, movie-trailer voice, radio announcer, commercial voice, forced bass, aggressive masculinity, theatrical delivery, breathy acting, celebrity imitation, and any real-person imitation.",
+      "audio": {
+        "duration_seconds": 8.72,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.71875,
+        "rms": 0.081989,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 5111.2
+    },
+    {
+      "identity": "M-B",
+      "attempt": 1,
+      "generation_seconds": 327.953,
+      "prompt": "Adult male with a medium-deep to deep natural register, warm clean but characterful timbre, slightly distinctive low-mid and subtle chest resonance, calm confidence, intelligent conversational podcast delivery, connected phrasing, and understated human presence. Recognizable but not unusual. Use a natural medium conversational pace, connected phrases, short natural pauses, no prolonged gaps, no slow narration, no breathy dramatic pauses, and no audiobook acting. Make distinctiveness come from resonance and timbral character, not pitch extremity, accent, acting, rasp, or imitation of any real person.",
+      "audio": {
+        "duration_seconds": 9.04,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.488281,
+        "rms": 0.059952,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 5182.96
+    },
+    {
+      "identity": "M-C",
+      "attempt": 1,
+      "generation_seconds": 293.605,
+      "prompt": "Adult male naturally deep but not artificially low, with warm full tone, subtle believable texture, slightly recognizable resonance, mature conversational character, steady connected phrasing, natural medium podcast rhythm, close personal microphone feel, and human imperfection without audible roughness. Memorable yet believable. Use short natural pauses only, no prolonged word gaps, no slow narration, no breathy dramatic pauses, and no audiobook acting. Avoid exaggerated texture, extreme bass, raspy or hoarse voice, radio announcer, movie trailer, theatrical delivery, aggressive masculinity, artificial character voice, feminine drift, celebrity imitation, and any real-person imitation.",
+      "audio": {
+        "duration_seconds": 7.76,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.648438,
+        "rms": 0.069195,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 5182.96
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "identity": "M-C",
+  "attempt": 1,
+  "generation_seconds": 293.605,
+  "prompt": "Adult male naturally deep but not artificially low, with warm full tone, subtle believable texture, slightly recognizable resonance, mature conversational character, steady connected phrasing, natural medium podcast rhythm, close personal microphone feel, and human imperfection without audible roughness. Memorable yet believable. Use short natural pauses only, no prolonged word gaps, no slow narration, no breathy dramatic pauses, and no audiobook acting. Avoid exaggerated texture, extreme bass, raspy or hoarse voice, radio announcer, movie trailer, theatrical delivery, aggressive masculinity, artificial character voice, feminine drift, celebrity imitation, and any real-person imitation.",
+  "audio": {
+    "duration_seconds": 7.76,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.648438,
+    "rms": 0.069195,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "peak_process_rss_mb": 5182.96
+}

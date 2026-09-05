@@ -1,0 +1,18 @@
+{
+  "baseline_dir": "experiments/brand_voice_phase40b/baseline/PODCAST_CANDIDATE_B_BASELINE",
+  "population": 32,
+  "iterations": 100,
+  "init_sigma": 0.5,
+  "topk": 6,
+  "keep_best": 8,
+  "seed": 40003,
+  "checkpoint_every": 1,
+  "texts": [
+    "Người ta hay nghĩ rằng một giọng nói tốt là giọng vang to. Nhưng thật ra, giọng podcast tốt là giọng biết dừng lại đúng lúc, đặt câu hỏi đúng chỗ, và để người nghe cảm nhận được một sự thật không cần ai nhấn mạnh.",
+    "Khi ta suy nghĩ về cuộc đời, không phải tất cả câu trả lời đều có sẵn; điều quý là biết đặt câu hỏi tốt hơn.",
+    "Sự kiên nhẫn không phải là chờ đợi một cách thụ động mà là giữ vững chính mình khi thử thách xuất hiện."
+  ],
+  "w_distinctness": 1.0,
+  "w_stability": 1.0,
+  "w_ood_penalty": 0.5
+}

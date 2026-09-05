@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "canonical_speaker_emb_sha256": "980d5856f58a8619b6abf0c3935de74ddfb5c333b9b8fae2fd5c3b6ef7067771",
+  "canonical_speaker_emb_npy_sha256": "c763159d8ed6ed4b0f1916f8b0762d1902743d293fcd7874541966d7f9ee10a1",
+  "reference_codes_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5",
+  "inference_config_sha256": "5517fe2334e73d740d3ad8ffc3243b525286689538621518b78469cd87d29320",
+  "completed_tests": [],
+  "chunks": {},
+  "done_chunks": {
+    "01_short_monologue": [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    "02_explanatory_section": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "03_longform_stress_test": [
+      "0",
+      "1",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ]
+  }
+}

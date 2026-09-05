@@ -1,0 +1,101 @@
+{
+  "phase": "39A",
+  "execution_status": "PASS",
+  "human_gate": "PENDING HUMAN QA",
+  "shared_audition_text": "When the noise fades, we begin to see what truly matters: not the answer we inherited, but the principle we choose to live by.",
+  "language": "English",
+  "candidates": [
+    {
+      "candidate": "A",
+      "seed": 39001,
+      "attempt": 1,
+      "technical_failures_before_success": [],
+      "generation_seconds": 525.5186634740003,
+      "peak_process_rss_mib": 5065.140625,
+      "audio": {
+        "duration_seconds": 10.72,
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "frames_header": 257280,
+        "frames_read": 257280,
+        "all_samples_finite": true,
+        "peak_abs": 0.55859375,
+        "rms": 0.08006266195589437,
+        "clipped_samples_abs_ge_0_999": 0,
+        "size_bytes": 514604,
+        "sha256": "2e51fb6cae354a6e589f19df4c2ba7539f5a8bbc4e0c7189d59d7d91af059885"
+      }
+    },
+    {
+      "candidate": "B",
+      "seed": 39002,
+      "attempt": 1,
+      "technical_failures_before_success": [],
+      "generation_seconds": 508.98298376,
+      "peak_process_rss_mib": 5065.140625,
+      "audio": {
+        "duration_seconds": 10.8,
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "frames_header": 259200,
+        "frames_read": 259200,
+        "all_samples_finite": true,
+        "peak_abs": 0.72265625,
+        "rms": 0.06865731040711126,
+        "clipped_samples_abs_ge_0_999": 0,
+        "size_bytes": 518444,
+        "sha256": "3fc4cfbb6162d2f19b7bb6d2ea0f9ea5f78aa9a7e57353cac112f1e814a6f6b7"
+      }
+    },
+    {
+      "candidate": "C",
+      "seed": 39003,
+      "attempt": 1,
+      "technical_failures_before_success": [],
+      "generation_seconds": 440.8420292190003,
+      "peak_process_rss_mib": 5065.140625,
+      "audio": {
+        "duration_seconds": 9.44,
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "frames_header": 226560,
+        "frames_read": 226560,
+        "all_samples_finite": true,
+        "peak_abs": 0.7109375,
+        "rms": 0.05407395333438087,
+        "clipped_samples_abs_ge_0_999": 0,
+        "size_bytes": 453164,
+        "sha256": "749939655bc6418ab72d60066602c486b7b029d307bb4fb42fd2873cf5625d76"
+      }
+    },
+    {
+      "candidate": "D",
+      "seed": 39004,
+      "attempt": 1,
+      "technical_failures_before_success": [],
+      "generation_seconds": 688.9120081880001,
+      "peak_process_rss_mib": 5065.140625,
+      "audio": {
+        "duration_seconds": 8.96,
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "frames_header": 215040,
+        "frames_read": 215040,
+        "all_samples_finite": true,
+        "peak_abs": 0.53125,
+        "rms": 0.06763471093899563,
+        "clipped_samples_abs_ge_0_999": 0,
+        "size_bytes": 430124,
+        "sha256": "46e1b995b602958b75bdc285b83c2dc6c435bdc4b02e784da9b498c556462477"
+      }
+    }
+  ]
+}

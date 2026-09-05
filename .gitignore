@@ -34,6 +34,40 @@ data/voice_lab/experiments.json
 data/voice_lab/branded_voice.json
 data/voice_lab/temperature_candidates.json
 
+# Personal voice recordings and derivatives may contain biometric data.
+experiments/personal_voice_phase42a/source/
+experiments/personal_voice_phase42a/normalized/
+experiments/personal_voice_phase42a/references/
+experiments/personal_voice_phase42a/outputs/
+experiments/personal_voice_phase42a/metadata/
+
+# Phase 42B is a non-commercial, isolated V-TTS research PoC.  Keep the
+# third-party checkout, environment, checkpoints, and private voice derivatives
+# out of the project repository; reports/scripts remain reviewable.
+.venv-phase42b-vtts/
+experiments/personal_voice_phase42b/source/
+experiments/personal_voice_phase42b/checkpoints/
+experiments/personal_voice_phase42b/references/
+experiments/personal_voice_phase42b/outputs/
+experiments/personal_voice_phase42b/metadata/
+/.venv-phase42c-rvc/
+experiments/personal_voice_phase42c/private_data/
+experiments/personal_voice_phase42c/derived_data/
+experiments/personal_voice_phase42c/checkpoints/
+experiments/personal_voice_phase42c/outputs/
+experiments/personal_voice_phase42c/metadata/
+experiments/personal_voice_phase42c/source/
+/.venv-phase42d-rvc/
+experiments/personal_voice_phase42d/source/
+experiments/personal_voice_phase42d/corpus/
+experiments/personal_voice_phase42d/segments/
+experiments/personal_voice_phase42d/metadata/
+experiments/personal_voice_phase42d/benchmark/
+experiments/personal_voice_phase42d/outputs/
+experiments/personal_voice_phase42d/checkpoints/
+experiments/personal_voice_phase42d/features/
+experiments/personal_voice_phase42d/rvc_source/
+
 # Local session artifacts
 *.ses
 
@@ -59,3 +93,54 @@ experiments/special_voice_podcast/measurements.json
 *.swp
 *.swo
 .vscode/
+
+# Keep source control free of local audio, models and generated binary assets.
+*.[wW][aA][vV]
+*.mp3
+*.m4a
+*.flac
+*.ogg
+*.opus
+*.aac
+*.wma
+*.aiff
+*.mp4
+*.webm
+*.pt
+*.pth
+*.ptl
+*.ckpt
+*.safetensors
+*.onnx
+*.gguf
+*.ggml
+*.bin
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.zip
+*.tar
+*.tar.gz
+*.tar.zst
+*.tgz
+*.7z
+*.whl
+*.log
+*.db
+*.sqlite*
+*.bak*
+.venv*/
+.cache/
+.vieneu_runtime_home/
+model_cache/
+checkpoints/
+/backups/
+/experiments/brand_voice_phase36d/python312/
+/experiments/brand_voice_phase36d/VietVoice-TTS/
+/experiments/brand_voice_phase36m/source/
+
+# Local voice selection history and private experiment mappings.
+/data/voice_lab/reference_history.json
+private_mapping.json
+*.wav.*

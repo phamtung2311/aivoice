@@ -1,0 +1,122 @@
+{
+  "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "offline": true,
+  "device": "cpu",
+  "dtype": "torch.bfloat16",
+  "memory_before_load": {
+    "ram_total_bytes": 16358825984,
+    "ram_available_bytes": 8159080448,
+    "ram_used_bytes": 8199745536,
+    "swap_used_bytes": 1707827200
+  },
+  "memory_after_load": {
+    "ram_total_bytes": 16358825984,
+    "ram_available_bytes": 7820169216,
+    "ram_used_bytes": 8538656768,
+    "swap_used_bytes": 1707810816
+  },
+  "memory_after_unload": {
+    "ram_total_bytes": 16358825984,
+    "ram_available_bytes": 8160157696,
+    "ram_used_bytes": 8198668288,
+    "swap_used_bytes": 2403160064
+  },
+  "records": [
+    {
+      "identity": "G2-A",
+      "attempt": 1,
+      "generation_seconds": 595.434,
+      "peak_process_rss_mb": 5066.45,
+      "prompt": "Adult male with a naturally deep, warm and full-bodied voice, close intimate microphone presence, calm reflective confidence, and a distinctive but believable personal timbre. Speak like a thoughtful long-form podcast storyteller to one listener, with gentle expressive variation and natural conversational phrasing. Make the character more recognizable while remaining natural. Avoid announcer delivery, artificial bass, theatrical acting, generic audiobook cadence, cartoon characterisation, and imitation of any real person.",
+      "audio": {
+        "duration_seconds": 7.68,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.472656,
+        "rms": 0.062845,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      }
+    },
+    {
+      "identity": "G2-B",
+      "attempt": 1,
+      "generation_seconds": 299.769,
+      "peak_process_rss_mb": 5099.45,
+      "prompt": "Adult male with warm resonance, a full medium-deep tone, and subtle natural vocal texture. Intelligent conversational delivery with relaxed human imperfections, soft close-mic presence, and calm confidence. He should feel like a memorable podcast host, not an engineered voice. Avoid exaggerated rasp, artificial bass, radio-commercial polish, theatrical delivery, generic TTS cadence, and imitation of any real person.",
+      "audio": {
+        "duration_seconds": 6.8,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.601562,
+        "rms": 0.067811,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      }
+    },
+    {
+      "identity": "G2-C",
+      "attempt": 1,
+      "generation_seconds": 493.796,
+      "peak_process_rss_mb": 5192.1,
+      "prompt": "Adult male intimate storyteller with a naturally deep warm voice, close microphone presence, reflective warmth, gentle dynamics, and unforced natural pauses. Speak personally and calmly as if sharing a meaningful story with one listener; remain clear and quietly confident, never whispered. Avoid announcer delivery, generic audiobook rhythm, artificial bass, theatrical acting, and imitation of any real person.",
+      "audio": {
+        "duration_seconds": 9.28,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.6875,
+        "rms": 0.07602,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      }
+    },
+    {
+      "identity": "G2-D",
+      "attempt": 1,
+      "generation_seconds": 372.894,
+      "peak_process_rss_mb": 5192.1,
+      "prompt": "Adult male with a clean, recognizable timbre and a calm confident personality. Medium-deep warm voice, clear natural articulation, subtle vocal texture, and intelligent conversational pacing for a long-form podcast. Distinctive enough to be remembered, yet relaxed and believable rather than performed. Avoid broadcast announcer style, radio-commercial energy, extreme bass, theatrical delivery, generic TTS cadence, and imitation of any real person.",
+      "audio": {
+        "duration_seconds": 7.36,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.625,
+        "rms": 0.084758,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      }
+    },
+    {
+      "identity": "G2-E",
+      "attempt": 1,
+      "generation_seconds": 402.62,
+      "peak_process_rss_mb": 5192.1,
+      "prompt": "Mature adult male with a naturally deep, resonant, warm voice that is slightly weighty but controlled. Full-body tone, thoughtful calm delivery, close intimate microphone presence, and natural expressive restraint. He should sound like a seasoned conversational storyteller, human and approachable rather than grand. Avoid extreme bass, movie-trailer style, artificial resonance, theatrical acting, generic audiobook cadence, and imitation of any real person.",
+      "audio": {
+        "duration_seconds": 8.72,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.386719,
+        "rms": 0.06156,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      }
+    },
+    {
+      "identity": "G2-F",
+      "attempt": 1,
+      "generation_seconds": 361.692,
+      "peak_process_rss_mb": 5192.1,
+      "prompt": "Adult male with an unusually recognizable but believable warm medium-deep timbre, subtle natural texture, and small human imperfections. Calm, intelligent, intimate conversational delivery with a clear personal vocal fingerprint and gentle storytelling ease. Be distinctive without becoming a caricature. Avoid exaggerated rasp, character acting, theatrical drama, radio-commercial polish, artificial bass, generic TTS cadence, and imitation of any real person.",
+      "audio": {
+        "duration_seconds": 7.84,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.726562,
+        "rms": 0.091802,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      }
+    }
+  ]
+}

@@ -33,7 +33,7 @@ def test_clean_segment_transform_preserves_marker_boundaries():
 
 
 def test_parser_rejects_ambiguous_marker_sequences():
-    for script in ("| Xin chào", "Xin chào ||", "Xin chào || | tiếp", "Xin chào |||| tiếp"):
+    for script in ("| Xin chào", "Xin chào || | tiếp", "Xin chào |||| tiếp"):
         try:
             parse_prosody_script(script)
         except ValueError:
@@ -92,3 +92,30 @@ def test_api_is_backward_compatible_and_only_uses_markup_path_when_requested():
     assert engine.calls == [("normal", "Xin chào"), ("prosody", "Xin || chào"), ("normal", "Bản đã sửa")]
     for response in (ordinary, marked, editable):
         os.remove(response.path)
+
+
+def test_final_marker_preserved_by_normalization_and_rendered_as_silence(tmp_path):
+    for marker, milliseconds in (("|", 70), ("||", 140), ("|||", 260)):
+        script = f"Xin chào. {marker}  "
+        parsed = parse_prosody_script(script)
+        assert [(part.text, part.pause_after_ms) for part in parsed] == [("Xin chào.", milliseconds)]
+        assert transform_prosody_script(script, str.upper) == f"XIN CHÀO. {marker}"
+        engine = TTSEngine(cache_model=False)
+        model = _RecordingModel()
+        engine._model = model
+        path = tmp_path / f"trailing_{milliseconds}.wav"
+        engine.generate_prosody(script, out_path=str(path))
+        audio, sr = sf.read(path, dtype="float32")
+        assert model.inputs == ["Xin chào."]
+        assert sr == 1000
+        assert len(audio) == 10 + milliseconds
+        assert np.all(audio[-milliseconds:] == 0)
+
+
+def test_trailing_pause_keeps_existing_silence_and_stereo_shape():
+    from backend.app.tts.audio import fill_trailing_pause
+    audio = np.concatenate((np.full((10, 2), .2), np.zeros((100, 2))))
+    padded = fill_trailing_pause(audio, 1000, 140)
+    assert padded.shape == (150, 2)
+    np.testing.assert_array_equal(padded[:110], audio)
+    assert fill_trailing_pause(audio, 1000, 70) is audio

@@ -1,0 +1,19 @@
+{
+  "keeper_id": "phase30k_01",
+  "phase": "30K",
+  "blind_audition_number": "01",
+  "identity": "CONTROL",
+  "selected": true,
+  "selection_verdict": "okay / selected",
+  "preserved_at_utc": "2026-08-31T14:51:08.493679+00:00",
+  "canonical_keeper": "g2_06",
+  "canonical_paths": {
+    "qwen_source": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/qwen_source.wav",
+    "vietnamese_sample": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/vietnamese_sample.wav",
+    "speaker_embedding": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/speaker_emb.npy",
+    "reference_codes": "/home/tung/ai voice/experiments/special_voice_podcast/keepers/g2_06/reference_codes.npy"
+  },
+  "reason_for_link": "CONTROL is already the byte-identical preserved G2-06 keeper; no duplicate audio or conditioning was created.",
+  "audio_modified": false,
+  "conditioning_reencoded": false
+}

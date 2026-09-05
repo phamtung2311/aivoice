@@ -1,0 +1,175 @@
+{
+  "phase": "40C",
+  "task": "podcast_brand_signature_refinement",
+  "canonical_baseline": {
+    "path": "experiments/brand_voice_phase40b/baseline/PODCAST_CANDIDATE_B_BASELINE",
+    "speaker_emb_sha256": "0c0cbc23228c89cfc27b0d109603b42b3fa0ca071cf728801455ec2cae752b53",
+    "reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+    "baseline_formula": {
+      "Phạm Tuyên": 0.75,
+      "Thanh Bình": 0.25
+    },
+    "reference_codes_fixed": true
+  },
+  "shared_audition_text": "Người ta hay nghĩ rằng một giọng nói tốt là giọng vang to. Nhưng thật ra, giọng podcast tốt là giọng biết dừng lại đúng lúc, đặt câu hỏi đúng chỗ, và để người nghe cảm nhận được một sự thật không cần ai nhấn mạnh. Khi ta lắng nghe đủ sâu, ta sẽ thấy rằng mỗi sự suy ngẫm đều mang trong mình một lý do để sống chậm, sống rõ, và sống có trách nhiệm.",
+  "generation_config": {
+    "denoise": true,
+    "use_ref_codes": true,
+    "temperature": 0.8,
+    "top_k": 25,
+    "top_p": 0.95,
+    "max_new_frames": 300,
+    "repetition_penalty": 1.2,
+    "repetition_window": 64,
+    "max_chars": 256,
+    "silence_p": 0.15,
+    "crossfade_p": 0.0,
+    "apply_watermark": true,
+    "batch_size": null
+  },
+  "local_geometric_moves": {
+    "baseline_candidate_b": {
+      "description": "Untouched canonical Candidate B control",
+      "weights": {
+        "Phạm Tuyên": 0.75,
+        "Thanh Bình": 0.25
+      }
+    },
+    "refinement_r1": {
+      "description": "Slightly stronger Phạm Tuyên identity; more personal narrator nuance while keeping storytelling codes fixed",
+      "weights": {
+        "Phạm Tuyên": 0.82,
+        "Thanh Bình": 0.18
+      }
+    },
+    "refinement_r2": {
+      "description": "Slightly more Thanh Bình body for a mature storytelling anchor",
+      "weights": {
+        "Phạm Tuyên": 0.68,
+        "Thanh Bình": 0.32
+      }
+    },
+    "refinement_r3": {
+      "description": "Controlled third-anchor perturbation around B using a nearby Northern male anchor",
+      "weights": {
+        "Phạm Tuyên": 0.7,
+        "Thanh Bình": 0.2,
+        "Minh Đức": 0.1
+      }
+    }
+  },
+  "results": {
+    "baseline_candidate_b": {
+      "path": "audio/baseline_candidate_b.wav",
+      "sha256": "542136500f09cb2ae67f07d7e5831abb363af5a4a15204dfe173ca6ce084788c",
+      "size_bytes": 1822124,
+      "duration_seconds": 18.98,
+      "sample_rate_hz": 48000,
+      "channels": 1,
+      "format": "WAV",
+      "subtype": "PCM_16",
+      "frames_header": 911040,
+      "frames_read": 911040,
+      "all_samples_finite": true,
+      "peak_abs": 0.924041748046875,
+      "rms": 0.10548894102474653,
+      "clipped_samples_abs_ge_0_999": 0,
+      "generation_seconds": 11.78477,
+      "rtf": 0.620905,
+      "peak_process_rss_mib": 1118.757812,
+      "speaker_emb_sha256": "0c0cbc23228c89cfc27b0d109603b42b3fa0ca071cf728801455ec2cae752b53",
+      "reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+      "formula": {
+        "Phạm Tuyên": 0.75,
+        "Thanh Bình": 0.25
+      },
+      "text": "Người ta hay nghĩ rằng một giọng nói tốt là giọng vang to. Nhưng thật ra, giọng podcast tốt là giọng biết dừng lại đúng lúc, đặt câu hỏi đúng chỗ, và để người nghe cảm nhận được một sự thật không cần ai nhấn mạnh. Khi ta lắng nghe đủ sâu, ta sẽ thấy rằng mỗi sự suy ngẫm đều mang trong mình một lý do để sống chậm, sống rõ, và sống có trách nhiệm."
+    },
+    "refinement_r1": {
+      "path": "audio/refinement_r1.wav",
+      "sha256": "581132a400b326814ba391097360ce4c9fd15aea7dd687d8488f868bf2ae65b0",
+      "size_bytes": 1729964,
+      "duration_seconds": 18.02,
+      "sample_rate_hz": 48000,
+      "channels": 1,
+      "format": "WAV",
+      "subtype": "PCM_16",
+      "frames_header": 864960,
+      "frames_read": 864960,
+      "all_samples_finite": true,
+      "peak_abs": 0.76824951171875,
+      "rms": 0.10686139981756684,
+      "clipped_samples_abs_ge_0_999": 0,
+      "generation_seconds": 10.510757,
+      "rtf": 0.583283,
+      "peak_process_rss_mib": 141.769531,
+      "speaker_emb_sha256": "ac0bac6db703ccf349a6ce41460d6bc3ee791968a62a7664248e4cae294e4153",
+      "reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+      "formula": {
+        "Phạm Tuyên": 0.82,
+        "Thanh Bình": 0.18
+      },
+      "text": "Người ta hay nghĩ rằng một giọng nói tốt là giọng vang to. Nhưng thật ra, giọng podcast tốt là giọng biết dừng lại đúng lúc, đặt câu hỏi đúng chỗ, và để người nghe cảm nhận được một sự thật không cần ai nhấn mạnh. Khi ta lắng nghe đủ sâu, ta sẽ thấy rằng mỗi sự suy ngẫm đều mang trong mình một lý do để sống chậm, sống rõ, và sống có trách nhiệm."
+    },
+    "refinement_r2": {
+      "path": "audio/refinement_r2.wav",
+      "sha256": "438d5a1c931a06967fcb8fc3be3df633d642ff0b91a4ef16bad2aea36512d967",
+      "size_bytes": 1883564,
+      "duration_seconds": 19.62,
+      "sample_rate_hz": 48000,
+      "channels": 1,
+      "format": "WAV",
+      "subtype": "PCM_16",
+      "frames_header": 941760,
+      "frames_read": 941760,
+      "all_samples_finite": true,
+      "peak_abs": 0.9404296875,
+      "rms": 0.09833187545203236,
+      "clipped_samples_abs_ge_0_999": 0,
+      "generation_seconds": 11.189016,
+      "rtf": 0.570286,
+      "peak_process_rss_mib": 10.9375,
+      "speaker_emb_sha256": "7d27c881925f60174f20b2a4330a106b71b486024d5fca604c4e2f09f794df44",
+      "reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+      "formula": {
+        "Phạm Tuyên": 0.68,
+        "Thanh Bình": 0.32
+      },
+      "text": "Người ta hay nghĩ rằng một giọng nói tốt là giọng vang to. Nhưng thật ra, giọng podcast tốt là giọng biết dừng lại đúng lúc, đặt câu hỏi đúng chỗ, và để người nghe cảm nhận được một sự thật không cần ai nhấn mạnh. Khi ta lắng nghe đủ sâu, ta sẽ thấy rằng mỗi sự suy ngẫm đều mang trong mình một lý do để sống chậm, sống rõ, và sống có trách nhiệm."
+    },
+    "refinement_r3": {
+      "path": "audio/refinement_r3.wav",
+      "sha256": "afce613e86a3fd5a5de3fdf2b4eb538629c6ee341917d93f33399dad6e5c8b93",
+      "size_bytes": 1829804,
+      "duration_seconds": 19.06,
+      "sample_rate_hz": 48000,
+      "channels": 1,
+      "format": "WAV",
+      "subtype": "PCM_16",
+      "frames_header": 914880,
+      "frames_read": 914880,
+      "all_samples_finite": true,
+      "peak_abs": 0.88189697265625,
+      "rms": 0.10314065181537524,
+      "clipped_samples_abs_ge_0_999": 0,
+      "generation_seconds": 10.846508,
+      "rtf": 0.569072,
+      "peak_process_rss_mib": 0.0,
+      "speaker_emb_sha256": "e78dbf5c19a46965afb98c8199a47468ec53f0c8616021bae6945502509b3f46",
+      "reference_codes_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+      "formula": {
+        "Phạm Tuyên": 0.7,
+        "Thanh Bình": 0.2,
+        "Minh Đức": 0.1
+      },
+      "text": "Người ta hay nghĩ rằng một giọng nói tốt là giọng vang to. Nhưng thật ra, giọng podcast tốt là giọng biết dừng lại đúng lúc, đặt câu hỏi đúng chỗ, và để người nghe cảm nhận được một sự thật không cần ai nhấn mạnh. Khi ta lắng nghe đủ sâu, ta sẽ thấy rằng mỗi sự suy ngẫm đều mang trong mình một lý do để sống chậm, sống rõ, và sống có trách nhiệm."
+    }
+  },
+  "blind_mapping": {
+    "01.wav": "baseline_candidate_b.wav",
+    "02.wav": "refinement_r1.wav",
+    "03.wav": "refinement_r2.wav",
+    "04.wav": "refinement_r3.wav"
+  },
+  "status": "CANDIDATE B BRAND SIGNATURE REFINEMENT: PENDING HUMAN QA"
+}

@@ -1,0 +1,37 @@
+{
+  "phase": "41F",
+  "source_path": "experiments/brand_voice_phase41e/audio/v3_semantic_focus_final.wav",
+  "source_sha256": "51e4bd659d4d3d9d9dae236f08d5d6c9aaa704cf825553cd81cf5707bb874569",
+  "source_duration_seconds": 68.88,
+  "method": "FFmpeg atempo; pitch-preserving tempo adjustment; no TTS rerender",
+  "candidates": {
+    "baseline": {
+      "tempo": 1.0,
+      "path": "experiments/brand_voice_phase41f/audio/baseline.wav",
+      "sha256": "51e4bd659d4d3d9d9dae236f08d5d6c9aaa704cf825553cd81cf5707bb874569",
+      "expected_duration_seconds": 68.88,
+      "measured_duration_seconds": 68.88
+    },
+    "tempo_98": {
+      "tempo": 0.98,
+      "path": "experiments/brand_voice_phase41f/audio/tempo_98.wav",
+      "sha256": "a643129523b912e9e8efc06f25746a09d45efd8862d0ac58534a1e7d212bc423",
+      "expected_duration_seconds": 70.28571428571428,
+      "measured_duration_seconds": 70.27408333333334
+    },
+    "tempo_96": {
+      "tempo": 0.96,
+      "path": "experiments/brand_voice_phase41f/audio/tempo_96.wav",
+      "sha256": "8b44fa8f28d714b24fda4e5df6ddc892b901dfdced9d8191fb0b083ff8ab8733",
+      "expected_duration_seconds": 71.75,
+      "measured_duration_seconds": 71.74014583333333
+    },
+    "tempo_94": {
+      "tempo": 0.94,
+      "path": "experiments/brand_voice_phase41f/audio/tempo_94.wav",
+      "sha256": "518690838c166c8d677942017ce154fc98117614733853d4b0782c8edc764c43",
+      "expected_duration_seconds": 73.27659574468085,
+      "measured_duration_seconds": 73.27072916666667
+    }
+  }
+}

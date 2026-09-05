@@ -1,0 +1,19 @@
+{
+  "keeper_id": "phase30k_04",
+  "phase": "30K",
+  "blind_audition_number": "04",
+  "identity": "K-A",
+  "selected": true,
+  "keeper_status": "LONG_FORM_BASELINE_KEEPER",
+  "phase30l_status": "natural enough and listenable for long-form; baseline for distinctiveness refinement; not final brand voice",
+  "selection_verdict": "okay / selected",
+  "preserved_at_utc": "2026-08-31T14:51:08.493679+00:00",
+  "english_generation_text": "In this quiet moment, we can slow down, listen closely, and let a simple thought unfold with clarity.",
+  "voicedesign_prompt": "Adult male with warm resonance, a full medium-deep tone, subtle natural vocal texture, and a slightly deeper natural male register with slightly fuller low-mid resonance. Intelligent conversational delivery with relaxed human imperfections, soft close-mic presence, calm confidence, and a recognizable but believable podcast-host identity. Use a natural medium conversational rhythm with connected phrasing and short natural pauses only at sentence or clause boundaries. Avoid extreme bass, unnaturally lowered pitch, booming resonance, movie-trailer voice, radio voice, slow dramatic delivery, long pauses between ordinary words, excessive breathiness, audible breath acting, whispery delivery, generic TTS cadence, theatrical delivery, and imitation of any real person.",
+  "original_paths": {
+    "qwen_source": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_3/reference_audio/k_A.wav",
+    "vietnamese_output": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_3/vietnamese_outputs/vietnamese_K-A.wav"
+  },
+  "audio_modified": false,
+  "conditioning_reencoded": false
+}

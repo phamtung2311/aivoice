@@ -1,0 +1,66 @@
+{
+  "phase": "41E",
+  "mode": "prosody_experiment",
+  "speaker_identity": {
+    "canonical_root": "experiments/brand_voice_phase41b/baseline/PODCAST_SYNTHETIC_CANDIDATE_03",
+    "speaker_emb_array_sha256": "980d5856f58a8619b6abf0c3935de74ddfb5c333b9b8fae2fd5c3b6ef7067771",
+    "speaker_emb_npy_sha256": "c763159d8ed6ed4b0f1916f8b0762d1902743d293fcd7874541966d7f9ee10a1",
+    "reference_codes_npy_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5"
+  },
+  "shared_passage": {
+    "id": "phase41e_shared_audition_text",
+    "text": "Để hiểu rõ điều gì khiến một con người sống với sự bình tĩnh, ta phải nhìn vào cách họ xử lý thời gian. Không phải trong những khoảnh khắc vinh quang, mà trong những giây phút thầm lặng khi mọi thứ quanh họ đang vội. Một người có thể nói rất nhiều, nhưng nếu họ không biết khi nào nên dừng lại, họ sẽ không bao giờ thực sự được nghe. Điều quan trọng không phải là ta đi nhanh đến đâu, mà là ta có biết mình đang đi về đâu hay không. Ta thường tưởng sức nặng của một lời nói nằm ở âm lượng, trong khi nó thật ra nằm ở sự chính xác và khoảng lặng bao quanh. Khi ta chậm lại để lắng nghe, ta bắt đầu nhận ra rằng sự rõ ràng không đến từ sự la hét của ý chí, mà từ sự ổn định của nội tâm. Vì vậy, cách ta nói lên điều mình tin tưởng không chỉ là cách truyền đạt ý tưởng, nó còn cho thấy cách ta sống cùng những ý tưởng ấy. Một người có thể giải thích rõ ràng nhưng vẫn chưa thực sự chạm tới người nghe nếu họ không biết nhấn đúng điểm. Suy cho cùng, cảm giác được hiểu là điều mà người ta nhớ lâu hơn bất kỳ câu văn hoa nào. Người nghe không chỉ cần một câu trả lời đúng; họ cần một nhịp dẫn đủ rõ để tự nhìn thấy điều quan trọng đối với mình. Và đó là lý do vì sao một giọng nói tốt không chỉ cần đúng, mà còn cần biết khi nào nên dừng, khi nào nên nhấn, và khi nào nên để người nghe tự mình suy ngẫm."
+  },
+  "shared_passage_metrics": {
+    "utf8_sha256": "12ad8cb1c8483eff48786494eb034580e602982fd90329fd73ce1ad641964dc2",
+    "character_count": 1298,
+    "vietnamese_word_count": 296,
+    "sentence_count": 11,
+    "punctuation_counts": {".": 11, ",": 14, ";": 1, ":": 0, "?": 0, "!": 0, "…": 0}
+  },
+  "observed_rate": {
+    "method": "pooled punctuated source characters divided by pooled final duration across all three Phase 41D tests",
+    "source_characters": 7622,
+    "duration_seconds": 397.12,
+    "characters_per_second": 19.193190975020144
+  },
+  "target_duration_seconds": {"min": 65.0, "max": 73.0, "predicted": 67.62815009183942},
+  "phase41d_control": {
+    "source_file": "experiments/brand_voice_phase41d/run_longform_validation.py",
+    "function": "chunk_text_for_longform",
+    "max_chars": 350,
+    "period_handling": "replace ellipsis with full stop, split on full stop, strip pieces, greedily pack with one space; full stops are not passed to TTS"
+  },
+  "pause_policy": {
+    "classification": "experimental_heuristic",
+    "clause_boundary_seconds": 0.03,
+    "sentence_boundary_seconds": 0.06,
+    "thought_transition_seconds": 0.1,
+    "policy_note": "These values are experimental heuristics, not scientifically derived. Only Variant 2 inserts them during final WAV assembly."
+  },
+  "engine_controls": {
+    "installed_version": "3.3.0",
+    "mode": "v3turbo",
+    "backend": "onnx",
+    "temperature": 0.8,
+    "top_k": 25,
+    "top_p": 0.95,
+    "repetition_penalty": 1.2,
+    "repetition_window": 64,
+    "denoise": true,
+    "use_ref_codes": true,
+    "silence_p": 0.15,
+    "crossfade_p": 0.0,
+    "apply_watermark": true,
+    "sample_rate": 48000,
+    "max_new_frames": 600,
+    "max_chars": 800,
+    "max_chars_chunk": 350,
+    "batch_size": 1,
+    "explicit_speed_status": "unsupported",
+    "deterministic_seed_status": "unsupported",
+    "silence_crossfade_status": "accepted by V3TurboVieNeuTTS.infer signature but unused by its implementation in VieNeu 3.3.0",
+    "chunking_status": "supported internally by max_chars; Phase 41E performs explicit external chunking and keeps each call below max_chars"
+  },
+  "variants": ["v0_phase41d_control", "v1_semantic_chunking", "v2_natural_pacing", "v3_semantic_focus"]
+}

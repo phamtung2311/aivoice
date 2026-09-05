@@ -1,0 +1,6 @@
+{
+  "clip_01.wav": "experiments/brand_voice_phase41a/runs/auditions/candidate_02.wav",
+  "clip_02.wav": "experiments/brand_voice_phase41a/runs/auditions/baseline_candidate_b.wav",
+  "clip_03.wav": "experiments/brand_voice_phase41a/runs/auditions/candidate_01.wav",
+  "clip_04.wav": "experiments/brand_voice_phase41a/runs/auditions/candidate_03.wav"
+}

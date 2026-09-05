@@ -1,0 +1,28 @@
+{
+  "phase": "36I",
+  "purpose": "synthetic_vietnamese_bridge_reference",
+  "canonical_anchor": "/home/tung/ai voice/experiments/brand_speaker_phase33c/baseline_anchor/BRAND_CANDIDATE_03_BASELINE",
+  "reference_text": "Hôm nay chúng ta cùng đi qua một câu chuyện ngắn với giọng kể rõ ràng và tự nhiên.",
+  "configuration": {
+    "temperature": 0.82,
+    "top_k": 25,
+    "top_p": 0.97,
+    "repetition_penalty": 1.15,
+    "speed": 1.0,
+    "max_chunk_chars": 240,
+    "denoise": false,
+    "use_ref_codes": true,
+    "seed": 34001
+  },
+  "generation_seconds": 9.987847,
+  "peak_rss_mib": 834.551,
+  "audio": {
+    "duration_seconds": 4.96,
+    "sample_rate": 48000,
+    "channels": 1,
+    "peak": 0.84436035,
+    "rms": 0.09135528,
+    "clipped_samples": 0,
+    "sha256": "fa7931798dc7ef5ea5590dfed0d9d60e4d5b43486603240a6fc2317a3c0f38c4"
+  }
+}

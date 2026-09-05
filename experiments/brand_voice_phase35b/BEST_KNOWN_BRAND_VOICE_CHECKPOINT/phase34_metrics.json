@@ -1,0 +1,290 @@
+{
+  "baseline_params": {
+    "temperature": 0.82,
+    "top_k": 25,
+    "top_p": 0.97,
+    "repetition_penalty": 1.15
+  },
+  "identity_anchor": "Candidate 03 / D",
+  "strategies": {
+    "A": {
+      "label": "baseline",
+      "prosody_api": false
+    },
+    "B": {
+      "label": "pause_aware",
+      "prosody_api": true
+    },
+    "C": {
+      "label": "authority_aware",
+      "prosody_api": false
+    },
+    "D": {
+      "label": "combined",
+      "prosody_api": true
+    }
+  },
+  "outputs": [
+    {
+      "strategy": "A",
+      "label": "baseline",
+      "prosody_api": false,
+      "generation_seconds": 37.733,
+      "rtf": 0.888,
+      "audio": {
+        "duration_seconds": 42.48,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.791443,
+        "rms": 0.101237,
+        "clipped_samples": 0,
+        "sha256": "23632d45b5f8b83f1b02e6afb3426f02315d7c268c074a378767b007b8e6a9df"
+      },
+      "diagnostics": {
+        "input_chars": 665,
+        "outer_chunk_count": 4,
+        "chunks": [
+          {
+            "index": 0,
+            "chars": 234,
+            "ending": ".",
+            "duration_seconds": 14.24,
+            "peak": 0.739918,
+            "rms": 0.108997,
+            "leading_silence_ms": 97.46,
+            "trailing_silence_ms": 108.48
+          },
+          {
+            "index": 1,
+            "chars": 187,
+            "ending": ".",
+            "duration_seconds": 13.36,
+            "peak": 0.717837,
+            "rms": 0.094705,
+            "leading_silence_ms": 119.27,
+            "trailing_silence_ms": 137.56
+          },
+          {
+            "index": 2,
+            "chars": 183,
+            "ending": ".",
+            "duration_seconds": 11.12,
+            "peak": 0.79142,
+            "rms": 0.103975,
+            "leading_silence_ms": 219.19,
+            "trailing_silence_ms": 105.25
+          },
+          {
+            "index": 3,
+            "chars": 58,
+            "ending": ".",
+            "duration_seconds": 3.76,
+            "peak": 0.725015,
+            "rms": 0.083407,
+            "leading_silence_ms": 247.27,
+            "trailing_silence_ms": 46.62
+          }
+        ],
+        "inserted_gap_ms": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "speed": 1.0,
+        "final_duration_seconds": 42.48,
+        "final_peak": 0.79142,
+        "final_rms": 0.101237
+      }
+    },
+    {
+      "strategy": "B",
+      "label": "pause_aware",
+      "prosody_api": true,
+      "generation_seconds": 25.299,
+      "rtf": 0.592,
+      "audio": {
+        "duration_seconds": 42.72,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.897369,
+        "rms": 0.101175,
+        "clipped_samples": 0,
+        "sha256": "e0b4e6acbf4cd5bc6feab51d30d95cc0018c12d91790ddcefc808801c355a7fa"
+      },
+      "diagnostics": {
+        "prosody_version": "podcast_prosody_v1",
+        "segment_count": 7,
+        "explicit_pause_targets_ms": [
+          140,
+          140,
+          70,
+          140,
+          140,
+          140
+        ],
+        "inserted_gap_ms": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "strategy": "C",
+      "label": "authority_aware",
+      "prosody_api": false,
+      "generation_seconds": 28.939,
+      "rtf": 0.671,
+      "audio": {
+        "duration_seconds": 43.12,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.876801,
+        "rms": 0.095743,
+        "clipped_samples": 0,
+        "sha256": "52e2dff0b62b042a66faed46a4e17f1a7dd5864fd3d211dd4741561594c49a77"
+      },
+      "diagnostics": {
+        "input_chars": 662,
+        "outer_chunk_count": 3,
+        "chunks": [
+          {
+            "index": 0,
+            "chars": 234,
+            "ending": ".",
+            "duration_seconds": 14.48,
+            "peak": 0.876828,
+            "rms": 0.094913,
+            "leading_silence_ms": 91.9,
+            "trailing_silence_ms": 133.75
+          },
+          {
+            "index": 1,
+            "chars": 187,
+            "ending": ".",
+            "duration_seconds": 13.6,
+            "peak": 0.740573,
+            "rms": 0.098057,
+            "leading_silence_ms": 108.08,
+            "trailing_silence_ms": 142.5
+          },
+          {
+            "index": 2,
+            "chars": 239,
+            "ending": ".",
+            "duration_seconds": 15.04,
+            "peak": 0.851528,
+            "rms": 0.094411,
+            "leading_silence_ms": 113.42,
+            "trailing_silence_ms": 91.79
+          }
+        ],
+        "inserted_gap_ms": [
+          0.0,
+          0.0
+        ],
+        "speed": 1.0,
+        "final_duration_seconds": 43.12,
+        "final_peak": 0.876828,
+        "final_rms": 0.095743
+      }
+    },
+    {
+      "strategy": "D",
+      "label": "combined",
+      "prosody_api": true,
+      "generation_seconds": 24.454,
+      "rtf": 0.581,
+      "audio": {
+        "duration_seconds": 42.08,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.993988,
+        "rms": 0.100089,
+        "clipped_samples": 0,
+        "sha256": "018af0f0d4fe1613b928c0d16c90d0119f9baabc143c77ac5cdc5ca4474c849f"
+      },
+      "diagnostics": {
+        "prosody_version": "podcast_prosody_v1",
+        "segment_count": 11,
+        "explicit_pause_targets_ms": [
+          140,
+          70,
+          140,
+          140,
+          70,
+          140,
+          140,
+          70,
+          70,
+          140
+        ],
+        "inserted_gap_ms": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  ],
+  "audition": {
+    "Clip_A.wav": {
+      "gain": 0.889549,
+      "audio": {
+        "duration_seconds": 42.72,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.798248,
+        "rms": 0.09,
+        "clipped_samples": 0,
+        "sha256": "8f07e523753559a348ed433ba8753d13cd162942a80b7e6d0b83f59124e06442"
+      }
+    },
+    "Clip_B.wav": {
+      "gain": 0.940018,
+      "audio": {
+        "duration_seconds": 43.12,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.824188,
+        "rms": 0.09,
+        "clipped_samples": 0,
+        "sha256": "9db6f4913b50f5009b8545ab184b0609bc980c2c050611efdd8876f18a064f1f"
+      }
+    },
+    "Clip_C.wav": {
+      "gain": 0.889001,
+      "audio": {
+        "duration_seconds": 42.48,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.703613,
+        "rms": 0.09,
+        "clipped_samples": 0,
+        "sha256": "a362d3caa40535a3c733c4a389764b869c632c6a816d2c7d203b1c9fd505b313"
+      }
+    },
+    "Clip_D.wav": {
+      "gain": 0.899199,
+      "audio": {
+        "duration_seconds": 42.08,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.893768,
+        "rms": 0.09,
+        "clipped_samples": 0,
+        "sha256": "fb50a6b76be7ecd4963b839c61471f46cfa12ba754d25784cdb8a7effa3757bb"
+      }
+    }
+  }
+}

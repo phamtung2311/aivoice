@@ -1,0 +1,263 @@
+{
+  "blind_mapping_path": "experiments/brand_voice_phase41h/blind_mapping.json",
+  "blind_mapping_sha256": "c57932f48789b16e58ab15da08c7e5839f14042e4bcf65ae3876a30f8ddd1d6a",
+  "blind_package_created": true,
+  "mapping_not_embedded_in_listener_files": true,
+  "no_tts": true,
+  "phase": "41H",
+  "source_chunk_count": 55,
+  "source_chunk_hashes": {
+    "0": "b346e714bc0c6960174bfcdc9b1c0fa85e5ae6965c6ad08e6c894f51c028d7c3",
+    "1": "940420b7e5ba5195a3424b4ac6d4d566a75df89c3f5dcc668959fa05964cd413",
+    "10": "c88de6d6b25407699f384c4e43f8b1d316e1779457286d6fcd1debad57a2c389",
+    "11": "2f65903152b5451abed7d5022d69dafe72e4dc55c69058b63ad83f2f636d4236",
+    "12": "efbadbd0434ba0151555ac18e9972e1e486f7c9a6ba5f5faf46598672946fa36",
+    "13": "64d237ccf21be1a370c667e46c721031fa5a883300a52eb024b2cb3f18675cd3",
+    "14": "b61cefb4178cf96408443c325c4ecb22116926431f6b2f61a445b50982dc49e4",
+    "15": "4e058d6183c5c2a587d8125341347ea406af2b99849b7dae1b893a916cefd946",
+    "16": "fd7ebffcb53a0fae63024cd0b1b22508835fb8d6030687dc549ce9a9ac27226d",
+    "17": "61a689a09459006cc7424728d760a28e6012df9bcae32cf7b2f6b892e2dfbc9a",
+    "18": "01e1ded7131f5df4f20664c4cd7204355790e30326c115886918fab5da2f7dd8",
+    "19": "6ae3c8ad551ac33f24970dfc5993d4ee356936a934b811096ae487bfc1a863ef",
+    "2": "aa0655676e6f0f82feee0cce95ed453d201d351f9854e20f59b316614c374ac5",
+    "20": "79580de6e0d3ddc47919526a015dc1d745d7bf93090de703b78d8862e7f32543",
+    "21": "2da0fcc4e81c86aa38c3e1fe861e70bbb2344da9f0a65f62253be51849767814",
+    "22": "b19c8a77a85974b14a3e5b8b3aa45f4305a094f0e7db16eb738ed1d6de43d1e8",
+    "23": "76109a766ab537a5e6d5bb04e52d7f85aeb85da37a898dd7e7b69e018814f0f6",
+    "24": "d351a9dcf5c7838d6fa9bfa0889224e7f1efba5b2c47d8960307837f48922bcb",
+    "25": "52ec84758300e87e490237e89bd527200d12121ad4caa1bacc055383b9a73e53",
+    "26": "97b456d1012b7483915f03a12169ba203affba5414e124f7266fb270035c7fe2",
+    "27": "7b5f1221a03769f7a600ed5a548f01071b71a815e68c765267709fbc2948b65c",
+    "28": "f18b0e3fbe8a28beb1ddd9e2b407cc656d0c36d33e00fca2d684e72bae187406",
+    "29": "6ec2b17b09b94008d50a8e1aae4eaf045493eb96efdcfc44ca5fa85ebbd4cca8",
+    "3": "1125b5caab85d7039695e54eef6c7b3f80f5215e33d77b32d72c8571cffeb470",
+    "30": "a47c8f3ac07f72df3c95dee41779848b45c9b5e809221e4b0eed23555aecb9da",
+    "31": "bdc913dbff9a04bd17ed1df7ca536ceda6b97bc152b3a329e6402d36f7b1698b",
+    "32": "70b1e7384a9fbbb8b2216aa7966256a58a8daa5cac864310d5a869456b12a425",
+    "33": "a65f6091f35db749f203145dacd279cd0b9e206913dcf324da98aad57bcaa77a",
+    "34": "f27c1400f877e7b8e84fdf19540ae9e741f6c23ef8ef9875e73282582a2ad24f",
+    "35": "5ec74d8ecd5cb1839892d62f24c65bbfd2cee497bdb19d3ac5715d2f9f0ba595",
+    "36": "c1d572b0903334581369b1f2ca8218d1e72b13b5eb2685f3de817ad4996863c8",
+    "37": "c31be741c4dbdf4a9d16745a4c2c3c4f88cc8bf2759498f4f3d182721c6ab687",
+    "38": "127ecf542b44203e883137a4e63ef051dcd3568a56b5c6872e194ed979075db2",
+    "39": "e14dc592f61e50db5a66118c7fac979ee2deacd6e02840ae2b6b1d0b39630eac",
+    "4": "2b6151ef08ebc096827ed2b5134ff638de0cade0e6c0b1505d96856eee92d90d",
+    "40": "b6e939c2bba675db70fa971a6265b2ab1bad074e2359af8a155114ff56f4ea58",
+    "41": "68b3b389b8dd596b5555ed87aa17ff26a61d5c2601f6df0f9464cc99602d1b17",
+    "42": "dc689416f7fce3252839effb6b0193988d20c7a7f572fe1fa680fc76f98b66da",
+    "43": "0265735fab9daa107e339fe472f5f6ca0964b1e7fca5dfd70b7382997a8a515d",
+    "44": "3a18163886302aa5827a37123b1682a226de1052f05e04ebf46b6ee372e5a240",
+    "45": "0d95c4d73d6021a58855b3533af79228b8da5bc03b8aa77c09f48f9e6321658f",
+    "46": "f0e3ce6c33803698c180afbc8bf61d38be0da3231fe6efaf0b888b960ff88c88",
+    "47": "1706bca97306d903274e05ad3db4d9a525f985c70f2ec4f31259545bbdf663de",
+    "48": "992bebf50b8b6818322b97f81d110cbc13eba8a1439fde10cb30f70d0aa5bc74",
+    "49": "aff6f22dae769663efc36971cd08e16c6a1e9bd821a09727a93424a52f3a748f",
+    "5": "2a1db1e55bb37f2a35215bf7503b63045e593d4bad80523c5e20714b6d9012d6",
+    "50": "78df06f06b238dfa8cedeefb951a493ad78a6c3fa86cbb452719040d1332fe0c",
+    "51": "79fed899487e8706e5344985e6dcb8abac9d00a95b25396037740bef8f9d2f79",
+    "52": "8719e8d0a9035767ef9a6fc0329da61e5e0328cd9bcc6c246d70b05087269936",
+    "53": "cb911fa6361eed1204c4a9e28c1dd7c50f10e76826aa67e194e9e5ecfa13bb49",
+    "54": "cc3fe13c062de7a02ff26e5faf9d346df0334bb7517a819be212edd79026ccbe",
+    "6": "48a7ab648cfa6d568be076364898759f0993c7ea20cab6a0d10384ecc4db7803",
+    "7": "041fa853c4b5c8c0fc03613836187c7d47727e9d3d5ad94a9b502e333d2e5d72",
+    "8": "014d36d8cf46bbd3629aacc043224ca2ed425f5afa8666181d7b4f345e5afd78",
+    "9": "9e9c9ef16aee6b8e1f8dfb2a5685d51730f3a916f58a9bcf43a2b97967d6e6a5"
+  },
+  "source_chunk_integrity": "PASS",
+  "status": "pending_blind_human_qa",
+  "tempo_filter": "atempo=0.98 once after complete assembly",
+  "variants": {
+    "v0_current": {
+      "added_by_class_seconds": {
+        "paragraph_transition": 0.0,
+        "semantic_thought_boundary": 0.0,
+        "setup_resolution_boundary": 0.0,
+        "thought_transition": 0.0
+      },
+      "average_added_per_boundary_seconds": 0.0,
+      "boundaries_receiving_pause": 0,
+      "effective_gap_metrics": {
+        "paragraph": {
+          "mean_seconds": 0.300625,
+          "median_seconds": 0.295
+        },
+        "semantic": {
+          "mean_seconds": 0.30935483870967745,
+          "median_seconds": 0.3
+        },
+        "thought_transition": {
+          "mean_seconds": 0.300625,
+          "median_seconds": 0.295
+        }
+      },
+      "final": {
+        "channels": 1,
+        "clipped_samples": 0,
+        "duration_seconds": 441.8669375,
+        "frames": 21209613,
+        "peak_dbfs": -0.005833549446537113,
+        "peak_pcm16": 32746,
+        "sample_rate": 48000,
+        "sample_width_bytes": 2,
+        "sha256": "b6da66aed6d371176a8d3223e332b1c904ef64639416251811e96ba9521f6e6a"
+      },
+      "path": "experiments/brand_voice_phase41h/audio/v0_current.wav",
+      "pretempo": {
+        "channels": 1,
+        "clipped_samples": 4,
+        "duration_seconds": 433.04,
+        "frames": 20785920,
+        "peak_dbfs": -0.00026507636037961915,
+        "peak_pcm16": 32767,
+        "sample_rate": 48000,
+        "sample_width_bytes": 2,
+        "sha256": "df05aac12b2a48a4b80fe9d7502f3585af813f075268b3bccd1bdebda515d25b"
+      },
+      "total_added_seconds": 0.0
+    },
+    "v1_light": {
+      "added_by_class_seconds": {
+        "paragraph_transition": 3.52,
+        "semantic_thought_boundary": 1.86,
+        "setup_resolution_boundary": 0.28,
+        "thought_transition": 0.0
+      },
+      "average_added_per_boundary_seconds": 0.104814815,
+      "boundaries_receiving_pause": 54,
+      "effective_gap_metrics": {
+        "paragraph": {
+          "mean_seconds": 0.520625,
+          "median_seconds": 0.515
+        },
+        "semantic": {
+          "mean_seconds": 0.36935483870967745,
+          "median_seconds": 0.36
+        },
+        "thought_transition": {
+          "mean_seconds": 0.520625,
+          "median_seconds": 0.515
+        }
+      },
+      "final": {
+        "channels": 1,
+        "clipped_samples": 0,
+        "duration_seconds": 447.6393125,
+        "frames": 21486687,
+        "peak_dbfs": -0.006894615858565781,
+        "peak_pcm16": 32742,
+        "sample_rate": 48000,
+        "sample_width_bytes": 2,
+        "sha256": "810239ca1cbb5a0940f53a5d255c2701f9f8e3ec3f222ced5874e32ae8d17065"
+      },
+      "path": "experiments/brand_voice_phase41h/audio/v1_light.wav",
+      "pretempo": {
+        "channels": 1,
+        "clipped_samples": 4,
+        "duration_seconds": 438.7,
+        "frames": 21057600,
+        "peak_dbfs": -0.00026507636037961915,
+        "peak_pcm16": 32767,
+        "sample_rate": 48000,
+        "sample_width_bytes": 2,
+        "sha256": "2c489170b0f61ed1754085a9e17206600ada092750002c3e8baf123389419bc2"
+      },
+      "total_added_seconds": 5.66
+    },
+    "v2_natural": {
+      "added_by_class_seconds": {
+        "paragraph_transition": 5.12,
+        "semantic_thought_boundary": 3.1,
+        "setup_resolution_boundary": 0.42,
+        "thought_transition": 0.0
+      },
+      "average_added_per_boundary_seconds": 0.16,
+      "boundaries_receiving_pause": 54,
+      "effective_gap_metrics": {
+        "paragraph": {
+          "mean_seconds": 0.620625,
+          "median_seconds": 0.615
+        },
+        "semantic": {
+          "mean_seconds": 0.4093548387096774,
+          "median_seconds": 0.4
+        },
+        "thought_transition": {
+          "mean_seconds": 0.620625,
+          "median_seconds": 0.615
+        }
+      },
+      "final": {
+        "channels": 1,
+        "clipped_samples": 0,
+        "duration_seconds": 450.685375,
+        "frames": 21632898,
+        "peak_dbfs": -0.005037834691749145,
+        "peak_pcm16": 32749,
+        "sample_rate": 48000,
+        "sample_width_bytes": 2,
+        "sha256": "66a51b4ccedccec6016cc778ddafceaf4c0d42fad741ad36f711a7d25ef8dce5"
+      },
+      "path": "experiments/brand_voice_phase41h/audio/v2_natural.wav",
+      "pretempo": {
+        "channels": 1,
+        "clipped_samples": 4,
+        "duration_seconds": 441.68,
+        "frames": 21200640,
+        "peak_dbfs": -0.00026507636037961915,
+        "peak_pcm16": 32767,
+        "sample_rate": 48000,
+        "sample_width_bytes": 2,
+        "sha256": "435850fdc0ae61d854812809c2532a9fb66616cec6c9a682856e54a80fb38b63"
+      },
+      "total_added_seconds": 8.64
+    },
+    "v3_spacious": {
+      "added_by_class_seconds": {
+        "paragraph_transition": 6.72,
+        "semantic_thought_boundary": 4.34,
+        "setup_resolution_boundary": 0.56,
+        "thought_transition": 0.0
+      },
+      "average_added_per_boundary_seconds": 0.215185185,
+      "boundaries_receiving_pause": 54,
+      "effective_gap_metrics": {
+        "paragraph": {
+          "mean_seconds": 0.720625,
+          "median_seconds": 0.715
+        },
+        "semantic": {
+          "mean_seconds": 0.44935483870967746,
+          "median_seconds": 0.44
+        },
+        "thought_transition": {
+          "mean_seconds": 0.720625,
+          "median_seconds": 0.715
+        }
+      },
+      "final": {
+        "channels": 1,
+        "clipped_samples": 0,
+        "duration_seconds": 453.719625,
+        "frames": 21778542,
+        "peak_dbfs": -0.005833549446537113,
+        "peak_pcm16": 32746,
+        "sample_rate": 48000,
+        "sample_width_bytes": 2,
+        "sha256": "9de84d99ef579ecf03a6f2b29fc57b356bc689c2d280c7ceb6ffb33301aeeb93"
+      },
+      "path": "experiments/brand_voice_phase41h/audio/v3_spacious.wav",
+      "pretempo": {
+        "channels": 1,
+        "clipped_samples": 4,
+        "duration_seconds": 444.66,
+        "frames": 21343680,
+        "peak_dbfs": -0.00026507636037961915,
+        "peak_pcm16": 32767,
+        "sample_rate": 48000,
+        "sample_width_bytes": 2,
+        "sha256": "340eeff64cdb4f7c6acfba9d17aad01138d09238e80d5af4baf45cb14052c80c"
+      },
+      "total_added_seconds": 11.62
+    }
+  }
+}

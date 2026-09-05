@@ -1,0 +1,42 @@
+{
+  "phase": "38C",
+  "created_utc": "2026-09-03T01:20:36.253625+00:00",
+  "source": {
+    "path": "audio/source_vietnamese.wav",
+    "sha256": "65d122d285e4841bc687485efefb7d10fb13848d0e3d0f7d1ce2841aca309786",
+    "size_bytes": 537644,
+    "duration_seconds": 5.6,
+    "sample_rate_hz": 48000,
+    "channels": 1,
+    "peak_abs": 0.56365966796875,
+    "rms": 0.10417795784901233,
+    "clipped_samples_abs_ge_0_999": 0
+  },
+  "converted": {
+    "path": "audio/candidate03_openvoice.wav",
+    "sha256": "e4ff787c8b2e04dfbc6f57d496c219abeae6bb7b619c6df335b8bb8024a40a81",
+    "size_bytes": 246828,
+    "duration_seconds": 5.596009070294785,
+    "sample_rate_hz": 22050,
+    "channels": 1,
+    "peak_abs": 0.709625244140625,
+    "rms": 0.09810718809520783,
+    "clipped_samples_abs_ge_0_999": 0
+  },
+  "openvoice_model_load_seconds": 3.462726977999864,
+  "source_embedding_seconds": 8.99809098600008,
+  "target_embedding_seconds": 0.04806505199985622,
+  "conversion_seconds": 2.28798259999985,
+  "conversion_rtf": 0.4088597018445012,
+  "conversion_pipeline_seconds": 14.79686561599965,
+  "observed_command_wall_seconds": 17.374578755,
+  "peak_rss_mib": 1102.25390625,
+  "technical_validation": {
+    "source_header_frames_equal_read_frames": true,
+    "converted_header_frames_equal_read_frames": true,
+    "converted_nonempty": true,
+    "converted_all_samples_finite": true,
+    "converted_not_truncated": true,
+    "exactly_two_primary_wav_files": true
+  }
+}

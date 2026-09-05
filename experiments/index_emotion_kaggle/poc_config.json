@@ -1,0 +1,29 @@
+{
+  "text": "Hôm nay chúng ta sẽ cùng nhau thử nghiệm một hệ thống giọng nói mới.",
+  "speakers": ["speaker_A", "speaker_B", "speaker_C"],
+  "emotions": ["neutral", "happy", "sad", "angry"],
+  "primary_mode": "shared_audio",
+  "secondary_mode": "vector",
+  "smoke_test_approved": false,
+  "seed": null,
+  "determinism": "best_effort",
+  "safe_minimum_vram_gb": 14.5,
+  "minimum_free_disk_gb": 15,
+  "generation": {
+    "use_random": false,
+    "emo_alpha": 1.0,
+    "top_p": 0.8,
+    "top_k": 30,
+    "temperature": 0.8,
+    "num_beams": 3,
+    "repetition_penalty": 10.0,
+    "max_mel_tokens": 1500
+  },
+  "secondary_vector_test": {
+    "enabled": false,
+    "emotion": "sad",
+    "vector_order": ["happy", "angry", "sad", "afraid", "disgusted", "melancholic", "surprised", "calm"],
+    "vector": [0.0, 0.0, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0],
+    "note": "Official IndexTTS2 documented sad-vector example; optional two-sample test only."
+  }
+}

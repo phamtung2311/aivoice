@@ -1,0 +1,31 @@
+{
+  "phase": "41F",
+  "created_utc": "2026-09-03T14:45:06.352994+00:00",
+  "randomization": "one-time secrets.SystemRandom shuffle",
+  "files": {
+    "01.wav": {
+      "candidate": "tempo_96",
+      "source_path": "experiments/brand_voice_phase41f/audio/tempo_96.wav",
+      "source_sha256": "8b44fa8f28d714b24fda4e5df6ddc892b901dfdced9d8191fb0b083ff8ab8733",
+      "blind_sha256": "8b44fa8f28d714b24fda4e5df6ddc892b901dfdced9d8191fb0b083ff8ab8733"
+    },
+    "02.wav": {
+      "candidate": "baseline",
+      "source_path": "experiments/brand_voice_phase41f/audio/baseline.wav",
+      "source_sha256": "51e4bd659d4d3d9d9dae236f08d5d6c9aaa704cf825553cd81cf5707bb874569",
+      "blind_sha256": "51e4bd659d4d3d9d9dae236f08d5d6c9aaa704cf825553cd81cf5707bb874569"
+    },
+    "03.wav": {
+      "candidate": "tempo_98",
+      "source_path": "experiments/brand_voice_phase41f/audio/tempo_98.wav",
+      "source_sha256": "a643129523b912e9e8efc06f25746a09d45efd8862d0ac58534a1e7d212bc423",
+      "blind_sha256": "a643129523b912e9e8efc06f25746a09d45efd8862d0ac58534a1e7d212bc423"
+    },
+    "04.wav": {
+      "candidate": "tempo_94",
+      "source_path": "experiments/brand_voice_phase41f/audio/tempo_94.wav",
+      "source_sha256": "518690838c166c8d677942017ce154fc98117614733853d4b0782c8edc764c43",
+      "blind_sha256": "518690838c166c8d677942017ce154fc98117614733853d4b0782c8edc764c43"
+    }
+  }
+}

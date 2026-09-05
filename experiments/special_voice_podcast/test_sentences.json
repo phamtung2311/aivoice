@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "language": "vi",
+  "initial_short_test_ids": ["reflective", "serious_observation", "long_complex"],
+  "sentences": [
+    {"id": "reflective", "category": "reflective_statement", "text": "Có những ngày, điều ta cần nhất không phải một câu trả lời, mà là vài phút đủ yên để nghe mình đang nghĩ gì."},
+    {"id": "personal_story", "category": "personal_storytelling", "text": "Tôi nhớ buổi sáng đầu tiên rời nhà đi làm, mẹ chỉ nói hãy ăn sáng rồi về kể chuyện cho mẹ nghe."},
+    {"id": "serious_observation", "category": "serious_observation", "text": "Chúng ta thường sợ thất bại, nhưng đôi khi điều đáng sợ hơn là sống quá lâu với một lựa chọn chưa từng được thử."},
+    {"id": "question", "category": "question", "text": "Nếu biết thời gian không chờ ai, hôm nay bạn sẽ dành sự chú ý của mình cho điều gì?"},
+    {"id": "gentle_emotion", "category": "gentle_emotional", "text": "Bạn không cần phải mạnh mẽ mọi lúc; đôi khi thừa nhận mình mệt cũng là một cách dịu dàng với bản thân."},
+    {"id": "slight_drama", "category": "slightly_dramatic", "text": "Đến khi cánh cửa khép lại, anh mới hiểu rằng sự im lặng trong căn phòng ấy đã nói thay cho tất cả."},
+    {"id": "calm_explanation", "category": "calm_explanatory", "text": "Thay đổi bền vững thường bắt đầu rất nhỏ: một giờ ngủ sớm hơn, một cuộc gọi chân thành hơn, hoặc một lần dám từ chối."},
+    {"id": "numbers_date", "category": "numbers_date", "text": "Vào ngày 12 tháng 10 năm 2026, nhóm chỉ còn 48 giờ để hoàn thành bản kế hoạch đầu tiên."},
+    {"id": "english_term", "category": "vietnamese_english", "text": "Trong buổi họp, từ podcast được nhắc đến như một cách để những câu chuyện đi xa hơn màn hình."},
+    {"id": "long_complex", "category": "long_complex_sentence", "text": "Khi nhìn lại những quyết định tưởng như nhỏ bé của vài năm trước, tôi nhận ra chính các cuộc trò chuyện ngắn, những lần kiên nhẫn lắng nghe và cả những ngày chậm lại đã âm thầm đưa mình đến nơi này."},
+    {"id": "short_impact", "category": "short_impactful", "text": "Không phải mọi khoảng lặng đều là mất mát."},
+    {"id": "soft_closing", "category": "soft_closing", "text": "Cảm ơn bạn đã ở lại đến đây; mong rằng tối nay bạn sẽ dành cho mình một khoảng thở thật nhẹ."}
+  ]
+}

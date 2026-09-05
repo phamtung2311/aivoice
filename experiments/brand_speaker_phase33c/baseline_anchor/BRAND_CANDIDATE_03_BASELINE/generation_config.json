@@ -1,0 +1,18 @@
+{
+  "phase33b_identity": "D",
+  "blind_label": "Candidate 03.wav",
+  "concept": "Dark / Textured",
+  "qwen_voice_design_instruction": "A mature adult male voice with a medium-low register, dark-neutral back resonance, a controlled matte texture with restrained natural grain, and a firm broad vocal body. It must be clearly unlike a smooth bass narrator: neutral delivery, no forced rasp, no accent, no acting.",
+  "qwen_source_text": "A quiet evening settles over the city. I speak clearly, naturally, and without rushing.",
+  "vieneu_generation": {
+    "temperature": 0.8,
+    "top_k": 25,
+    "top_p": 0.95,
+    "repetition_penalty": 1.2,
+    "speed": 1.0,
+    "max_chunk_chars": 240,
+    "denoise": false,
+    "use_ref_codes": true,
+    "seed": 33117
+  }
+}

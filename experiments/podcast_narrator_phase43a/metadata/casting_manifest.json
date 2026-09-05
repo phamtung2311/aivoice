@@ -1,0 +1,1202 @@
+{
+  "phase": "43A",
+  "status": "COMPLETE — HUMAN QA PENDING",
+  "started_utc": "2026-09-05T03:51:31.627744+00:00",
+  "engine": {
+    "package": "vieneu",
+    "version": "3.3.0",
+    "backend": "onnx",
+    "sample_rate_hz": 48000,
+    "voice_asset": "/home/tung/ai voice/.venv/lib/python3.14/site-packages/vieneu/assets/voices_v3_turbo.json",
+    "voice_asset_sha256": "574e6acf03823c4cafdc43f106731ce5fce6de30228fe383831b8b9064ee0bd8",
+    "package_license": "Apache-2.0 per installed package metadata; model-weight commercial terms not independently re-audited in this casting-only phase"
+  },
+  "policy": {
+    "synthetic_only": true,
+    "owner_audio_used": false,
+    "candidate03_used": false,
+    "raw_casting": "No Phase 41E/41F/41H prosody, manual pause, tempo, pitch, EQ, compression, or formant treatment.",
+    "attempt_limit_per_voice_text": 3,
+    "stochastic_note": "VieNeu exposes no supported deterministic seed; no seed claim is made.",
+    "normalization": "Per-file PCM peak normalization to -1 dBFS only; no EQ, compression, pitch, formant, or tempo processing."
+  },
+  "reference_code_policy": {
+    "anchor": "Thanh Bình",
+    "shape": [
+      42,
+      16
+    ],
+    "sha256_array": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8",
+    "reason": "same installed Northern storytelling reference-code policy for every synthetic blend; no candidate receives bespoke codes"
+  },
+  "texts": {
+    "A": {
+      "exact_text": "Có những ngày, chúng ta cảm thấy mình đã cố gắng rất nhiều,\nnhưng mọi thứ dường như vẫn đứng yên.\n\nTa nhìn những người xung quanh,\nrồi bất giác tự hỏi vì sao họ có thể đi nhanh đến vậy,\ncòn mình vẫn loay hoay với những điều rất nhỏ.\n\nNhưng có lẽ,\ncuộc sống chưa bao giờ yêu cầu tất cả chúng ta phải đi cùng một tốc độ.\n\nCó người cần đi thật xa mới hiểu mình muốn gì.\nCũng có người chỉ cần dừng lại một chút,\nrồi nhận ra điều mình tìm kiếm vẫn luôn ở rất gần.",
+      "sha256_utf8": "8e4b9b767c95d6988cbc96956cbd711d819356c95195724d2500fbd85ae0ac97"
+    },
+    "B": {
+      "exact_text": "Chiều hôm ấy, trời không mưa,\nnhưng những đám mây vẫn phủ kín phía cuối con đường.\n\nAnh đóng cửa sổ,\nđặt cốc trà xuống bàn,\nrồi ngồi im một lúc lâu.\n\nKhông có chuyện gì đặc biệt xảy ra.\n\nChỉ là sau rất nhiều ngày bận rộn,\nanh bỗng nhận ra mình đã lâu lắm rồi\nkhông thật sự ngồi xuống để nghe xem trong lòng mình đang nghĩ gì.\n\nĐôi khi,\nmột khoảng lặng nhỏ lại khiến chúng ta hiểu được nhiều điều\nhơn cả những ngày chạy thật nhanh.",
+      "sha256_utf8": "329053655505a1f3f9b8e113cbf472814e5a80d2a6a4a2c8da8775ee4d59448b"
+    }
+  },
+  "inference": {
+    "denoise": true,
+    "use_ref_codes": true,
+    "temperature": 0.8,
+    "top_k": 25,
+    "top_p": 0.95,
+    "max_new_frames": 800,
+    "repetition_penalty": 1.2,
+    "repetition_window": 64,
+    "max_chars": 800,
+    "silence_p": 0.15,
+    "crossfade_p": 0.0,
+    "apply_watermark": true,
+    "batch_size": 1
+  },
+  "identities": {
+    "01": {
+      "label": "DEEP WARM",
+      "definition": "Nam trưởng thành; medium-low đến low, ấm, chest resonance vừa phải, mềm và điềm tĩnh.",
+      "weights": {
+        "Thanh Bình": 0.7,
+        "Phạm Tuyên": 0.2,
+        "Minh Đức": 0.1
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_sha256": "7a132f56cb1411ca3db676f51a1a0382330473c34db31e5c38cf321485fbd0a7",
+      "speaker_emb_norm": 10.293329238891602
+    },
+    "02": {
+      "label": "DARK TEXTURED",
+      "definition": "Nam trưởng thành; medium-low, dark-neutral/matte texture nhẹ, có dấu ấn nhưng không theatrical.",
+      "weights": {
+        "Thanh Bình": 0.15,
+        "Phạm Tuyên": 0.75,
+        "Minh Đức": 0.1
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_sha256": "854c0d1f07d1558f38dc0f20a2d0c66a07c0d42ff3dfb6abcc6a3729abd549a0",
+      "speaker_emb_norm": 10.979421615600586
+    },
+    "03": {
+      "label": "CALM AUTHORITY",
+      "definition": "Nam trưởng thành; chắc, điềm tĩnh, có trọng lượng, kết câu tự nhiên hơi rơi.",
+      "weights": {
+        "Thanh Bình": 0.15,
+        "Phạm Tuyên": 0.1,
+        "Minh Đức": 0.75
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_sha256": "a29f4f3393e412442b44460930bdd3b6257bb5e48be0d31cf5da7e26d46b016d",
+      "speaker_emb_norm": 10.879934310913086
+    },
+    "04": {
+      "label": "INTIMATE NIGHT PODCAST",
+      "definition": "Nam low-medium; gần gũi, âm lượng cảm giác vừa phải, ít cảm giác đọc bài; không whisper/ASMR.",
+      "weights": {
+        "Thanh Bình": 0.55,
+        "Phạm Tuyên": 0.4,
+        "Minh Đức": 0.05
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_sha256": "8c17fce1dea6fb9014d5e7b5d5b964ae05ff0ca652c734157ab323a652b8970a",
+      "speaker_emb_norm": 9.90410041809082
+    },
+    "05": {
+      "label": "REFLECTIVE PHILOSOPHER",
+      "definition": "Nam trưởng thành trầm vừa; suy tư, có chiều sâu và semantic emphasis nhẹ; không giảng đạo.",
+      "weights": {
+        "Thanh Bình": 0.45,
+        "Phạm Tuyên": 0.05,
+        "Minh Đức": 0.5
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_sha256": "2fcc4b67ff3c6409dbfc68b4538ebd6a437d847d8a5f8d68932a638b6446058c",
+      "speaker_emb_norm": 10.288350105285645
+    },
+    "06": {
+      "label": "WARM STORYTELLER",
+      "definition": "Nam ấm; conversational storytelling, cảm xúc kiềm chế, chuyển câu mềm.",
+      "weights": {
+        "Thanh Bình": 0.1,
+        "Phạm Tuyên": 0.45,
+        "Minh Đức": 0.45
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_sha256": "1c468e5f518241ab291ee5e7a70b3e3a7acd8e2ed6e778839850835d08260d24",
+      "speaker_emb_norm": 10.107975959777832
+    },
+    "07": {
+      "label": "SOFT BARITONE",
+      "definition": "Nam baritone nhẹ; body tốt, smooth, không bass-heavy/booming/radio.",
+      "weights": {
+        "Thanh Bình": 0.65,
+        "Phạm Tuyên": 0.1,
+        "Minh Đức": 0.25
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_sha256": "36de71e82728334ecb53fa6d855a1f9a22e112fc89b76d0a825c3c4aff6f3940",
+      "speaker_emb_norm": 10.291714668273926
+    },
+    "08": {
+      "label": "NATURAL MATURE",
+      "definition": "Nam trưởng thành phổ thông; natural-first, chiều sâu vừa đủ, không cố tạo character.",
+      "weights": {
+        "Thanh Bình": 0.25,
+        "Phạm Tuyên": 0.55,
+        "Minh Đức": 0.2
+      },
+      "speaker_emb_shape": [
+        192
+      ],
+      "speaker_emb_sha256": "d70a15c5e732c91eb65f35b099201313d2221b5ed7c4ae5f547e0461c7f84bef",
+      "speaker_emb_norm": 9.951604843139648
+    }
+  },
+  "outputs": [
+    {
+      "voice": "VOICE 01",
+      "identity_label": "DEEP WARM",
+      "text": "A",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 19.410315810999236,
+          "raw_metrics": {
+            "duration_seconds": 27.28,
+            "frames": 1309440,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.7408262491226196,
+            "rms": 0.09745365260828198
+          },
+          "peak_normalization_gain": 1.2030498908337521,
+          "final_metrics": {
+            "duration_seconds": 27.28,
+            "frames": 1309440,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509679794312,
+            "rms": 0.11724160684795183
+          },
+          "path": "voices/voice01_A.wav",
+          "sha256": "80137afe491f06f574c5f508dbf88e138300b5f8c24ff3449a87c0be3e08de82",
+          "size_bytes": 2618924
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 19.410315810999236,
+        "raw_metrics": {
+          "duration_seconds": 27.28,
+          "frames": 1309440,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.7408262491226196,
+          "rms": 0.09745365260828198
+        },
+        "peak_normalization_gain": 1.2030498908337521,
+        "final_metrics": {
+          "duration_seconds": 27.28,
+          "frames": 1309440,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509679794312,
+          "rms": 0.11724160684795183
+        },
+        "path": "voices/voice01_A.wav",
+        "sha256": "80137afe491f06f574c5f508dbf88e138300b5f8c24ff3449a87c0be3e08de82",
+        "size_bytes": 2618924
+      }
+    },
+    {
+      "voice": "VOICE 01",
+      "identity_label": "DEEP WARM",
+      "text": "B",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 20.186889026001154,
+          "raw_metrics": {
+            "duration_seconds": 25.79,
+            "frames": 1237920,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8461779356002808,
+            "rms": 0.09180677898829746
+          },
+          "peak_normalization_gain": 1.0532665774385737,
+          "final_metrics": {
+            "duration_seconds": 25.79,
+            "frames": 1237920,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509083747864,
+            "rms": 0.09669700709073156
+          },
+          "path": "voices/voice01_B.wav",
+          "sha256": "b48911f31580bd2a0b6fdc5fd58d0c85f6886aceee6b23092621b214915fb23a",
+          "size_bytes": 2475884
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 20.186889026001154,
+        "raw_metrics": {
+          "duration_seconds": 25.79,
+          "frames": 1237920,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8461779356002808,
+          "rms": 0.09180677898829746
+        },
+        "peak_normalization_gain": 1.0532665774385737,
+        "final_metrics": {
+          "duration_seconds": 25.79,
+          "frames": 1237920,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509083747864,
+          "rms": 0.09669700709073156
+        },
+        "path": "voices/voice01_B.wav",
+        "sha256": "b48911f31580bd2a0b6fdc5fd58d0c85f6886aceee6b23092621b214915fb23a",
+        "size_bytes": 2475884
+      }
+    },
+    {
+      "voice": "VOICE 02",
+      "identity_label": "DARK TEXTURED",
+      "text": "A",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 24.497848995999448,
+          "raw_metrics": {
+            "duration_seconds": 31.92,
+            "frames": 1532160,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8493071794509888,
+            "rms": 0.09743462996203402
+          },
+          "peak_normalization_gain": 1.0493858520186656,
+          "final_metrics": {
+            "duration_seconds": 31.92,
+            "frames": 1532160,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509679794312,
+            "rms": 0.10224652736372429
+          },
+          "path": "voices/voice02_A.wav",
+          "sha256": "8e4fa5b0fba5ceec4f62f2d5ebd828518e13135f9041ca37b5f58a76abf4308b",
+          "size_bytes": 3064364
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 24.497848995999448,
+        "raw_metrics": {
+          "duration_seconds": 31.92,
+          "frames": 1532160,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8493071794509888,
+          "rms": 0.09743462996203402
+        },
+        "peak_normalization_gain": 1.0493858520186656,
+        "final_metrics": {
+          "duration_seconds": 31.92,
+          "frames": 1532160,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509679794312,
+          "rms": 0.10224652736372429
+        },
+        "path": "voices/voice02_A.wav",
+        "sha256": "8e4fa5b0fba5ceec4f62f2d5ebd828518e13135f9041ca37b5f58a76abf4308b",
+        "size_bytes": 3064364
+      }
+    },
+    {
+      "voice": "VOICE 02",
+      "identity_label": "DARK TEXTURED",
+      "text": "B",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 19.724901099998533,
+          "raw_metrics": {
+            "duration_seconds": 28.35,
+            "frames": 1360800,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.6975287795066833,
+            "rms": 0.09274014917528763
+          },
+          "peak_normalization_gain": 1.277726402578069,
+          "final_metrics": {
+            "duration_seconds": 28.35,
+            "frames": 1360800,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509679794312,
+            "rms": 0.11849653802198434
+          },
+          "path": "voices/voice02_B.wav",
+          "sha256": "4b67a58d724c85f5fbffaad1841b23715e012f31acdaceed48681fcbf6580c5d",
+          "size_bytes": 2721644
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 19.724901099998533,
+        "raw_metrics": {
+          "duration_seconds": 28.35,
+          "frames": 1360800,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.6975287795066833,
+          "rms": 0.09274014917528763
+        },
+        "peak_normalization_gain": 1.277726402578069,
+        "final_metrics": {
+          "duration_seconds": 28.35,
+          "frames": 1360800,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509679794312,
+          "rms": 0.11849653802198434
+        },
+        "path": "voices/voice02_B.wav",
+        "sha256": "4b67a58d724c85f5fbffaad1841b23715e012f31acdaceed48681fcbf6580c5d",
+        "size_bytes": 2721644
+      }
+    },
+    {
+      "voice": "VOICE 03",
+      "identity_label": "CALM AUTHORITY",
+      "text": "A",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 118.535303699,
+          "raw_metrics": {
+            "duration_seconds": 29.2,
+            "frames": 1401600,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.5848560333251953,
+            "rms": 0.10289462083255076
+          },
+          "peak_normalization_gain": 1.5238808994865694,
+          "final_metrics": {
+            "duration_seconds": 29.2,
+            "frames": 1401600,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509679794312,
+            "rms": 0.15679915342941503
+          },
+          "path": "voices/voice03_A.wav",
+          "sha256": "2656329b3ff376bfe5c52998764e64b73927cd74fffe538eaa91f443f468bd63",
+          "size_bytes": 2803244
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 118.535303699,
+        "raw_metrics": {
+          "duration_seconds": 29.2,
+          "frames": 1401600,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.5848560333251953,
+          "rms": 0.10289462083255076
+        },
+        "peak_normalization_gain": 1.5238808994865694,
+        "final_metrics": {
+          "duration_seconds": 30.88,
+          "frames": 1482240,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.891265869140625,
+          "rms": 0.14213171185874565
+        },
+        "path": "voices/voice03_A.wav",
+        "sha256": "bcfbf970be29889c027e924f82932eef5dcde2d85b4122b8b1fe397b620368f3",
+        "size_bytes": 2964524
+      },
+      "integrity_events": [
+        {
+          "event": "reconciled stale-manifest hash against valid existing WAV without rerender",
+          "verified_sha256": "bcfbf970be29889c027e924f82932eef5dcde2d85b4122b8b1fe397b620368f3"
+        }
+      ]
+    },
+    {
+      "voice": "VOICE 03",
+      "identity_label": "CALM AUTHORITY",
+      "text": "B",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 247.52172868000162,
+          "raw_metrics": {
+            "duration_seconds": 28.19,
+            "frames": 1353120,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.6526997685432434,
+            "rms": 0.09911226228715697
+          },
+          "peak_normalization_gain": 1.3654837661777068,
+          "final_metrics": {
+            "duration_seconds": 28.19,
+            "frames": 1353120,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509083747864,
+            "rms": 0.13533618465467684
+          },
+          "path": "voices/voice03_B.wav",
+          "sha256": "2f0380662cd8f79fc458c6a9e6ef6814dcefcc411fb102c97dec4b1ce9dd3af5",
+          "size_bytes": 2706284
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 247.52172868000162,
+        "raw_metrics": {
+          "duration_seconds": 28.19,
+          "frames": 1353120,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.6526997685432434,
+          "rms": 0.09911226228715697
+        },
+        "peak_normalization_gain": 1.3654837661777068,
+        "final_metrics": {
+          "duration_seconds": 28.91,
+          "frames": 1387680,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.891265869140625,
+          "rms": 0.14416404860310117
+        },
+        "path": "voices/voice03_B.wav",
+        "sha256": "b2540813c46a7ea5c1616102714a8f5d680119752fde309e8e90306fbb0bba19",
+        "size_bytes": 2775404
+      },
+      "integrity_events": [
+        {
+          "event": "reconciled stale-manifest hash against valid existing WAV without rerender",
+          "verified_sha256": "b2540813c46a7ea5c1616102714a8f5d680119752fde309e8e90306fbb0bba19"
+        }
+      ]
+    },
+    {
+      "voice": "VOICE 04",
+      "identity_label": "INTIMATE NIGHT PODCAST",
+      "text": "A",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 310.62489975899916,
+          "raw_metrics": {
+            "duration_seconds": 27.84,
+            "frames": 1336320,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8047328591346741,
+            "rms": 0.09477981142049156
+          },
+          "peak_normalization_gain": 1.1075115524574255,
+          "final_metrics": {
+            "duration_seconds": 27.84,
+            "frames": 1336320,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509083747864,
+            "rms": 0.10496973304985027
+          },
+          "path": "voices/voice04_A.wav",
+          "sha256": "9f23f69ac845d1ce90dd470591c294d9ec139ae1db6b6a2e6371a36eb119a8d7",
+          "size_bytes": 2672684
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 310.62489975899916,
+        "raw_metrics": {
+          "duration_seconds": 27.84,
+          "frames": 1336320,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8047328591346741,
+          "rms": 0.09477981142049156
+        },
+        "peak_normalization_gain": 1.1075115524574255,
+        "final_metrics": {
+          "duration_seconds": 29.84,
+          "frames": 1432320,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912353515625,
+          "rms": 0.10058059740575644
+        },
+        "path": "voices/voice04_A.wav",
+        "sha256": "b616bc3d1ec3324559906d2b5b72431d5ee605ccd93393cc1045e99121522a2d",
+        "size_bytes": 2864684
+      },
+      "integrity_events": [
+        {
+          "event": "reconciled stale-manifest hash against valid existing WAV without rerender",
+          "verified_sha256": "b616bc3d1ec3324559906d2b5b72431d5ee605ccd93393cc1045e99121522a2d"
+        }
+      ]
+    },
+    {
+      "voice": "VOICE 04",
+      "identity_label": "INTIMATE NIGHT PODCAST",
+      "text": "B",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 324.2846355829988,
+          "raw_metrics": {
+            "duration_seconds": 26.67,
+            "frames": 1280160,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.884290337562561,
+            "rms": 0.08815958942407619
+          },
+          "peak_normalization_gain": 1.007871397295113,
+          "final_metrics": {
+            "duration_seconds": 26.67,
+            "frames": 1280160,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509083747864,
+            "rms": 0.08885352788291571
+          },
+          "path": "voices/voice04_B.wav",
+          "sha256": "9ac0cdb5197f026d64121b444ae859d6f8ca27ffb5ce7941ea1e669ac1d5cbf3",
+          "size_bytes": 2560364
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 324.2846355829988,
+        "raw_metrics": {
+          "duration_seconds": 26.67,
+          "frames": 1280160,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.884290337562561,
+          "rms": 0.08815958942407619
+        },
+        "peak_normalization_gain": 1.007871397295113,
+        "final_metrics": {
+          "duration_seconds": 27.63,
+          "frames": 1326240,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912353515625,
+          "rms": 0.10428247948996044
+        },
+        "path": "voices/voice04_B.wav",
+        "sha256": "753a5c9cd8e52638300b1b0b5a72d9058c20dd6bf961ea4718c5a986cafd4314",
+        "size_bytes": 2652524
+      },
+      "integrity_events": [
+        {
+          "event": "reconciled stale-manifest hash against valid existing WAV without rerender",
+          "verified_sha256": "753a5c9cd8e52638300b1b0b5a72d9058c20dd6bf961ea4718c5a986cafd4314"
+        }
+      ]
+    },
+    {
+      "voice": "VOICE 05",
+      "identity_label": "REFLECTIVE PHILOSOPHER",
+      "text": "A",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 214.22156875200017,
+          "raw_metrics": {
+            "duration_seconds": 28.64,
+            "frames": 1374720,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.6488021612167358,
+            "rms": 0.09847937073253032
+          },
+          "peak_normalization_gain": 1.3736867590920654,
+          "final_metrics": {
+            "duration_seconds": 28.64,
+            "frames": 1374720,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509679794312,
+            "rms": 0.13527981070912073
+          },
+          "path": "voices/voice05_A.wav",
+          "sha256": "a24f56c42f7927652e8430d9a7fee59f0ac77fb1f0a1ed4f466ae640f086fb8b",
+          "size_bytes": 2749484
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 214.22156875200017,
+        "raw_metrics": {
+          "duration_seconds": 28.64,
+          "frames": 1374720,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.6488021612167358,
+          "rms": 0.09847937073253032
+        },
+        "peak_normalization_gain": 1.3736867590920654,
+        "final_metrics": {
+          "duration_seconds": 28.56,
+          "frames": 1370880,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912353515625,
+          "rms": 0.13290506258100815
+        },
+        "path": "voices/voice05_A.wav",
+        "sha256": "d0608198d077943f1d052c59c654fa8692b402ccbef0b36f36b461ca5843cb2e",
+        "size_bytes": 2741804
+      },
+      "integrity_events": [
+        {
+          "event": "reconciled stale-manifest hash against valid existing WAV without rerender",
+          "verified_sha256": "d0608198d077943f1d052c59c654fa8692b402ccbef0b36f36b461ca5843cb2e"
+        }
+      ]
+    },
+    {
+      "voice": "VOICE 05",
+      "identity_label": "REFLECTIVE PHILOSOPHER",
+      "text": "B",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 150.59174548900046,
+          "raw_metrics": {
+            "duration_seconds": 27.71,
+            "frames": 1330080,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.699805498123169,
+            "rms": 0.09741427186356999
+          },
+          "peak_normalization_gain": 1.2735694997024465,
+          "final_metrics": {
+            "duration_seconds": 27.71,
+            "frames": 1330080,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509083747864,
+            "rms": 0.1240638420610935
+          },
+          "path": "voices/voice05_B.wav",
+          "sha256": "1e4ef67f8fe6505d031f7e187a29464450e44e872e5ef315f211a1bc42027e2d",
+          "size_bytes": 2660204
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 150.59174548900046,
+        "raw_metrics": {
+          "duration_seconds": 27.71,
+          "frames": 1330080,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.699805498123169,
+          "rms": 0.09741427186356999
+        },
+        "peak_normalization_gain": 1.2735694997024465,
+        "final_metrics": {
+          "duration_seconds": 27.63,
+          "frames": 1326240,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912353515625,
+          "rms": 0.11430543804586692
+        },
+        "path": "voices/voice05_B.wav",
+        "sha256": "4c6d9af765d0a5b6782b41093038a8647e65a08845de49f867eb5a4252ab1d4f",
+        "size_bytes": 2652524
+      },
+      "integrity_events": [
+        {
+          "event": "reconciled stale-manifest hash against valid existing WAV without rerender",
+          "verified_sha256": "4c6d9af765d0a5b6782b41093038a8647e65a08845de49f867eb5a4252ab1d4f"
+        }
+      ]
+    },
+    {
+      "voice": "VOICE 06",
+      "identity_label": "WARM STORYTELLER",
+      "text": "A",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 185.83810477100087,
+          "raw_metrics": {
+            "duration_seconds": 30.48,
+            "frames": 1463040,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.6778892278671265,
+            "rms": 0.09625581636658738
+          },
+          "peak_normalization_gain": 1.3147442111418832,
+          "final_metrics": {
+            "duration_seconds": 30.48,
+            "frames": 1463040,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509679794312,
+            "rms": 0.1265517795645995
+          },
+          "path": "voices/voice06_A.wav",
+          "sha256": "ff515b43ad75874193140f75115d2f7e419a137bc6c4c724660f678ae51f265a",
+          "size_bytes": 2926124
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 185.83810477100087,
+        "raw_metrics": {
+          "duration_seconds": 30.48,
+          "frames": 1463040,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.6778892278671265,
+          "rms": 0.09625581636658738
+        },
+        "peak_normalization_gain": 1.3147442111418832,
+        "final_metrics": {
+          "duration_seconds": 30.48,
+          "frames": 1463040,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509679794312,
+          "rms": 0.1265517795645995
+        },
+        "path": "voices/voice06_A.wav",
+        "sha256": "ff515b43ad75874193140f75115d2f7e419a137bc6c4c724660f678ae51f265a",
+        "size_bytes": 2926124
+      }
+    },
+    {
+      "voice": "VOICE 06",
+      "identity_label": "WARM STORYTELLER",
+      "text": "B",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 11.028843900998254,
+          "raw_metrics": {
+            "duration_seconds": 28.43,
+            "frames": 1364640,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.7446106672286987,
+            "rms": 0.09470121539652279
+          },
+          "peak_normalization_gain": 1.1969354957682978,
+          "final_metrics": {
+            "duration_seconds": 28.43,
+            "frames": 1364640,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509679794312,
+            "rms": 0.1133512498742083
+          },
+          "path": "voices/voice06_B.wav",
+          "sha256": "24fd4aa66a69decd53f6fede3d2131143f9783f294790ea8d01cb0271ec651d8",
+          "size_bytes": 2729324
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 11.028843900998254,
+        "raw_metrics": {
+          "duration_seconds": 28.43,
+          "frames": 1364640,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.7446106672286987,
+          "rms": 0.09470121539652279
+        },
+        "peak_normalization_gain": 1.1969354957682978,
+        "final_metrics": {
+          "duration_seconds": 28.43,
+          "frames": 1364640,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509679794312,
+          "rms": 0.1133512498742083
+        },
+        "path": "voices/voice06_B.wav",
+        "sha256": "24fd4aa66a69decd53f6fede3d2131143f9783f294790ea8d01cb0271ec651d8",
+        "size_bytes": 2729324
+      }
+    },
+    {
+      "voice": "VOICE 07",
+      "identity_label": "SOFT BARITONE",
+      "text": "A",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 16.191302293000263,
+          "raw_metrics": {
+            "duration_seconds": 28.08,
+            "frames": 1347840,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.674527645111084,
+            "rms": 0.09722853795587472
+          },
+          "peak_normalization_gain": 1.32129638361519,
+          "final_metrics": {
+            "duration_seconds": 28.08,
+            "frames": 1347840,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509083747864,
+            "rms": 0.12846771078730515
+          },
+          "path": "voices/voice07_A.wav",
+          "sha256": "13d24a20f960d60e80079647bc59a7baf924398239aedd21d1ce7a6a0bee765e",
+          "size_bytes": 2695724
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 16.191302293000263,
+        "raw_metrics": {
+          "duration_seconds": 28.08,
+          "frames": 1347840,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.674527645111084,
+          "rms": 0.09722853795587472
+        },
+        "peak_normalization_gain": 1.32129638361519,
+        "final_metrics": {
+          "duration_seconds": 28.08,
+          "frames": 1347840,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509083747864,
+          "rms": 0.12846771078730515
+        },
+        "path": "voices/voice07_A.wav",
+        "sha256": "13d24a20f960d60e80079647bc59a7baf924398239aedd21d1ce7a6a0bee765e",
+        "size_bytes": 2695724
+      }
+    },
+    {
+      "voice": "VOICE 07",
+      "identity_label": "SOFT BARITONE",
+      "text": "B",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 10.484390300000086,
+          "raw_metrics": {
+            "duration_seconds": 25.87,
+            "frames": 1241760,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.7358729839324951,
+            "rms": 0.09401782196701365
+          },
+          "peak_normalization_gain": 1.2111477898956322,
+          "final_metrics": {
+            "duration_seconds": 25.87,
+            "frames": 1241760,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509083747864,
+            "rms": 0.11386947684007614
+          },
+          "path": "voices/voice07_B.wav",
+          "sha256": "691b67568fcad9a5109372c099dc652a82ea16a43139a7b38a467ef5a7f3c45f",
+          "size_bytes": 2483564
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 10.484390300000086,
+        "raw_metrics": {
+          "duration_seconds": 25.87,
+          "frames": 1241760,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.7358729839324951,
+          "rms": 0.09401782196701365
+        },
+        "peak_normalization_gain": 1.2111477898956322,
+        "final_metrics": {
+          "duration_seconds": 25.87,
+          "frames": 1241760,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509083747864,
+          "rms": 0.11386947684007614
+        },
+        "path": "voices/voice07_B.wav",
+        "sha256": "691b67568fcad9a5109372c099dc652a82ea16a43139a7b38a467ef5a7f3c45f",
+        "size_bytes": 2483564
+      }
+    },
+    {
+      "voice": "VOICE 08",
+      "identity_label": "NATURAL MATURE",
+      "text": "A",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 15.033704421000948,
+          "raw_metrics": {
+            "duration_seconds": 30.96,
+            "frames": 1486080,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.7499567270278931,
+            "rms": 0.09217144322291414
+          },
+          "peak_normalization_gain": 1.1884031518269151,
+          "final_metrics": {
+            "duration_seconds": 30.96,
+            "frames": 1486080,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509083747864,
+            "rms": 0.10953683157720233
+          },
+          "path": "voices/voice08_A.wav",
+          "sha256": "9113722e7af1635e292097c5c3759fc03ae078a81b18039d1c34e2182fff3a49",
+          "size_bytes": 2972204
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 15.033704421000948,
+        "raw_metrics": {
+          "duration_seconds": 30.96,
+          "frames": 1486080,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.7499567270278931,
+          "rms": 0.09217144322291414
+        },
+        "peak_normalization_gain": 1.1884031518269151,
+        "final_metrics": {
+          "duration_seconds": 30.96,
+          "frames": 1486080,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509083747864,
+          "rms": 0.10953683157720233
+        },
+        "path": "voices/voice08_A.wav",
+        "sha256": "9113722e7af1635e292097c5c3759fc03ae078a81b18039d1c34e2182fff3a49",
+        "size_bytes": 2972204
+      }
+    },
+    {
+      "voice": "VOICE 08",
+      "identity_label": "NATURAL MATURE",
+      "text": "B",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "result": "ACCEPTED_TECHNICAL",
+          "generation_seconds": 13.069683768000687,
+          "raw_metrics": {
+            "duration_seconds": 28.99,
+            "frames": 1391520,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8039981722831726,
+            "rms": 0.09315110041110022
+          },
+          "peak_normalization_gain": 1.1085235873146264,
+          "final_metrics": {
+            "duration_seconds": 28.99,
+            "frames": 1391520,
+            "sample_rate_hz": 48000,
+            "channels": 1,
+            "finite": true,
+            "peak_abs": 0.8912509679794312,
+            "rms": 0.10326019385588969
+          },
+          "path": "voices/voice08_B.wav",
+          "sha256": "a612b5d079c9644c2a8ba1865b42283f61a0f1b7b2090df3a0a28b72eb734bbb",
+          "size_bytes": 2783084
+        }
+      ],
+      "selected": {
+        "attempt": 1,
+        "result": "ACCEPTED_TECHNICAL",
+        "generation_seconds": 13.069683768000687,
+        "raw_metrics": {
+          "duration_seconds": 28.99,
+          "frames": 1391520,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8039981722831726,
+          "rms": 0.09315110041110022
+        },
+        "peak_normalization_gain": 1.1085235873146264,
+        "final_metrics": {
+          "duration_seconds": 28.99,
+          "frames": 1391520,
+          "sample_rate_hz": 48000,
+          "channels": 1,
+          "finite": true,
+          "peak_abs": 0.8912509679794312,
+          "rms": 0.10326019385588969
+        },
+        "path": "voices/voice08_B.wav",
+        "sha256": "a612b5d079c9644c2a8ba1865b42283f61a0f1b7b2090df3a0a28b72eb734bbb",
+        "size_bytes": 2783084
+      }
+    }
+  ],
+  "completed_utc": "2026-09-05T06:57:13.075924+00:00"
+}

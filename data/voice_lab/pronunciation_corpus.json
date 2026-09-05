@@ -1,0 +1,46 @@
+{
+  "name": "phase22_pronunciation_audit",
+  "purpose": "Controlled Vietnamese pronunciation corpus for the 'người' syllable-loss audit and future listening rounds. Words chosen for shared rhyme/-ươi patterns and dense diacritics. Diagnostics only; never submitted to history or experiments automatically.",
+  "created": "2026-08-27",
+  "probe_settings": {
+    "speed": 1.0,
+    "temperature": 0.8,
+    "top_k": 25,
+    "top_p": 0.95,
+    "repetition_penalty": 1.2
+  },
+  "focus_word": "người",
+  "words": [
+    "người",
+    "mọi người",
+    "người dùng",
+    "người Việt Nam",
+    "mười người",
+    "người người",
+    "cười",
+    "tươi",
+    "lười",
+    "rượu",
+    "mượn",
+    "nguyễn",
+    "nghiêng",
+    "khuỷu",
+    "thuở"
+  ],
+  "manual_listening": {
+    "comparison_sentence": "Mọi người đang ở đây.",
+    "preset_control": "Select any entry under 'Giọng mặc định' in the main voice selector (name comes from the installed VieNeu model, e.g. 'Trúc Ly'). The prompt template said 'Adam'; use whatever preset your build lists.",
+    "repeat_runs": 2,
+    "report_fields": [
+      "preset correct/wrong",
+      "saved run1 correct/wrong",
+      "saved run2 correct/wrong",
+      "which exact word is wrong"
+    ],
+    "sentences": [
+      "Mọi người đang ở đây.",
+      "Người Việt Nam luôn yêu tiếng Việt.",
+      "Tôi cười với mọi người."
+    ]
+  }
+}

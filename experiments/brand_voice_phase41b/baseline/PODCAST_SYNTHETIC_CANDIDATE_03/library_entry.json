@@ -1,0 +1,12 @@
+{
+  "display_name": "🎙️ Synthetic Podcast Candidate 03",
+  "category": "Podcast / Experimental",
+  "status": "candidate",
+  "is_final_brand_voice": false,
+  "is_special": true,
+  "special_type": "synthetic_podcast_candidate",
+  "recommended_use": "Podcast / YouTube thử nghiệm; đã vượt blind human audition.",
+  "canonical_npy": "speaker_emb.npy",
+  "note": "Canonical embedding is stored in speaker_emb.npy. If the voice library serializes embeddings with reduced precision, treat that copy as non-canonical and use the .npy as the source-of-truth.",
+  "provenance_manifest": "manifest.json"
+}

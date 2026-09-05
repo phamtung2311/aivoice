@@ -1,0 +1,8 @@
+models/
+reference/*.wav
+raw_gwen/
+audition/
+metrics/
+private_mapping.json
+gwen-tts/
+__pycache__/

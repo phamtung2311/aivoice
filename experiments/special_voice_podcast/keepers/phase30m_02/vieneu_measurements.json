@@ -1,0 +1,52 @@
+[
+  {
+    "identity": "M-C",
+    "test": "test_01",
+    "attempt": 1,
+    "encode_seconds": 1.024,
+    "generation_seconds": 17.939,
+    "speaker_emb_shape": [
+      192
+    ],
+    "reference_codes_shape": [
+      94,
+      16
+    ],
+    "audio": {
+      "duration_seconds": 20.8,
+      "sample_rate": 48000,
+      "channels": 1,
+      "peak": 0.764709,
+      "rms": 0.096274,
+      "clipped_samples": 0,
+      "clipping_ratio": 0.0
+    },
+    "peak_process_rss_mb": 3639.09,
+    "technical_status": "valid"
+  },
+  {
+    "identity": "M-C",
+    "test": "test_02",
+    "attempt": 1,
+    "encode_seconds": 1.024,
+    "generation_seconds": 14.963,
+    "speaker_emb_shape": [
+      192
+    ],
+    "reference_codes_shape": [
+      94,
+      16
+    ],
+    "audio": {
+      "duration_seconds": 20.96,
+      "sample_rate": 48000,
+      "channels": 1,
+      "peak": 0.780975,
+      "rms": 0.103496,
+      "clipped_samples": 0,
+      "clipping_ratio": 0.0
+    },
+    "peak_process_rss_mb": 3640.62,
+    "technical_status": "valid"
+  }
+]

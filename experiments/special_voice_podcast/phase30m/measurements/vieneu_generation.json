@@ -1,0 +1,209 @@
+{
+  "settings": {
+    "speed": 1.0,
+    "denoise": false,
+    "numpy_seed": 30109
+  },
+  "records": [
+    {
+      "identity": "CONTROL",
+      "test": "test_01",
+      "attempt": 1,
+      "encode_seconds": null,
+      "generation_seconds": 11.635,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        78,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 18.24,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.86673,
+        "rms": 0.101517,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 1470.49,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "CONTROL",
+      "test": "test_02",
+      "attempt": 1,
+      "encode_seconds": null,
+      "generation_seconds": 11.585,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        78,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 19.44,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.848145,
+        "rms": 0.10143,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 1855.1,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "M-A",
+      "test": "test_01",
+      "attempt": 1,
+      "encode_seconds": 2.437,
+      "generation_seconds": 12.643,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        101,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 19.92,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.721558,
+        "rms": 0.103132,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2645.46,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "M-A",
+      "test": "test_02",
+      "attempt": 1,
+      "encode_seconds": 2.437,
+      "generation_seconds": 13.185,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        101,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 19.36,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.814575,
+        "rms": 0.108437,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2645.46,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "M-B",
+      "test": "test_01",
+      "attempt": 1,
+      "encode_seconds": 1.033,
+      "generation_seconds": 14.101,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        101,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 24.24,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.822235,
+        "rms": 0.101039,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 3174.8,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "M-B",
+      "test": "test_02",
+      "attempt": 1,
+      "encode_seconds": 1.033,
+      "generation_seconds": 16.997,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        101,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 25.6,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.820648,
+        "rms": 0.09095,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 3471.64,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "M-C",
+      "test": "test_01",
+      "attempt": 1,
+      "encode_seconds": 1.024,
+      "generation_seconds": 17.939,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        94,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 20.8,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.764709,
+        "rms": 0.096274,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 3639.09,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "M-C",
+      "test": "test_02",
+      "attempt": 1,
+      "encode_seconds": 1.024,
+      "generation_seconds": 14.963,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        94,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 20.96,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.780975,
+        "rms": 0.103496,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 3640.62,
+      "technical_status": "valid"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "phase": "40B",
+  "task": "cross_text_validation",
+  "baseline_package": "experiments/brand_voice_phase40b/baseline/PODCAST_CANDIDATE_B_BASELINE",
+  "canonical_source": "Canonical .npy files from the frozen baseline package, used directly by the native Vieneu runtime. The rounded data/voices/voices.json copy is UI/library-only and was NOT used here.",
+  "phase40a_human_qa": {
+    "A": "NO",
+    "B": "INTERESTING",
+    "C": "NO",
+    "D": "NO"
+  },
+  "production_modified": false,
+  "production_voice_storage_modified": false,
+  "user_voice_used": false,
+  "new_model_downloaded": false,
+  "tuning_or_variants": false,
+  "post_processing": false,
+  "started_utc": "2026-09-03T03:19:55.258606+00:00",
+  "completed_utc": "2026-09-03T03:20:18.673430+00:00",
+  "repository_commit_before_phase40b": "a310b58ef58fb7df53e0af796ba066069f1c4049",
+  "python": "3.14.7 (main, Aug 10 2026, 00:00:00) [GCC 16.1.1 20260515 (Red Hat 16.1.1-2)]",
+  "platform": "Linux-7.1.10-200.fc44.x86_64-x86_64-with-glibc2.43",
+  "vieneu_version": "3.3.0",
+  "backend": "onnx",
+  "device": "cpu",
+  "sample_rate_hz": 48000,
+  "voice_asset_path": "/home/tung/ai voice/.venv/lib/python3.14/site-packages/vieneu/assets/voices_v3_turbo.json",
+  "voice_asset_sha256": "574e6acf03823c4cafdc43f106731ce5fce6de30228fe383831b8b9064ee0bd8",
+  "model_load_seconds": 5.902,
+  "total_wall_seconds": 23.415,
+  "peak_process_rss_mib": 1885.488
+}

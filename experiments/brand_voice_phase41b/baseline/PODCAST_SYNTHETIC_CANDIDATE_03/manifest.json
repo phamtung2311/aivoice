@@ -1,0 +1,14 @@
+{
+  "real_candidate_file": "experiments/brand_voice_phase41a/runs/auditions/candidate_01.wav",
+  "resolved_clip": "clip_03.wav",
+  "embed_index": 2,
+  "embedding_array_sha256": "980d5856f58a8619b6abf0c3935de74ddfb5c333b9b8fae2fd5c3b6ef7067771",
+  "speaker_emb_npy_sha256": "c763159d8ed6ed4b0f1916f8b0762d1902743d293fcd7874541966d7f9ee10a1",
+  "wav_sha256": "fff01550c7ed1ec5ee9d52ba3fb8a8999b87a9f356ac7009caf82c5f2c37a3c7",
+  "reference_codes_sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5",
+  "texts": [
+    "Ng\u01b0\u1eddi ta hay ngh\u0129 r\u1eb1ng m\u1ed9t gi\u1ecdng n\u00f3i t\u1ed1t l\u00e0 gi\u1ecdng vang to. Nh\u01b0ng th\u1eadt ra, gi\u1ecdng podcast t\u1ed1t l\u00e0 gi\u1ecdng bi\u1ebft d\u1eebng l\u1ea1i \u0111\u00fang l\u00fac, \u0111\u1eb7t c\u00e2u h\u1ecfi \u0111\u00fang ch\u1ed7, v\u00e0 \u0111\u1ec3 ng\u01b0\u1eddi nghe c\u1ea3m nh\u1eadn \u0111\u01b0\u1ee3c m\u1ed9t s\u1ef1 th\u1eadt kh\u00f4ng c\u1ea7n ai nh\u1ea5n m\u1ea1nh.",
+    "Khi ta suy ngh\u0129 v\u1ec1 cu\u1ed9c \u0111\u1eddi, kh\u00f4ng ph\u1ea3i t\u1ea5t c\u1ea3 c\u00e2u tr\u1ea3 l\u1eddi \u0111\u1ec1u c\u00f3 s\u1eb5n; \u0111i\u1ec1u qu\u00fd l\u00e0 bi\u1ebft \u0111\u1eb7t c\u00e2u h\u1ecfi t\u1ed1t h\u01a1n.",
+    "S\u1ef1 ki\u00ean nh\u1eabn kh\u00f4ng ph\u1ea3i l\u00e0 ch\u1edd \u0111\u1ee3i m\u1ed9t c\u00e1ch th\u1ee5 \u0111\u1ed9ng m\u00e0 l\u00e0 gi\u1eef v\u1eefng ch\u00ednh m\u00ecnh khi th\u1eed th\u00e1ch xu\u1ea5t hi\u1ec7n."
+  ]
+}

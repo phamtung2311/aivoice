@@ -1,0 +1,58 @@
+{
+  "phase": "41H",
+  "purpose": "long_form_semantic_pause_breathing_cadence",
+  "status": "static_preflight_complete_audio_not_assembled",
+  "frozen_stack": {
+    "speaker": "Synthetic Candidate 03",
+    "speaker_status": "candidate",
+    "is_final_brand_voice": false,
+    "phase41e_policy": "v3_semantic_focus",
+    "phase41f_tempo": 0.98,
+    "phase41g_chunk_count": 55
+  },
+  "source": {
+    "chunk_directory": "experiments/brand_voice_phase41g/audio/chunks",
+    "manifest": "experiments/brand_voice_phase41g/manifest.json",
+    "manifest_sha256": "46bdd3834f050fd918af98488984f112a7dda0370b30d6ab2135b2d00bd4dd02",
+    "semantic_plan": "experiments/brand_voice_phase41g/semantic_plan.json",
+    "semantic_plan_sha256": "67b4d48416ccb47b4f2586c9188cf313d30836554241a757a85152f6802196d9",
+    "original_wav": "experiments/brand_voice_phase41g/audio/longform_original.wav",
+    "original_wav_sha256": "df05aac12b2a48a4b80fe9d7502f3585af813f075268b3bccd1bdebda515d25b",
+    "original_duration_seconds": 433.04,
+    "tempo_98_wav_sha256": "b6da66aed6d371176a8d3223e332b1c904ef64639416251811e96ba9521f6e6a",
+    "tempo_98_duration_seconds": 441.8669375,
+    "sample_rate": 48000,
+    "channels": 1,
+    "sample_width_bytes": 2
+  },
+  "silence_audit": {
+    "method": "contiguous 10 ms edge-frame RMS at or below -45 dBFS",
+    "threshold_dbfs": -45.0,
+    "frame_ms": 10,
+    "label": "SIGNAL-LEVEL EDGE SILENCE HEURISTIC",
+    "caveat": "Approximate low-energy diagnostic; not phonetic ground truth and not a perceived semantic gap."
+  },
+  "boundary_policy": {
+    "classification_note": "The source has 17 paragraphs. All 16 Phase41G thought_transition labels coincide with paragraph crossings, so they are classified as paragraph_transition for Phase41H while retaining their source labels. There are zero standalone major thought transitions. Final paragraph_end follows chunk 54 and is not an inter-chunk boundary.",
+    "mode": "direct_explicit_addition",
+    "compensation": "none; measured low-energy edge duration is diagnostic only and is not subtracted",
+    "variants": {
+      "v0_current": {"semantic_thought_boundary": 0.0, "setup_resolution_boundary": 0.0, "thought_transition": 0.0, "paragraph_transition": 0.0},
+      "v1_light": {"semantic_thought_boundary": 0.06, "setup_resolution_boundary": 0.04, "thought_transition": 0.14, "paragraph_transition": 0.22},
+      "v2_natural": {"semantic_thought_boundary": 0.10, "setup_resolution_boundary": 0.06, "thought_transition": 0.22, "paragraph_transition": 0.32},
+      "v3_spacious": {"semantic_thought_boundary": 0.14, "setup_resolution_boundary": 0.08, "thought_transition": 0.30, "paragraph_transition": 0.42}
+    }
+  },
+  "post_assembly": {
+    "ffmpeg_filter": "atempo=0.98",
+    "apply_count": 1,
+    "apply_scope": "complete assembled waveform only",
+    "codec": "pcm_s16le"
+  },
+  "prohibitions": [
+    "No TTS inference",
+    "No per-chunk time stretching",
+    "No pitch, formant, EQ, loudness, or compression change",
+    "No speaker, reference-code, lexical, semantic-focus, or chunk-structure change"
+  ]
+}

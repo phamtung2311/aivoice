@@ -69,6 +69,7 @@
               <div class="field">
                 <label for="voice">Giọng đọc</label>
                 <select id="voice" aria-label="Chọn giọng đọc"></select>
+                <div id="voiceProfileHint" class="voiceProfileHint muted small" aria-live="polite"></div>
               </div>
               <div class="field">
                 <label for="emotion">Biểu cảm</label>
@@ -177,6 +178,46 @@
           </section>
         </aside>
       </main>
+
+      <section id="personalVoice" class="personalVoice" aria-labelledby="personalVoiceTitle">
+        <div class="voiceLabHero">
+          <div>
+            <div class="voiceLabEyebrow">LOCAL REFERENCE CORPUS</div>
+            <h2 id="personalVoiceTitle">🎙️ Giọng cá nhân</h2>
+            <p>Giữ nguyên bản thu dài, sau đó chọn riêng đoạn sạch 3–8 giây làm reference. Audio không rời khỏi máy.</p>
+          </div>
+          <label for="personalVoiceUpload" class="uploadLabel">Tải bản thu</label>
+          <input id="personalVoiceUpload" type="file" accept=".m4a,.wav,.mp3,.aac,audio/mp4,audio/wav,audio/mpeg,audio/aac" />
+        </div>
+        <div id="personalVoiceStatus" class="status">Nhận M4A, WAV, MP3 hoặc AAC; tối đa 3 phút và 64 MiB.</div>
+        <div id="personalVoiceWorkspace" class="personalVoiceGrid" hidden>
+          <section class="card">
+            <h3>Bản thu nguồn</h3>
+            <div id="personalVoiceMetadata" class="labReferenceMeta"></div>
+            <audio id="personalVoiceOriginalAudio" controls preload="metadata"></audio>
+            <h3>Đề xuất reference</h3>
+            <div id="personalVoiceSuggestions" class="personalVoiceSegments"></div>
+            <div class="settingsGrid personalVoiceManual">
+              <div><label for="personalVoiceStart">Bắt đầu (giây)</label><input id="personalVoiceStart" type="number" min="0" step="0.01" /></div>
+              <div><label for="personalVoiceEnd">Kết thúc (giây)</label><input id="personalVoiceEnd" type="number" min="0" step="0.01" /></div>
+              <div class="fieldWide"><label for="personalVoiceTranscript">Transcript (chỉ nhập nếu engine cần)</label><input id="personalVoiceTranscript" type="text" placeholder="Không tự động bịa transcript" /></div>
+            </div>
+            <button id="personalVoiceExtract" class="secondary small" type="button">Trích đoạn 3–8 giây</button>
+          </section>
+          <section class="card">
+            <h3>Candidate clone</h3>
+            <label for="personalVoiceSegment">Reference segment</label>
+            <select id="personalVoiceSegment"></select>
+            <label for="personalVoiceEngine">Engine khả dụng</label>
+            <select id="personalVoiceEngine"></select>
+            <label for="personalVoiceTest">Controlled test</label>
+            <select id="personalVoiceTest"></select>
+            <button id="personalVoiceGenerate" class="primary small" type="button" disabled>Tạo một candidate</button>
+            <p class="muted small">Mỗi lần bấm tạo đúng một artifact mới; không thay engine production hay historical stack.</p>
+            <audio id="personalVoiceCandidateAudio" controls preload="metadata"></audio>
+          </section>
+        </div>
+      </section>
 
       <section id="voiceLab" class="voiceLab" aria-labelledby="voiceLabTitle">
         <div class="voiceLabHero">
@@ -348,6 +389,6 @@
       </footer>
     </div>
 
-    <script src="app.js?v=21.1"></script>
+    <script src="app.js?v=42b"></script>
   </body>
 </html>

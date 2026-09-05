@@ -26,7 +26,9 @@ class ModelLoader:
             raise RuntimeError("Missing dependency 'vieneu'. Install requirements and try again") from e
 
         self.backend = backend or "onnx"
-        self.model_name = model_name or "pnnbao-ump/VieNeu-TTS-v2"
+        # vieneu>=3 defaults to v3turbo; keep runtime metadata aligned with the
+        # model the factory actually loads instead of the historical v2 label.
+        self.model_name = model_name or "pnnbao-ump/VieNeu-TTS-v3-Turbo"
         self.device = device
 
         kwargs = {"backend": self.backend, "model_name": self.model_name}
@@ -80,7 +82,7 @@ class ModelLoader:
             profile = getattr(self._v, "_preset_voices", {}).get(name, {})
             if not isinstance(profile, dict):
                 return {}
-            fields = ("display_name", "description", "category", "is_special", "special_type", "recommended_use")
+            fields = ("display_name", "description", "category", "is_special", "special_type", "recommended_use", "status", "is_final_brand_voice")
             return {field: profile[field] for field in fields if field in profile}
         except Exception:
             return {}

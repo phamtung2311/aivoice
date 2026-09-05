@@ -1,0 +1,18 @@
+{
+  "keeper_id": "g2_05",
+  "phase": "30J",
+  "blind_audition_number": "05",
+  "original_identity": "G2-E",
+  "user_verdict": "fairly good",
+  "preserved_at_utc": "2026-08-31T14:23:20.074919+00:00",
+  "english_generation_text": "In this quiet moment, we can slow down, listen closely, and let a simple thought unfold with clarity.",
+  "voicedesign_prompt": "Mature adult male with a naturally deep, resonant, warm voice that is slightly weighty but controlled. Full-body tone, thoughtful calm delivery, close intimate microphone presence, and natural expressive restraint. He should sound like a seasoned conversational storyteller, human and approachable rather than grand. Avoid extreme bass, movie-trailer style, artificial resonance, theatrical acting, generic audiobook cadence, and imitation of any real person.",
+  "original_paths": {
+    "qwen_source": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/reference_audio/g2_E.wav",
+    "vietnamese_output": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/vietnamese_outputs/vietnamese_G2_E.wav",
+    "speaker_embedding": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/conditioning/speaker_emb_E.npy",
+    "reference_codes": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/conditioning/reference_codes_E.npy"
+  },
+  "audio_modified": false,
+  "conditioning_reencoded": false
+}

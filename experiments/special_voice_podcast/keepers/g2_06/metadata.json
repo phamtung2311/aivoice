@@ -1,0 +1,18 @@
+{
+  "keeper_id": "g2_06",
+  "phase": "30J",
+  "blind_audition_number": "06",
+  "original_identity": "G2-B",
+  "user_verdict": "highest potential of the six; primary candidate",
+  "preserved_at_utc": "2026-08-31T14:23:20.074919+00:00",
+  "english_generation_text": "In this quiet moment, we can slow down, listen closely, and let a simple thought unfold with clarity.",
+  "voicedesign_prompt": "Adult male with warm resonance, a full medium-deep tone, and subtle natural vocal texture. Intelligent conversational delivery with relaxed human imperfections, soft close-mic presence, and calm confidence. He should feel like a memorable podcast host, not an engineered voice. Avoid exaggerated rasp, artificial bass, radio-commercial polish, theatrical delivery, generic TTS cadence, and imitation of any real person.",
+  "original_paths": {
+    "qwen_source": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/reference_audio/g2_B.wav",
+    "vietnamese_output": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/vietnamese_outputs/vietnamese_G2_B.wav",
+    "speaker_embedding": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/conditioning/speaker_emb_B.npy",
+    "reference_codes": "/home/tung/ai voice/experiments/special_voice_podcast/qwen_voice_factory/generation_2/conditioning/reference_codes_B.npy"
+  },
+  "audio_modified": false,
+  "conditioning_reencoded": false
+}

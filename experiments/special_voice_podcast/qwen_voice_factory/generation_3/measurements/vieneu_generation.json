@@ -1,0 +1,167 @@
+{
+  "vietnamese_test_text": "Có những câu chuyện không cần phải kể thật nhanh. Chỉ cần một giọng nói đủ gần gũi, một khoảng dừng đúng lúc, và đôi khi chính những điều rất bình thường lại khiến chúng ta muốn ngồi lại, lắng nghe lâu hơn một chút.",
+  "settings": {
+    "speed": 1.0,
+    "denoise": false,
+    "use_ref_codes": true,
+    "numpy_seed": 30109
+  },
+  "records": [
+    {
+      "identity": "CONTROL",
+      "source_audio": {
+        "duration_seconds": 6.8,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.601562,
+        "rms": 0.067811,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": null,
+      "generation_seconds": 9.174,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        84,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 11.76,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.559906,
+        "rms": 0.105293,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 1803.77,
+      "technical_status": "valid",
+      "reproducibility": {
+        "status": "CONTROL_REPRODUCIBILITY_EXACT",
+        "preserved_original_audio": {
+          "duration_seconds": 11.76,
+          "sample_rate": 48000,
+          "channels": 1,
+          "peak": 0.559906,
+          "rms": 0.105293,
+          "clipped_samples": 0,
+          "clipping_ratio": 0.0
+        },
+        "regenerated_audio": {
+          "duration_seconds": 11.76,
+          "sample_rate": 48000,
+          "channels": 1,
+          "peak": 0.559906,
+          "rms": 0.105293,
+          "clipped_samples": 0,
+          "clipping_ratio": 0.0
+        },
+        "preserved_original_sha256": "eea9d667cac29e4c8d428a51a2e6bfb390936228f305307262ef8754942d7374",
+        "regenerated_sha256": "eea9d667cac29e4c8d428a51a2e6bfb390936228f305307262ef8754942d7374"
+      }
+    },
+    {
+      "identity": "K-A",
+      "source_audio": {
+        "duration_seconds": 6.56,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.582031,
+        "rms": 0.073452,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 1.898,
+      "generation_seconds": 10.726,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        78,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 11.36,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.869232,
+        "rms": 0.099541,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2292.59,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "K-B",
+      "source_audio": {
+        "duration_seconds": 8.8,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.699219,
+        "rms": 0.078623,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 0.91,
+      "generation_seconds": 12.008,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        101,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 12.64,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.909637,
+        "rms": 0.105004,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2704.86,
+      "technical_status": "valid"
+    },
+    {
+      "identity": "K-C",
+      "source_audio": {
+        "duration_seconds": 8.72,
+        "sample_rate": 24000,
+        "channels": 1,
+        "peak": 0.498047,
+        "rms": 0.05173,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "encode_seconds": 1.062,
+      "generation_seconds": 41.566,
+      "attempt": 1,
+      "speaker_emb_shape": [
+        192
+      ],
+      "reference_codes_shape": [
+        101,
+        16
+      ],
+      "audio": {
+        "duration_seconds": 12.4,
+        "sample_rate": 48000,
+        "channels": 1,
+        "peak": 0.534241,
+        "rms": 0.10286,
+        "clipped_samples": 0,
+        "clipping_ratio": 0.0
+      },
+      "peak_process_rss_mb": 2973.68,
+      "technical_status": "valid"
+    }
+  ],
+  "blind_control_audio": "preserved G2-06 Vietnamese keeper WAV"
+}

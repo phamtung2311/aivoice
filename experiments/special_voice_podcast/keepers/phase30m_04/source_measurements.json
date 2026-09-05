@@ -1,0 +1,16 @@
+{
+  "identity": "M-A",
+  "attempt": 1,
+  "generation_seconds": 316.548,
+  "prompt": "Adult male with a naturally medium-deep to deep warm full-bodied voice, calm conversational delivery, subtle believable vocal texture, a slight natural grain, smooth low-mid resonance, intimate microphone presence, and mature approachable character. Memorable without sounding performed. Use a natural medium conversational pace, connected phrases, short natural pauses, no prolonged gaps, no slow narration, no breathy dramatic pauses, and no audiobook acting. Avoid heavy rasp, hoarse or smoker voice, movie-trailer voice, radio announcer, commercial voice, forced bass, aggressive masculinity, theatrical delivery, breathy acting, celebrity imitation, and any real-person imitation.",
+  "audio": {
+    "duration_seconds": 8.72,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.71875,
+    "rms": 0.081989,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "peak_process_rss_mb": 5111.2
+}

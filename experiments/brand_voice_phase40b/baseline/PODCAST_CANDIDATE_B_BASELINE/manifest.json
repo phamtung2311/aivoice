@@ -1,0 +1,24 @@
+{
+  "name": "PODCAST_CANDIDATE_B_BASELINE",
+  "immutable": true,
+  "category_label": "Podcast / Experimental",
+  "status": "candidate",
+  "is_final_brand_voice": false,
+  "formula": {
+    "Phạm Tuyên": 0.75,
+    "Thanh Bình": 0.25
+  },
+  "reference_code_anchor": "Thanh Bình",
+  "files": {
+    "speaker_emb.npy": {
+      "sha256": "09ce43e1facce2878df2e4bc78581213804d1beca638e6861f8794ba3f63986e",
+      "size_bytes": 896,
+      "array_sha256": "0c0cbc23228c89cfc27b0d109603b42b3fa0ca071cf728801455ec2cae752b53"
+    },
+    "reference_codes.npy": {
+      "sha256": "fe8f8e3e1766a7954595fa3a355e46aca8c3e27be4aba4bb1db8d9b60a960aa5",
+      "size_bytes": 5504,
+      "array_sha256": "38964457925e5cf4362c90026e4bf552ddf1cf6acc35bc9555cd06c12603efb8"
+    }
+  }
+}

@@ -1,18 +1,55 @@
-Lần sau muốn chạy nhanh
+HƯỚNG DẪN CHẠY DỰ ÁN AIVOICE
 
-Bạn chỉ cần mở 2 terminal:
+1. CHẠY DỰ ÁN TRÊN MÁY HIỆN TẠI
 
-Terminal 1:
+Mở 2 cửa sổ terminal và giữ cả hai chạy trong lúc sử dụng.
+Dùng trực tiếp Python trong .venv có sẵn, không cần kích hoạt môi trường.
 
-cd ~/ai\ voice
-source .venv/bin/activate
-uvicorn backend.main:app --host 127.0.0.1 --port 8000
+Terminal 1 — chạy backend:
 
-Terminal 2:
+cd "/home/tung/ai voice"
+.venv/bin/python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
 
-cd ~/ai\ voice
-python3 -m http.server 5173 --directory frontend
+Terminal 2 — chạy giao diện:
 
-Rồi vào:
+cd "/home/tung/ai voice"
+.venv/bin/python -m http.server 5173 --bind localhost --directory frontend
 
+Sau đó mở trình duyệt tại:
 http://localhost:5173
+
+Giao diện gọi backend tại http://127.0.0.1:8000.
+Luôn dùng http://localhost:5173 để lịch sử và dữ liệu âm thanh trong trình
+duyệt được lưu cùng một địa chỉ. Đổi địa chỉ hoặc cổng sẽ dùng vùng lưu trữ khác.
+
+2. DỪNG DỰ ÁN
+
+Nhấn Ctrl+C trong từng terminal để dừng backend và giao diện.
+Lần sau sử dụng, chạy lại các lệnh ở mục 1.
+
+3. CÀI ĐẶT KHI CHƯA CÓ MÔI TRƯỜNG .venv
+
+Máy hiện tại đã có .venv; không cần cài lại mỗi lần chạy.
+Nếu cài trên máy mới, cần Python 3.11 trở lên, rồi chạy:
+
+cd "/home/tung/ai voice"
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+
+Cần có các tệp mô hình phù hợp trong models/ và giữ các tài nguyên giọng
+nói của dự án. Chỉ cài thư viện Python chưa đủ để tạo giọng nói.
+FFmpeg cần thiết nếu sử dụng âm thanh tham chiếu M4A.
+Nếu chuyển dự án sang thư mục khác, thay đường dẫn trong các lệnh cd.
+
+4. XỬ LÝ LỖI THƯỜNG GẶP
+
+- Giao diện báo không kết nối được backend: kiểm tra terminal 1 còn chạy,
+  backend dùng cổng 8000, rồi tải lại trang.
+- Báo cổng đang được sử dụng (Address already in use): kiểm tra phiên chạy
+  cũ; nếu đang chạy đúng dự án thì sử dụng phiên đó, hoặc Ctrl+C phiên cũ
+  trước khi chạy lại.
+- Không hiện giọng hoặc không tạo được âm thanh: kiểm tra models/ và thông
+  báo lỗi ở terminal backend.
+- Không đọc được M4A: cài FFmpeg hoặc dùng tệp WAV/MP3.
+- Không thấy lịch sử cũ: mở đúng http://localhost:5173, cùng trình duyệt và
+  hồ sơ đã dùng trước đó; tránh xóa dữ liệu trang nếu muốn giữ lịch sử.

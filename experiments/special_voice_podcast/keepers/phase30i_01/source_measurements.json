@@ -1,0 +1,15 @@
+{
+  "identity": "C",
+  "preserved_existing": true,
+  "audio": {
+    "duration_seconds": 8.96,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.585938,
+    "rms": 0.096027,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0,
+    "leading_silence_seconds": 0.042,
+    "trailing_silence_seconds": 0.125
+  }
+}

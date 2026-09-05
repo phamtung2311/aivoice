@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.background import BackgroundTask
 from pydantic import BaseModel, Field
 from typing import Optional
+from pathlib import Path
 import tempfile
 import os
 import secrets
@@ -15,8 +16,21 @@ from backend.app.tts.long_audio import LongAudioJobs
 from backend.app.tts import voice_store
 from backend.app.tts.reference_quality import analyze_clip
 from backend.app.tts.nlp import normalize_text
+from backend.app.tts.podcast_brand import (
+    PODCAST_BRAND_VOICE_ID,
+    PODCAST_FINAL_TEMPO,
+    load_canonical_candidate_03,
+)
+from backend.app.tts.special_voices import SPECIAL_VOICES
+from backend.app.tts.podcast_voices import PODCAST_VOICES, resolve_podcast_voice
 from backend.app.runtime_metadata import get_runtime_metadata
 from backend.app import voice_lab
+from backend.app.personal_voice_lab import (
+    ACCEPTED_EXTENSIONS as PERSONAL_VOICE_EXTENSIONS,
+    SOURCE_MAX_BYTES as PERSONAL_VOICE_MAX_BYTES,
+    PersonalVoiceStore,
+    engine_catalog as personal_voice_engine_catalog,
+)
 import threading
 import time
 import asyncio
@@ -157,6 +171,20 @@ class NLPPreviewRequest(BaseModel):
     smart_text_processing: bool = True
 
 
+class PersonalVoiceSegmentRequest(BaseModel):
+    start_seconds: float = Field(..., ge=0)
+    end_seconds: float = Field(..., gt=0)
+    label: str = Field("", max_length=100)
+    transcript: str = Field("", max_length=2000)
+
+
+class PersonalVoiceCandidateRequest(BaseModel):
+    source_id: str
+    segment_id: str
+    engine_id: str = "vieneu_3_3_0"
+    test_id: str
+
+
 class CloneForm(BaseModel):
     text: str = Field(..., description="Text to synthesize")
     voice: Optional[str] = Field(None, description="Voice id")
@@ -186,10 +214,31 @@ app.add_middleware(
 _ENGINE = TTSEngine()
 _LONG_AUDIO_JOBS = LongAudioJobs(_ENGINE, _TTS_SEMAPHORE)
 _LONG_AUDIO_IDEMPOTENCY: dict[str, str] = {}
+_PERSONAL_VOICE_ROOT = Path(os.environ.get(
+    "PERSONAL_VOICE_ROOT", "experiments/personal_voice_phase42a"
+))
+_PERSONAL_VOICE_STORE = PersonalVoiceStore(_PERSONAL_VOICE_ROOT)
 
 
 def get_engine() -> TTSEngine:
     return _ENGINE
+
+
+def _podcast_brand_available(engine: TTSEngine) -> bool:
+    """Expose the logical profile only when canonical Candidate 03 verifies."""
+    try:
+        load_canonical_candidate_03()
+        return True
+    except RuntimeError:
+        return False
+
+
+def _valid_voice_ids(engine: TTSEngine) -> set[str]:
+    result = set(engine.get_voices() or ["default"])
+    if _podcast_brand_available(engine):
+        result.add(PODCAST_BRAND_VOICE_ID)
+    result.update(PODCAST_VOICES)
+    return result
 
 
 @app.get("/api/health")
@@ -249,9 +298,34 @@ def voices(engine: TTSEngine = Depends(get_engine)):
             "name": meta.get("display_name") or name,
             "type": "special",
             "category": meta.get("category") or "Special Voice",
+            "status": meta.get("status", ""),
+            "is_final_brand_voice": bool(meta.get("is_final_brand_voice", False)),
             "description": meta.get("description", ""),
             "special_type": meta.get("special_type", ""),
             "recommended_use": meta.get("recommended_use", ""),
+        })
+    for voice_id, meta in PODCAST_VOICES.items():
+        out.append({"id": voice_id, "name": meta["display_name"], "type": "special", "category": "Giọng Podcast", "status": "PRODUCTION PODCAST VOICE", "is_final_brand_voice": False, "description": f"AIVoice Podcast Voice Set v1; frozen Phase 43A Voice {meta['phase43a_voice']} identity."})
+
+    # The production profile is a logical rendering stack, not a duplicated
+    # speaker record. Expose it when frozen Candidate 03 is available locally.
+    if _podcast_brand_available(engine) and not any(item["id"] == PODCAST_BRAND_VOICE_ID for item in out):
+        meta = SPECIAL_VOICES[PODCAST_BRAND_VOICE_ID]
+        out.append({
+            "id": PODCAST_BRAND_VOICE_ID,
+            "name": meta["display_name"],
+            "type": "special",
+            "category": meta["category"],
+            "status": meta["status"],
+            "is_final_brand_voice": False,
+            "description": meta["description"],
+            "special_type": meta["special_type"],
+            "recommended_use": meta["recommended_use"],
+            "speaker": meta["speaker"],
+            "prosody_profile": meta["prosody_profile"],
+            "tempo": meta["tempo"],
+            "pause_profile": meta["pause_profile"],
+            "pipeline_version": meta["pipeline_version"],
         })
 
     return {"voices": out}
@@ -271,6 +345,144 @@ def voice_lab_corpus():
 @app.get("/api/voice-lab/quality-corpus")
 def voice_lab_quality_corpus():
     return voice_lab.load_quality_corpus()
+
+
+def _personal_voice_test_set() -> dict:
+    path = _PERSONAL_VOICE_ROOT / "test_set.json"
+    if not path.exists():
+        raise HTTPException(status_code=500, detail="Phase42A controlled test set is missing")
+    import json
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+@app.get("/api/personal-voice/config")
+def personal_voice_config():
+    return {
+        "accepted_extensions": sorted(PERSONAL_VOICE_EXTENSIONS),
+        "source_duration_seconds": {"recommended_min": 30, "maximum": 180},
+        "source_max_bytes": PERSONAL_VOICE_MAX_BYTES,
+        "reference_duration_seconds": {"minimum": 3, "maximum": 8},
+        "engines": personal_voice_engine_catalog(),
+        "tests": _personal_voice_test_set()["tests"],
+        "privacy": "All recordings and derived files stay on this machine.",
+    }
+
+
+@app.post("/api/personal-voice/sources", status_code=201)
+async def upload_personal_voice_source(recording: UploadFile = File(...)):
+    filename = os.path.basename(recording.filename or "recording")
+    extension = os.path.splitext(filename)[1].lower()
+    if extension not in PERSONAL_VOICE_EXTENSIONS:
+        raise HTTPException(status_code=400, detail="Chỉ nhận M4A, WAV, MP3 hoặc AAC")
+    payload = await recording.read(PERSONAL_VOICE_MAX_BYTES + 1)
+    try:
+        return _PERSONAL_VOICE_STORE.save_source(filename, payload)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc))
+
+
+@app.get("/api/personal-voice/sources/{source_id}")
+def get_personal_voice_source(source_id: str):
+    try:
+        return _PERSONAL_VOICE_STORE.source_metadata(source_id)
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Không tìm thấy bản thu")
+
+
+@app.get("/api/personal-voice/sources/{source_id}/audio")
+def get_personal_voice_audio(source_id: str, kind: str = "original", segment_id: Optional[str] = None):
+    try:
+        path = _PERSONAL_VOICE_STORE.audio_path(source_id, kind, segment_id)
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Không tìm thấy audio")
+    media_types = {".wav": "audio/wav", ".mp3": "audio/mpeg", ".m4a": "audio/mp4", ".aac": "audio/aac"}
+    media_type = media_types.get(path.suffix.lower(), "application/octet-stream")
+    return FileResponse(path, media_type=media_type, filename=path.name)
+
+
+@app.post("/api/personal-voice/sources/{source_id}/segments", status_code=201)
+def create_personal_voice_segment(source_id: str, request: PersonalVoiceSegmentRequest):
+    try:
+        return _PERSONAL_VOICE_STORE.create_segment(
+            source_id, request.start_seconds, request.end_seconds,
+            request.label, request.transcript,
+        )
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Không tìm thấy bản thu")
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
+
+@app.post("/api/personal-voice/candidates", status_code=201)
+def create_personal_voice_candidate(
+    request: PersonalVoiceCandidateRequest,
+    engine: TTSEngine = Depends(get_engine),
+):
+    """Generate one controlled VieNeu baseline from a stored 3–8 s segment.
+
+    This route is never called automatically. Each click makes one explicitly
+    named artifact so results are not overwritten or confused across references.
+    """
+    if request.engine_id != "vieneu_3_3_0":
+        raise HTTPException(status_code=409, detail="Engine này chưa khả dụng trên máy")
+    tests = {item["id"]: item for item in _personal_voice_test_set()["tests"]}
+    if request.test_id not in tests:
+        raise HTTPException(status_code=400, detail="Controlled test id không hợp lệ")
+    try:
+        reference = _PERSONAL_VOICE_STORE.audio_path(
+            request.source_id, "segment", request.segment_id
+        )
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Không tìm thấy reference segment")
+    output_id = f"vieneu_{request.segment_id}_{request.test_id}_{secrets.token_hex(4)}"
+    output = _PERSONAL_VOICE_ROOT / "outputs" / f"{output_id}.wav"
+    _TTS_SEMAPHORE.acquire()
+    try:
+        engine.generate(
+            tests[request.test_id]["text"], speed=1.0,
+            out_path=str(output), ref_audio=str(reference),
+        )
+    except Exception as exc:
+        output.unlink(missing_ok=True)
+        raise HTTPException(status_code=500, detail=f"Tạo candidate thất bại: {exc}")
+    finally:
+        _TTS_SEMAPHORE.release()
+    import hashlib
+    audio_hash = hashlib.sha256(output.read_bytes()).hexdigest()
+    info = __import__("soundfile").info(str(output))
+    manifest = {
+        "id": output_id,
+        "engine": request.engine_id,
+        "source_id": request.source_id,
+        "segment_id": request.segment_id,
+        "test_id": request.test_id,
+        "path": str(output),
+        "sha256": audio_hash,
+        "duration_seconds": round(info.frames / float(info.samplerate), 6),
+        "sample_rate": info.samplerate,
+        "tts_rerendered": True,
+        "historical_podcast_stack_modified": False,
+    }
+    manifest_path = _PERSONAL_VOICE_ROOT / "metadata" / f"{output_id}.json"
+    manifest_path.write_text(__import__("json").dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return manifest
+
+
+@app.get("/api/personal-voice/candidates/{candidate_id}/audio")
+def get_personal_voice_candidate_audio(candidate_id: str):
+    if not candidate_id.startswith("vieneu_") or not candidate_id.replace("_", "").isalnum():
+        raise HTTPException(status_code=404, detail="Không tìm thấy candidate")
+    manifest_path = _PERSONAL_VOICE_ROOT / "metadata" / f"{candidate_id}.json"
+    if not manifest_path.exists():
+        raise HTTPException(status_code=404, detail="Không tìm thấy candidate")
+    import json
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    output = Path(manifest["path"])
+    if not output.exists() or output.parent.resolve() != (_PERSONAL_VOICE_ROOT / "outputs").resolve():
+        raise HTTPException(status_code=404, detail="Không tìm thấy candidate audio")
+    return FileResponse(output, media_type="audio/wav", filename=output.name)
 
 
 @app.post("/api/voice-lab/references/analyze")
@@ -552,14 +764,16 @@ def _validate_sampling_param(name: str, value, minimum, maximum, integer: bool =
 @app.post("/api/tts")
 def tts(req: TTSRequest, engine: TTSEngine = Depends(get_engine)):
     original_text = req.text or ""
+    is_podcast_brand = req.voice == PODCAST_BRAND_VOICE_ID
+    is_experimental_podcast = req.voice in PODCAST_VOICES
     # A supplied script is the user-approved synthesis source. Markup is an
     # additional opt-in interpretation layer, not a requirement for editing.
-    text = req.tts_script if req.tts_script is not None else original_text
+    text = original_text if (is_podcast_brand or is_experimental_podcast) else (req.tts_script if req.tts_script is not None else original_text)
     if not text or not text.strip():
         raise HTTPException(status_code=400, detail="Text must not be empty")
     if len(original_text) > TEXT_MAX_LENGTH or len(text) > TEXT_MAX_LENGTH:
         raise HTTPException(status_code=413, detail="Text too long")
-    if req.prosody_markup:
+    if req.prosody_markup and not is_podcast_brand:
         try:
             # Validate before model work; the parser also prevents markers from
             # entering the model path.
@@ -576,13 +790,15 @@ def tts(req: TTSRequest, engine: TTSEngine = Depends(get_engine)):
         if len(text) > TEXT_MAX_LENGTH:
             raise HTTPException(status_code=413, detail="Processed text too long")
 
-    voices = engine.get_voices() or ["default"]
-    if req.voice and req.voice not in voices:
+    if req.voice and req.voice not in _valid_voice_ids(engine):
         raise HTTPException(status_code=400, detail="Invalid voice")
 
     # Phase 22.1: optional Voice Lab diagnostic. When absent, the generate call
     # below is byte-identical to the pre-22.1 production call.
     engine_kwargs: dict = {}
+    if is_experimental_podcast:
+        try: engine_kwargs["voice_profile"] = resolve_podcast_voice(req.voice)
+        except (ValueError, RuntimeError) as exc: raise HTTPException(status_code=400, detail=str(exc))
     if req.conditioning_mode is not None:
         if req.conditioning_mode != "identity_only":
             raise HTTPException(status_code=422, detail="conditioning_mode must be 'identity_only'")
@@ -595,6 +811,25 @@ def tts(req: TTSRequest, engine: TTSEngine = Depends(get_engine)):
     top_k = _validate_sampling_param("top_k", req.top_k, 1, 100, integer=True)
     top_p = _validate_sampling_param("top_p", req.top_p, 0.5, 1.0)
     repetition_penalty = _validate_sampling_param("repetition_penalty", req.repetition_penalty, 1.0, 2.0)
+
+    if is_podcast_brand:
+        # Use the same durable, sequential, disk-backed path as Audio Studio.
+        # Profile controls are frozen; user speed/markup/sampling do not alter it.
+        job = _LONG_AUDIO_JOBS.create(
+            text=text,
+            voice=PODCAST_BRAND_VOICE_ID,
+            speed=PODCAST_FINAL_TEMPO,
+            prosody_markup=False,
+            options={},
+        )
+        while job.state not in {"COMPLETED", "FAILED", "CANCELLED"}:
+            time.sleep(0.05)
+        if job.state != "COMPLETED" or not job.output_path or not job.output_path.exists():
+            raise HTTPException(status_code=500, detail=f"Podcast generation failed: {job.error or job.state}")
+        return FileResponse(
+            str(job.output_path), media_type="audio/wav", filename=f"{job.id}.wav",
+            headers={"X-AIVoice-Job-ID": job.id, "X-AIVoice-Pipeline": PODCAST_BRAND_VOICE_ID},
+        )
 
     # create temp file for output
     tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
@@ -642,14 +877,17 @@ def tts_prosody_suggest(req: ProsodySuggestionRequest):
 def create_long_audio_job(req: LongAudioRequest, engine: TTSEngine = Depends(get_engine)):
     """Start a sequential Audio Studio job; never run markup through VieNeu."""
     original_text = req.text or ""
-    text = req.tts_script if req.tts_script is not None else original_text
+    is_podcast_brand = req.voice == PODCAST_BRAND_VOICE_ID
+    # Audio Studio historically serializes an empty string for an untouched
+    # optional script. Treat it as absent rather than replacing real text.
+    text = original_text if (is_podcast_brand or req.voice in PODCAST_VOICES) else (req.tts_script if req.tts_script and req.tts_script.strip() else original_text)
     if not text.strip():
         raise HTTPException(status_code=400, detail="Text must not be empty")
     if len(original_text) > TEXT_MAX_LENGTH or len(text) > TEXT_MAX_LENGTH:
         raise HTTPException(status_code=413, detail="Text too long")
-    if req.voice and req.voice not in (engine.get_voices() or ["default"]):
+    if req.voice and req.voice not in _valid_voice_ids(engine):
         raise HTTPException(status_code=400, detail="Invalid voice")
-    if req.prosody_markup:
+    if req.prosody_markup and not is_podcast_brand:
         try:
             parse_prosody_script(text)
             if req.smart_text_processing:
@@ -672,8 +910,13 @@ def create_long_audio_job(req: LongAudioRequest, engine: TTSEngine = Depends(get
         existing = _LONG_AUDIO_JOBS.get(existing_id) if existing_id else None
         if existing:
             return _LONG_AUDIO_JOBS.public(existing)
-    job = _LONG_AUDIO_JOBS.create(text=text, voice=req.voice, speed=req.speed,
-                                  prosody_markup=req.prosody_markup, options=options)
+    job = _LONG_AUDIO_JOBS.create(
+        text=text,
+        voice=req.voice,
+        speed=PODCAST_FINAL_TEMPO if is_podcast_brand else req.speed,
+        prosody_markup=False if is_podcast_brand else req.prosody_markup,
+        options={} if is_podcast_brand else options,
+    )
     if req.idempotency_key:
         _LONG_AUDIO_IDEMPOTENCY[req.idempotency_key] = job.id
     return _LONG_AUDIO_JOBS.public(job)
@@ -693,6 +936,16 @@ def cancel_long_audio_job(job_id: str):
     if not job:
         raise HTTPException(status_code=404, detail="Long Audio job not found")
     return _LONG_AUDIO_JOBS.public(job)
+
+
+@app.post("/api/long-audio/jobs/{job_id}/resume")
+def resume_long_audio_job(job_id: str):
+    job = _LONG_AUDIO_JOBS.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Long Audio job not found")
+    if job.state not in {"FAILED", "CANCELLED"}:
+        raise HTTPException(status_code=409, detail="Only failed or cancelled jobs can be resumed")
+    return _LONG_AUDIO_JOBS.public(_LONG_AUDIO_JOBS.resume(job_id))
 
 
 @app.get("/api/long-audio/jobs/{job_id}/audio")

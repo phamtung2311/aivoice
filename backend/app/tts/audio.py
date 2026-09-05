@@ -90,3 +90,15 @@ def save_wav(path: str, audio: np.ndarray, sr: int):
     if waveform.size == 0:
         raise ValueError("Cannot write an empty WAV")
     sf.write(path, waveform, sr, subtype="PCM_16")
+
+
+def fill_trailing_pause(audio: np.ndarray, sr: int, pause_ms: int | None) -> np.ndarray:
+    """Fill the final silence deficit, preserving speech and existing silence."""
+    if pause_ms is None:
+        return audio
+    _, trailing = edge_silence_samples(audio)
+    missing = max(0, round(pause_ms * sr / 1000) - trailing)
+    if not missing:
+        return audio
+    shape = (missing,) + audio.shape[1:]
+    return np.concatenate((audio, np.zeros(shape, dtype=audio.dtype)), axis=0)

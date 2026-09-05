@@ -1,0 +1,31 @@
+{
+  "identity": "B",
+  "source_audio": {
+    "duration_seconds": 7.12,
+    "sample_rate": 24000,
+    "channels": 1,
+    "peak": 0.648438,
+    "rms": 0.090596,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "encode_seconds": 0.72,
+  "generation_seconds": 11.576,
+  "audio": {
+    "duration_seconds": 10.48,
+    "sample_rate": 48000,
+    "channels": 1,
+    "peak": 0.661072,
+    "rms": 0.105427,
+    "clipped_samples": 0,
+    "clipping_ratio": 0.0
+  },
+  "peak_process_rss_mb": 2860.84,
+  "speaker_emb_shape": [
+    192
+  ],
+  "codes_shape": [
+    87,
+    16
+  ]
+}

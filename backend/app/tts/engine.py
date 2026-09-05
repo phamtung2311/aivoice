@@ -9,7 +9,7 @@ import soundfile as sf
 
 from .model import ModelLoader
 from .text import preprocess_text, split_into_sentences, chunk_sentences
-from .audio import edge_silence_samples, join_audios, resample_audio, save_wav
+from .audio import fill_trailing_pause, edge_silence_samples, join_audios, resample_audio, save_wav
 from .exceptions import (ModelLoadError, GenerationError, InvalidInputError)
 from .prosody import PODCAST_PROSODY_VERSION, parse_prosody_script
 
@@ -105,6 +105,7 @@ class TTSEngine:
         out_path: Optional[str] = None,
         max_chunk_chars: int = QUALITY_OUTER_CHUNK_CHARS,
         ref_audio: Optional[str] = None,
+        voice_profile: Optional[dict] = None,
         emotion_tag: Optional[str] = None,
         denoise: bool = True,
         use_ref_codes: bool = True,
@@ -113,6 +114,15 @@ class TTSEngine:
         top_k: Optional[int] = None,
         top_p: Optional[float] = None,
         repetition_penalty: Optional[float] = None,
+        repetition_window: Optional[int] = None,
+        apply_watermark: Optional[bool] = None,
+        max_new_frames: Optional[int] = None,
+        batch_size: Optional[int] = None,
+        silence_p: Optional[float] = None,
+        crossfade_p: Optional[float] = None,
+        model_max_chars: Optional[int] = None,
+        expected_sample_rate: Optional[int] = None,
+        preplanned_text: bool = False,
         quality_diagnostics: bool = False,
     ) -> str:
         """Generate WAV for `text` and return path to file.
@@ -128,9 +138,13 @@ class TTSEngine:
         if self._model is None:
             self._load_model()
 
-        clean = preprocess_text(text)
-        sentences = split_into_sentences(clean)
-        chunks = chunk_sentences(sentences, max_chars=max_chunk_chars)
+        if preplanned_text:
+            clean = text.strip()
+            chunks = [clean] if clean else []
+        else:
+            clean = preprocess_text(text)
+            sentences = split_into_sentences(clean)
+            chunks = chunk_sentences(sentences, max_chars=max_chunk_chars)
 
         if not chunks:
             raise InvalidInputError("Text contains no speakable content")
@@ -138,11 +152,17 @@ class TTSEngine:
         audios = []
         chunk_metrics = []
         sr = getattr(self._model, "sample_rate", 24000)
+        if expected_sample_rate is not None and sr != expected_sample_rate:
+            raise GenerationError(
+                f"Model sample rate {sr} does not match required {expected_sample_rate}"
+            )
 
         # Prepare one native voice profile and reuse it for every generated chunk.
         ref_codes = None
         reference_voice = None
-        if ref_audio is not None:
+        if voice_profile is not None:
+            reference_voice = voice_profile
+        elif ref_audio is not None:
             try:
                 speaker_emb, ref_codes = self._model.encode_reference(ref_audio, denoise=denoise, use_ref_codes=use_ref_codes)
                 # VieNeu v3 resolves cloned identity from a voice profile dict.
@@ -171,6 +191,20 @@ class TTSEngine:
                     call_kwargs['top_p'] = top_p
                 if repetition_penalty is not None:
                     call_kwargs['repetition_penalty'] = repetition_penalty
+                if repetition_window is not None:
+                    call_kwargs['repetition_window'] = repetition_window
+                if apply_watermark is not None:
+                    call_kwargs['apply_watermark'] = apply_watermark
+                if max_new_frames is not None:
+                    call_kwargs['max_new_frames'] = max_new_frames
+                if batch_size is not None:
+                    call_kwargs['batch_size'] = batch_size
+                if silence_p is not None:
+                    call_kwargs['silence_p'] = silence_p
+                if crossfade_p is not None:
+                    call_kwargs['crossfade_p'] = crossfade_p
+                if model_max_chars is not None:
+                    call_kwargs['max_chars'] = model_max_chars
 
                 audio = self._model.infer(
                     chunk,
@@ -287,6 +321,7 @@ class TTSEngine:
             existing_ms = (trailing_previous + leading_next) * 1000 / sr
             gaps.append(max(0, int((segment.pause_after_ms - existing_ms) * sr / 1000)))
         joined = join_audios(audios, sr, gap_samples=gaps)
+        joined = fill_trailing_pause(joined, sr, segments[-1].pause_after_ms)
         if speed != 1.0:
             joined = resample_audio(joined, sr, speed)
 
