@@ -7,4 +7,6 @@ fastapi
 uvicorn[standard]
 python-multipart
 pytest
-httpx
+# FastAPI 0.141+ / Starlette 1.6 moved TestClient to the httpx2 package.
+# Keeping the legacy httpx package here causes requests to hang on Python 3.14.
+httpx2

@@ -98,6 +98,8 @@ No large audio or experiment directory is automatically deleted or moved in Phas
 
 ## Cleanup action log
 
-- Archived paths: none. The existing `diagnostics/archive/` and all experiment locations are left as found because bulk moves would add risk without reducing disk use.
-- Safe deletion scope: `.pytest_cache/` plus shallow source/experiment `__pycache__` directories identified above; embedded virtual environments and downloaded runtimes are excluded.
-- Unknown files: preserved without modification.
+- **2026-09-17 portfolio cleanup:** removed approximately 16 GB of reproducible payloads after explicit user approval. This included embedded experiment virtual environments, package/model caches, downloaded research model copies, superseded Phase 42B source/checkpoints, and Phase 42D benchmark downloads.
+- Removed duplicated/rejected audition audio from early Phase 30–35 speaker experiments and the legacy Phase 30L audition. Canonical Candidate B/Candidate 03 data and the Phase 41D–41H winning evidence were retained.
+- Removed `docs/reports/` Phase 30 reports, `diagnostics/archive/`, and Phase 22.3 diagnostic audio because their relevant conclusions are consolidated in the current project-state and production documents.
+- `.pytest_cache/` and application source `__pycache__` files were removed as reproducible caches.
+- Production assets, the active runtime, `data/`, `models/`, current user outputs, new untracked experiments, and unknown files were preserved.

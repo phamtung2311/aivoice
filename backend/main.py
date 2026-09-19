@@ -2,13 +2,19 @@ from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Req
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.background import BackgroundTask
-from pydantic import BaseModel, Field
 from typing import Optional
 from pathlib import Path
 import tempfile
 import os
 import secrets
 
+from backend.app.schemas import (
+    TEXT_MAX_LENGTH, CloneForm, LongAudioRequest, NLPPreviewRequest,
+    PersonalVoiceCandidateRequest, PersonalVoiceSegmentRequest,
+    ProsodySuggestionRequest, TTSRequest,
+)
+from backend.app.reference_audio import _prepare_reference_wav
+from backend.app.validation import validate_sampling_param as _validate_sampling_param
 from backend.app.tts.engine import TTSEngine
 from backend.app.tts.prosody import parse_prosody_script, transform_prosody_script
 from backend.app.tts.prosody_suggest import plan_context_aware_prosody
@@ -56,145 +62,12 @@ _TTS_SEMAPHORE = threading.BoundedSemaphore(value=_max_concurrency)
 # Guards serialization of the local voice-profile store (small, personal data).
 _LOCK = threading.Lock()
 
-# centralized limit used by the API
-TEXT_MAX_LENGTH = 10000
 # maximum allowed bytes for reference audio upload (≈5MB)
 REF_MAX_BYTES = int(os.environ.get("REF_MAX_BYTES", str(5 * 1024 * 1024)))
 REF_MAX_SECONDS = 8.0
 
 # Reference audio formats accepted by the clone pipeline.
 CLONE_AUDIO_EXTENSIONS = ('.wav', '.mp3', '.m4a')
-
-
-def _ffmpeg_available() -> bool:
-    """True when the system FFmpeg binary can be executed."""
-    import shutil
-    return shutil.which("ffmpeg") is not None
-
-
-def _decode_audio_to_wav(src_path: str, dst_path: str, source_ext: str) -> None:
-    """Decode any supported reference audio into a plain PCM WAV file.
-
-    MP3 is decoded with soundfile (libsndfile ≥1.1 has native MP3 support).
-    M4A/AAC requires FFmpeg. Raises RuntimeError with a user-safe message on
-    any failure so callers can translate it into an HTTP error.
-    """
-    ext = source_ext.lower()
-    try:
-        if ext == ".mp3":
-            import numpy as np
-            import soundfile as sf
-            data, sr = sf.read(src_path, dtype="float32", always_2d=False)
-            if getattr(data, "ndim", 1) > 1:
-                data = data.mean(axis=1)
-            data = np.asarray(data, dtype=np.float32)
-            if data.size == 0:
-                raise ValueError("empty audio")
-            sf.write(dst_path, data, sr, subtype="PCM_16")
-            return
-        if ext == ".m4a":
-            if not _ffmpeg_available():
-                raise RuntimeError(
-                    "Máy chưa cài FFmpeg nên không thể chuyển đổi tệp M4A. "
-                    "Hãy dùng tệp WAV hoặc MP3."
-                )
-            import subprocess
-            proc = subprocess.run(
-                ["ffmpeg", "-y", "-i", src_path, "-vn", dst_path],
-                capture_output=True,
-                text=True,
-                timeout=60,
-            )
-            if proc.returncode != 0 or not os.path.exists(dst_path) or os.path.getsize(dst_path) == 0:
-                logger.warning("FFmpeg conversion failed: %s", (proc.stderr or "")[-500:])
-                raise RuntimeError("Không thể giải mã tệp M4A.")
-            return
-        raise RuntimeError(f"Định dạng không được hỗ trợ: {ext}")
-    except HTTPException:
-        raise
-    except RuntimeError:
-        raise
-    except Exception as e:
-        logger.warning("Audio decode/conversion error (%s): %s", source_ext, e)
-        raise RuntimeError("Tệp âm thanh không hợp lệ, bị hỏng hoặc không thể giải mã.")
-
-
-def _prepare_reference_wav(upload_path: str, source_ext: str):
-    """Return a filesystem path to a WAV file ready for the clone engine.
-
-    For WAV uploads this is the uploaded file itself. For MP3/M4A a converted
-    temporary WAV is produced; the caller owns its lifecycle and must remove it.
-    """
-    if source_ext == ".wav":
-        return upload_path, None
-    fd, converted = tempfile.mkstemp(prefix="clone_conv_", suffix=".wav")
-    os.close(fd)
-    try:
-        _decode_audio_to_wav(upload_path, converted, source_ext)
-    except Exception:
-        try:
-            os.remove(converted)
-        except Exception:
-            pass
-        raise
-    return converted, converted
-
-
-class TTSRequest(BaseModel):
-    text: str = Field(..., description="Text to synthesize")
-    voice: Optional[str] = Field(None, description="Voice id")
-    speed: float = Field(1.0, ge=0.5, le=2.0, description="Playback speed")
-    # optional sampling params — None means "use model defaults"
-    temperature: Optional[float] = Field(None, description="Sampling temperature")
-    top_k: Optional[int] = Field(None, description="Top-K sampling")
-    top_p: Optional[float] = Field(None, description="Top-P sampling")
-    repetition_penalty: Optional[float] = Field(None, description="Repetition penalty")
-    # Phase 22.1 diagnostic only: 'identity_only' drops reference codes for a
-    # SAVED voice (use_ref_codes=False). Absent → production behavior unchanged.
-    conditioning_mode: Optional[str] = Field(None, description="Voice Lab diagnostic conditioning mode ('identity_only')")
-    smart_text_processing: bool = Field(True, description="Apply deterministic local speech-text normalization")
-    tts_script: Optional[str] = Field(None, description="Optional user-edited prosody script")
-    prosody_markup: bool = Field(False, description="Interpret |, ||, and ||| in tts_script")
-
-
-class LongAudioRequest(TTSRequest):
-    """Audio Studio's durable, progress-reporting generation request."""
-    idempotency_key: Optional[str] = Field(None, max_length=100)
-
-
-class ProsodySuggestionRequest(BaseModel):
-    text: str = Field(..., max_length=TEXT_MAX_LENGTH)
-
-
-class NLPPreviewRequest(BaseModel):
-    text: str = Field(..., max_length=TEXT_MAX_LENGTH)
-    smart_text_processing: bool = True
-
-
-class PersonalVoiceSegmentRequest(BaseModel):
-    start_seconds: float = Field(..., ge=0)
-    end_seconds: float = Field(..., gt=0)
-    label: str = Field("", max_length=100)
-    transcript: str = Field("", max_length=2000)
-
-
-class PersonalVoiceCandidateRequest(BaseModel):
-    source_id: str
-    segment_id: str
-    engine_id: str = "vieneu_3_3_0"
-    test_id: str
-
-
-class CloneForm(BaseModel):
-    text: str = Field(..., description="Text to synthesize")
-    voice: Optional[str] = Field(None, description="Voice id")
-    speed: float = Field(1.0, ge=0.5, le=2.0, description="Playback speed")
-    emotion: Optional[str] = Field(None, description="Emotion name (mapped server-side)")
-    # optional sampling params for clone requests
-    temperature: Optional[float] = Field(None, description="Sampling temperature")
-    top_k: Optional[int] = Field(None, description="Top-K sampling")
-    top_p: Optional[float] = Field(None, description="Top-P sampling")
-    repetition_penalty: Optional[float] = Field(None, description="Repetition penalty")
 
 
 # create app
@@ -744,21 +617,6 @@ def _remove_file(path: str):
         os.remove(path)
     except Exception:
         pass
-
-
-def _validate_sampling_param(name: str, value, minimum, maximum, integer: bool = False):
-    if value is None:
-        return None
-    try:
-        if integer:
-            v = int(value)
-        else:
-            v = float(value)
-    except Exception:
-        raise HTTPException(status_code=422, detail=f"Invalid {name}")
-    if v < minimum or v > maximum:
-        raise HTTPException(status_code=422, detail=f"{name} out of range")
-    return v
 
 
 @app.post("/api/tts")

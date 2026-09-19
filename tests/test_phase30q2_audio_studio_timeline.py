@@ -32,5 +32,5 @@ def test_audio_clip_storage_playback_and_export_are_timeline_safe():
     assert "await putAudio(item.audioKey,file)" in STUDIO
     assert "getAudio(item.audioKey||item.id)" in STUDIO
     assert "OfflineAudioContext" in STUDIO
-    assert "targetRate=decoded.find(entry=>entry.item.type==='tts')?.buffer.sampleRate" in STUDIO
-    assert "item.type==='audio'?Math.max" in STUDIO
+    assert "targetRate=decoded.find(entry=>entry.item.type==='tts')?.buffer.sampleRate" in "".join(STUDIO.split())
+    assert "item.type==='audio'?Math.max" in "".join(STUDIO.split())

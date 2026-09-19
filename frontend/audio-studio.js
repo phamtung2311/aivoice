@@ -206,16 +206,121 @@ async function waitForJob(job,index){const started=Date.now();for(;;){await new 
 // The visible editor is the only synthesis source; old hidden scripts cannot override it.
 function studioGenerationPayload(item){return {...item.settings,text:item.text,voice:item.voice,speed:item.speed,tts_script:null,prosody_markup:/\|/.test(item.text),idempotency_key:`studio-${Date.now().toString(36)}`}}
 async function generate(index){const item=project.segments[index];if(!item||item.type!=='tts'||generating)return;if(!item.voice&&voices.length){item.voice=defaultVoice();save()}if(!item.voice){setStatus('Đang tải danh sách giọng. Hãy thử lại sau ít giây.',true);return}if(playback.itemId===item.id)stopPlayback();setGenerating(true);item.status='generating';expandedSegmentId=item.id;setStatus(`Đang tạo Segment ${index+1} bằng giọng “${item.voice}”...`);render();try{const payload=studioGenerationPayload(item);const response=await fetch(API+'/api/long-audio/jobs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});if(!response.ok){let detail='start';try{const body=await response.json();detail=body.detail||JSON.stringify(body)}catch(_){}throw Error(detail)}activeJob=await response.json();await waitForJob(activeJob,index);const audio=await fetch(`${API}/api/long-audio/jobs/${activeJob.job_id}/audio`);if(!audio.ok)throw Error('audio');const blob=await audio.blob();if(!blob||blob.size<=44)throw Error('audio');item.audioKey=item.id;await putAudio(item.audioKey,blob);item.duration=await duration(blob);item.status='ready';item.hasAudio=true;item.voiceChanged=false;save();setStatus(`Segment ${index+1} đã tạo lại bằng giọng “${item.voice}”.`)}catch(error){item.status=item.hasAudio?'ready':'draft';const detail=error.message==='cancelled'?'Đã hủy. Đoạn đang tạo sẽ dừng sau lần suy luận hiện tại.':`Không thể tạo Segment ${index+1}: ${error.message}`;setStatus(detail,true)}finally{activeJob=null;setGenerating(false);render()}}
-function stopPlayback(){playback.queueToken++;if(playback.silenceTimer)clearTimeout(playback.silenceTimer);if(playback.silenceFrame)cancelAnimationFrame(playback.silenceFrame);if(playback.audio){playback.audio.pause();playback.audio.currentTime=0}if(playback.objectUrl)URL.revokeObjectURL(playback.objectUrl);Object.assign(playback,{state:'idle',mode:null,audio:null,itemId:null,silenceTimer:null,silenceFrame:null,objectUrl:null});updatePlaybackControls();render()}
+function stopPlayback() {
+  playback.queueToken++
+  if (playback.silenceTimer) clearTimeout(playback.silenceTimer)
+  if (playback.silenceFrame) cancelAnimationFrame(playback.silenceFrame)
+  playback.finishSilence?.()
+  if (playback.audio) {
+    playback.audio.pause()
+    playback.audio.currentTime = 0
+  }
+  if (playback.objectUrl) URL.revokeObjectURL(playback.objectUrl)
+  Object.assign(playback, {
+    state: 'idle', mode: null, audio: null, itemId: null,
+    silenceTimer: null, silenceFrame: null, objectUrl: null,
+  })
+  updatePlaybackControls()
+  render()
+}
 function togglePlaybackPause(){if(playback.state==='idle')return;if(playback.state==='playing'){playback.audio?.pause();playback.state='paused'}else{playback.audio?.play();playback.state='playing'}updatePlaybackControls();render()}
 function updateTimelinePlayback(item,elapsed=0){const card=segmentsEl.querySelector(`.studioTimelineTrack [data-id="${item.id}"]`),head=segmentsEl.querySelector('.studioPlayhead'),clock=document.getElementById('studioTimelineClock');if(!card||!head)return;const duration=Math.max(.01,itemDuration(item)),progress=Math.max(0,Math.min(1,Number(elapsed)||0)/duration),before=project.segments.slice(0,project.segments.findIndex(entry=>entry.id===item.id)).reduce((total,entry)=>total+itemDuration(entry),0),x=card.offsetLeft+card.offsetWidth*progress;card.style.setProperty('--play-progress',`${progress*100}%`);head.style.transform=`translateX(${x}px)`;head.classList.add('active');if(clock)clock.textContent=`${formatTime(before+(Number(elapsed)||0))} / ${formatTime(metrics().duration)}`;const viewport=segmentsEl.querySelector('.studioTimeline');if(viewport&&((x-viewport.scrollLeft)<70||(x-viewport.scrollLeft)>viewport.clientWidth-90))viewport.scrollLeft=Math.max(0,x-viewport.clientWidth*.45)}
 function bindPlaybackProgress(audio,item){audio.ontimeupdate=()=>{const progress=segmentsEl.querySelector(`[data-id="${item.id}"] .studioPlaybackProgress`);if(progress)progress.textContent=`Đang phát ${formatTime(audio.currentTime)} / ${formatTime(audio.duration||itemDuration(item))}`;updateTimelinePlayback(item,audio.currentTime)}}
-function playSilence(item,token){return new Promise(resolve=>{const duration=Math.max(.1,Math.min(30,Number(item.duration_ms)||2500))/1000,started=performance.now(),tick=now=>{if(token!==playback.queueToken)return resolve();const elapsed=Math.min(duration,(now-started)/1000);updateTimelinePlayback(item,elapsed);if(elapsed>=duration){playback.silenceFrame=null;return resolve()}playback.silenceFrame=requestAnimationFrame(tick)};playback.silenceFrame=requestAnimationFrame(tick)})}
+function playSilence(item, token) {
+  return new Promise(resolve => {
+    const duration = Math.max(100, Math.min(30000, Number(item.duration_ms) || 2500)) / 1000
+    let elapsed = 0
+    let previousTime = performance.now()
+    const finish = () => {
+      playback.silenceFrame = null
+      playback.finishSilence = null
+      resolve()
+    }
+    playback.finishSilence = finish
+    const tick = now => {
+      if (token !== playback.queueToken) return finish()
+      if (playback.state !== 'paused') elapsed += (now - previousTime) / 1000
+      previousTime = now
+      updateTimelinePlayback(item, Math.min(duration, elapsed))
+      if (elapsed >= duration) return finish()
+      playback.silenceFrame = requestAnimationFrame(tick)
+    }
+    playback.silenceFrame = requestAnimationFrame(tick)
+  })
+}
 async function play(item){if(playback.itemId===item.id&&playback.state!=='idle'){togglePlaybackPause();return}stopPlayback();if(item.type==='silence'){setStatus('Khoảng nghỉ không phát riêng.');return}const blob=await getAudio(item.audioKey||item.id);if(!(blob instanceof Blob)){item.hasAudio=false;save();render();setStatus('Không tìm thấy audio của đoạn này.',true);return}const audio=new Audio(URL.createObjectURL(blob));Object.assign(playback,{state:'playing',mode:'single',audio,itemId:item.id,objectUrl:audio.src});audio.volume=Math.max(0,Math.min(1,Number(item.volume??100)/100));bindPlaybackProgress(audio,item);audio.onended=()=>stopPlayback();await audio.play();updatePlaybackControls();render()}
 async function playAll(){stopPlayback();const token=playback.queueToken,queue=project.segments.slice();playback.mode='project';for(const item of queue){if(token!==playback.queueToken)return;playback.itemId=item.id;playback.state='playing';updatePlaybackControls();render();if(item.type==='silence'){await playSilence(item,token);continue}if(!item.hasAudio||item.voiceChanged)continue;const blob=await getAudio(item.audioKey||item.id);if(!(blob instanceof Blob))continue;await new Promise(async resolve=>{const audio=new Audio(URL.createObjectURL(blob));playback.audio=audio;playback.objectUrl=audio.src;audio.volume=Math.max(0,Math.min(1,Number(item.volume??100)/100));bindPlaybackProgress(audio,item);audio.onended=resolve;audio.onerror=resolve;await audio.play()});if(token!==playback.queueToken)return}if(token===playback.queueToken)stopPlayback()}
-function encodeWav(channels,sr){const length=channels[0].length,buffer=new ArrayBuffer(44+length*channels.length*2),view=new DataView(buffer),u32=(at,value)=>view.setUint32(at,value,true);view.setUint32(0,0x46464952,true);u32(4,36+length*channels.length*2);view.setUint32(8,0x45564157,true);view.setUint32(12,0x20746d66,true);u32(16,16);view.setUint16(20,1,true);view.setUint16(22,channels.length,true);u32(24,sr);u32(28,sr*channels.length*2);view.setUint16(32,channels.length*2);view.setUint16(34,16);view.setUint32(36,0x61746164,true);u32(40,length*channels.length*2);let at=44;for(let i=0;i<length;i++)for(const channel of channels){const value=Math.max(-1,Math.min(1,channel[i]));view.setInt16(at,value<0?value*0x8000:value*0x7fff,true);at+=2}return new Blob([buffer],{type:'audio/wav'})}
+function encodeWav(channels, sampleRate) {
+  return AIVoiceAudio.encodeWav(channels, sampleRate)
+}
 async function resampleBuffer(buffer,targetRate){if(buffer.sampleRate===targetRate)return buffer;const ctx=new OfflineAudioContext(buffer.numberOfChannels,Math.ceil(buffer.duration*targetRate),targetRate),source=ctx.createBufferSource();source.buffer=buffer;source.connect(ctx.destination);source.start();return ctx.startRendering()}
-async function exportWav(){const timeline=project.segments.filter(item=>item.hasAudio||item.type==='silence');if(!timeline.length){setStatus('Chưa có timeline item nào để xuất WAV.',true);return}const context=new AudioContext();try{const decoded=[];for(const item of timeline)if(item.type!=='silence'){const blob=await getAudio(item.audioKey||item.id);if(!(blob instanceof Blob))throw Error();decoded.push({item,buffer:await context.decodeAudioData(await blob.arrayBuffer())})}if(!decoded.length)throw Error();const targetRate=decoded.find(entry=>entry.item.type==='tts')?.buffer.sampleRate||decoded[0].buffer.sampleRate,channels=Math.max(...decoded.map(entry=>entry.buffer.numberOfChannels)),buffers=[];for(const item of timeline){if(item.type==='silence')buffers.push({item,buffer:null,length:Math.round(Math.max(100,Math.min(30000,Number(item.duration_ms)||2500))*targetRate/1000)});else{const entry=decoded.find(candidate=>candidate.item===item),buffer=await resampleBuffer(entry.buffer,targetRate);buffers.push({item,buffer,length:buffer.length})}}const length=buffers.reduce((total,entry)=>total+entry.length,0),merged=Array.from({length:channels},()=>new Float32Array(length));let offset=0;for(const {item,buffer,length:partLength} of buffers){if(buffer){const gain=item.type==='audio'?Math.max(0,Math.min(1,Number(item.volume??100)/100)):1;for(let channel=0;channel<channels;channel++){const source=buffer.getChannelData(Math.min(channel,buffer.numberOfChannels-1));for(let i=0;i<source.length;i++)merged[channel][offset+i]=source[i]*gain}}offset+=partLength}const url=URL.createObjectURL(encodeWav(merged,targetRate)),link=document.createElement('a');link.href=url;link.download=`${project.title.replace(/[^\w-]+/g,'-')||'audio-project'}.wav`;link.click();setTimeout(()=>URL.revokeObjectURL(url),2000);setStatus('Đã xuất WAV.')}catch(_){setStatus('Không thể xuất WAV. Hãy kiểm tra các timeline item đã sẵn sàng.',true)}finally{context.close()}}
+async function exportWav() {
+  const timeline = project.segments.filter(item => item.hasAudio || item.type === 'silence')
+  if (!timeline.length) {
+    setStatus('Chưa có timeline item nào để xuất WAV.', true)
+    return
+  }
+
+  let context
+  try {
+    context = new AudioContext()
+    const decoded = []
+    for (const item of timeline) {
+      if (item.type === 'silence') continue
+      const blob = await getAudio(item.audioKey || item.id)
+      if (!(blob instanceof Blob)) throw new Error('Missing timeline audio')
+      const buffer = await context.decodeAudioData(await blob.arrayBuffer())
+      decoded.push({item, buffer})
+    }
+    if (!decoded.length) throw new Error('No audio to export')
+
+    // Use speech as the reference rate; imported clips are resampled to match.
+    const targetRate = decoded.find(entry => entry.item.type === 'tts')?.buffer.sampleRate
+      || decoded[0].buffer.sampleRate
+    const channels = Math.max(...decoded.map(entry => entry.buffer.numberOfChannels))
+    const buffers = []
+    for (const item of timeline) {
+      if (item.type === 'silence') {
+        const milliseconds = Math.max(100, Math.min(30000, Number(item.duration_ms) || 2500))
+        buffers.push({item, buffer: null, length: Math.round(milliseconds * targetRate / 1000)})
+      } else {
+        const entry = decoded.find(candidate => candidate.item === item)
+        const buffer = await resampleBuffer(entry.buffer, targetRate)
+        buffers.push({item, buffer, length: buffer.length})
+      }
+    }
+
+    const length = buffers.reduce((total, entry) => total + entry.length, 0)
+    const merged = Array.from({length: channels}, () => new Float32Array(length))
+    let offset = 0
+    for (const {item, buffer, length: partLength} of buffers) {
+      if (buffer) {
+        const gain = item.type === 'audio'
+          ? Math.max(0, Math.min(1, Number(item.volume ?? 100) / 100)) : 1
+        for (let channel = 0; channel < channels; channel++) {
+          const source = buffer.getChannelData(Math.min(channel, buffer.numberOfChannels - 1))
+          for (let frame = 0; frame < source.length; frame++) {
+            merged[channel][offset + frame] = source[frame] * gain
+          }
+        }
+      }
+      offset += partLength
+    }
+
+    const url = URL.createObjectURL(encodeWav(merged, targetRate))
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `${project.title.replace(/[^\w-]+/g, '-') || 'audio-project'}.wav`
+    link.click()
+    setTimeout(() => URL.revokeObjectURL(url), 2000)
+    setStatus('Đã xuất WAV.')
+  } catch (error) {
+    console.error('Audio Studio export failed:', error)
+    setStatus('Không thể xuất WAV. Hãy kiểm tra các timeline item đã sẵn sàng.', true)
+  } finally {
+    if (context) await context.close()
+  }
+}
 
 async function loadVoices(){try{const [health,response]=await Promise.all([fetch(API+'/api/health'),fetch(API+'/api/voices')]);const info=health.ok?await health.json():null;healthEl.textContent=info?'● TTS cục bộ đang hoạt động':'● Backend không khả dụng';healthEl.style.color=info?'#78e08f':'#ff9b9b';const data=await response.json();voices=(data.voices||[]).map(item=>item.id).filter(Boolean);render()}catch(_){healthEl.textContent='● Backend không khả dụng';healthEl.style.color='#ff9b9b'}}
 function applyTheme(theme){document.documentElement.setAttribute('data-theme',theme);localStorage.setItem('theme',theme);themeToggle.textContent=theme==='light'?'☀️':'🌙'}

@@ -115,11 +115,11 @@ def test_api_exposes_only_installed_engine_as_available(tmp_path, monkeypatch):
     assert next(item for item in engines if item["id"] == "v_tts")["research_only"] is True
 
 
-def test_personal_voice_ui_exposes_source_segment_and_candidate_controls():
+def test_personal_voice_ui_removed_while_voice_lab_remains():
     html = main_mod.Path("frontend/index.html").read_text(encoding="utf-8")
     js = main_mod.Path("frontend/app.js").read_text(encoding="utf-8")
-    assert 'id="personalVoiceUpload"' in html
-    assert ".m4a,.wav,.mp3,.aac" in html
-    assert 'id="personalVoiceTranscript"' in html
-    assert "/api/personal-voice/sources" in js
-    assert "/api/personal-voice/candidates" in js
+    assert 'id="personalVoice' not in html
+    assert "/api/personal-voice/" not in js
+    assert "loadPersonalVoiceConfig" not in js
+    assert 'id="voiceLab"' in html
+    assert "loadVoiceLab()" in js

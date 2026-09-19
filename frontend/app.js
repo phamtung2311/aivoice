@@ -1,6 +1,6 @@
 const API = 'http://127.0.0.1:8000'
 const DEFAULT_VOICE_ID = 'podcast_soft_baritone'
-const AIVOICE_FRONTEND_BUILD = '42A'
+const AIVOICE_FRONTEND_BUILD = '20260919'
 
 const voiceSelect = document.getElementById('voice')
 const voiceProfileHint = document.getElementById('voiceProfileHint')
@@ -26,21 +26,6 @@ const progressBar = document.getElementById('progressBar')
 const curTime = document.getElementById('curTime')
 const durTime = document.getElementById('durTime')
 const themeToggle = document.getElementById('themeToggle')
-const personalVoiceUpload = document.getElementById('personalVoiceUpload')
-const personalVoiceStatus = document.getElementById('personalVoiceStatus')
-const personalVoiceWorkspace = document.getElementById('personalVoiceWorkspace')
-const personalVoiceMetadata = document.getElementById('personalVoiceMetadata')
-const personalVoiceOriginalAudio = document.getElementById('personalVoiceOriginalAudio')
-const personalVoiceSuggestions = document.getElementById('personalVoiceSuggestions')
-const personalVoiceStart = document.getElementById('personalVoiceStart')
-const personalVoiceEnd = document.getElementById('personalVoiceEnd')
-const personalVoiceTranscript = document.getElementById('personalVoiceTranscript')
-const personalVoiceExtract = document.getElementById('personalVoiceExtract')
-const personalVoiceSegment = document.getElementById('personalVoiceSegment')
-const personalVoiceEngine = document.getElementById('personalVoiceEngine')
-const personalVoiceTest = document.getElementById('personalVoiceTest')
-const personalVoiceGenerate = document.getElementById('personalVoiceGenerate')
-const personalVoiceCandidateAudio = document.getElementById('personalVoiceCandidateAudio')
 // saved-voices panel (Phase 21.1: panel stays; Save Voice enrollment UI lives in Voice Lab)
 const savedVoicesList = document.getElementById('savedVoicesList')
 const saveVoiceInfo = document.getElementById('saveVoiceInfo')
@@ -173,8 +158,6 @@ const aboutEngine = document.getElementById('aboutEngine')
 let audioStudioProject = null
 let studioGenerating = false
 let latestHealth = null
-let personalVoiceSource = null
-let personalVoiceConfig = null
 
 function storageErrorSummary(error){
   const name = error && error.name ? String(error.name) : 'Error'
@@ -1072,15 +1055,48 @@ async function generateStudioSegment(index){
     setStudioStatus(`Không thể tạo Segment ${index+1}. Hãy kiểm tra backend cục bộ rồi thử lại.`,true)
   }finally{studioGenerating=false;renderAudioStudio()}
 }
-async function playStudioSegment(segment){const blob=await idbGetStudioAudio(segment.id);if(!(blob instanceof Blob)){segment.hasAudio=false;saveAudioStudioProject();renderAudioStudio();return}const audio=new Audio(URL.createObjectURL(blob));audio.onended=()=>URL.revokeObjectURL(audio.src);await audio.play()}
-function playStudioSegmentAndWait(segment){return idbGetStudioAudio(segment.id).then(blob=>new Promise((resolve,reject)=>{if(!(blob instanceof Blob))return resolve();const audio=new Audio(URL.createObjectURL(blob));audio.onended=()=>{URL.revokeObjectURL(audio.src);resolve()};audio.onerror=()=>{URL.revokeObjectURL(audio.src);reject(new Error('playback failed'))};audio.play().catch(reject)}))}
+async function playStudioSegment(segment) {
+  const blob = await idbGetStudioAudio(segment.id)
+  if (!(blob instanceof Blob)) {
+    segment.hasAudio = false
+    saveAudioStudioProject()
+    renderAudioStudio()
+    return
+  }
+  await playStudioBlob(blob)
+}
+
+async function playStudioSegmentAndWait(segment) {
+  const blob = await idbGetStudioAudio(segment.id)
+  if (blob instanceof Blob) await playStudioBlob(blob)
+}
+
+function playStudioBlob(blob) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(blob)
+    const audio = new Audio(url)
+    const finish = error => {
+      audio.onended = null
+      audio.onerror = null
+      URL.revokeObjectURL(url)
+      if (error) reject(error)
+      else resolve()
+    }
+    audio.onended = () => finish()
+    audio.onerror = () => finish(new Error('Audio playback failed'))
+    audio.play().catch(finish)
+  })
+}
+
 async function playAllStudioSegments(){
   if(!audioStudioProject||studioGenerating) return
   setStudioStatus('Đang phát các segment theo thứ tự...')
   for(const segment of audioStudioProject.segments) if(segment.hasAudio) try{ await playStudioSegmentAndWait(segment) }catch(_error){ setStudioStatus('Không thể phát một segment trong project.',true); return }
   setStudioStatus('Đã phát xong các segment sẵn sàng.')
 }
-function encodeStudioWav(channels,sampleRate){const frames=channels[0].length,bytes=new ArrayBuffer(44+frames*channels.length*2),view=new DataView(bytes),put=(offset,value)=>view.setUint32(offset,value,true);view.setUint32(0,0x46464952,true);put(4,36+frames*channels.length*2);view.setUint32(8,0x45564157,true);view.setUint32(12,0x20746d66,true);put(16,16);view.setUint16(20,1,true);view.setUint16(22,channels.length,true);put(24,sampleRate);put(28,sampleRate*channels.length*2);view.setUint16(32,channels.length*2,true);view.setUint16(34,16,true);view.setUint32(36,0x61746164,true);put(40,frames*channels.length*2);let offset=44;for(let frame=0;frame<frames;frame++)for(const channel of channels){const value=Math.max(-1,Math.min(1,channel[frame]));view.setInt16(offset,value<0?value*0x8000:value*0x7fff,true);offset+=2}return new Blob([bytes],{type:'audio/wav'})}
+function encodeStudioWav(channels, sampleRate) {
+  return AIVoiceAudio.encodeWav(channels, sampleRate)
+}
 async function exportAudioStudioWav(){const ready=audioStudioProject?.segments.filter(item=>item.hasAudio)||[];if(!ready.length){setStudioStatus('Chưa có segment nào để xuất WAV.',true);return}const context=new(window.AudioContext||window.webkitAudioContext)();setStudioStatus('Đang ghép WAV trong trình duyệt...');try{const buffers=[];for(const segment of ready){const blob=await idbGetStudioAudio(segment.id);if(blob instanceof Blob)buffers.push(await context.decodeAudioData(await blob.arrayBuffer()))}if(!buffers.length)throw new Error('Không tìm thấy audio project.');const sampleRate=buffers[0].sampleRate,channels=Math.max(...buffers.map(buffer=>buffer.numberOfChannels));if(buffers.some(buffer=>buffer.sampleRate!==sampleRate))throw new Error('Sample rate segment không đồng nhất.');const length=buffers.reduce((total,buffer)=>total+buffer.length,0),merged=Array.from({length:channels},()=>new Float32Array(length));let position=0;for(const buffer of buffers){for(let channel=0;channel<channels;channel++){const source=buffer.getChannelData(Math.min(channel,buffer.numberOfChannels-1));merged[channel].set(source,position)}position+=buffer.length}const url=URL.createObjectURL(encodeStudioWav(merged,sampleRate)),link=document.createElement('a');link.href=url;link.download=`${(audioStudioProject.title||'audio-project').replace(/[^\w-]+/g,'-')}.wav`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);setStudioStatus('Đã xuất WAV.') }catch(_error){setStudioStatus('Không thể xuất WAV. Hãy kiểm tra các segment đã sẵn sàng và cùng sample rate.',true)}finally{context.close()}}
 function setWorkspaceTab(studioOpen){if(mainWorkspace)mainWorkspace.hidden=studioOpen;if(voiceLab)voiceLab.hidden=studioOpen;if(audioStudio)audioStudio.hidden=!studioOpen;mainWorkspaceTab?.classList.toggle('active',!studioOpen);audioStudioTab?.classList.toggle('active',studioOpen);mainWorkspaceTab?.setAttribute('aria-selected',String(!studioOpen));audioStudioTab?.setAttribute('aria-selected',String(studioOpen));if(studioOpen)renderAudioStudio()}
 
@@ -2284,120 +2300,6 @@ async function loadVoiceLab(){
   await loadTemperatureCandidates()
 }
 
-function setPersonalVoiceStatus(message, isError=false){
-  if(!personalVoiceStatus) return
-  personalVoiceStatus.textContent = message
-  personalVoiceStatus.style.color = isError ? 'var(--danger)' : ''
-}
-
-function renderPersonalVoiceSource(source){
-  personalVoiceSource = source
-  personalVoiceWorkspace.hidden = false
-  const meta = source.source
-  personalVoiceMetadata.textContent = `${source.original_filename} · ${meta.duration_seconds.toFixed(1)} giây · ${meta.codec.toUpperCase()} · ${meta.sample_rate} Hz · ${meta.channels} kênh · SHA256 ${source.original_sha256.slice(0, 12)}…`
-  personalVoiceOriginalAudio.src = `${API}/api/personal-voice/sources/${encodeURIComponent(source.id)}/audio?kind=original`
-  personalVoiceSuggestions.replaceChildren()
-  for(const suggestion of source.segment_suggestions || []){
-    const button = document.createElement('button')
-    button.type = 'button'
-    button.className = 'secondary small'
-    button.textContent = `${suggestion.start_seconds.toFixed(2)}–${suggestion.end_seconds.toFixed(2)}s (${suggestion.duration_seconds.toFixed(2)}s)`
-    button.addEventListener('click', ()=>{
-      personalVoiceStart.value = suggestion.start_seconds
-      personalVoiceEnd.value = suggestion.end_seconds
-    })
-    personalVoiceSuggestions.appendChild(button)
-  }
-  personalVoiceSegment.replaceChildren()
-  for(const segment of source.segments || []){
-    const option = document.createElement('option')
-    option.value = segment.id
-    option.textContent = `${segment.label} · ${segment.duration_seconds.toFixed(2)}s`
-    personalVoiceSegment.appendChild(option)
-  }
-  personalVoiceGenerate.disabled = !personalVoiceSegment.value || !personalVoiceEngine.value
-}
-
-async function loadPersonalVoiceConfig(){
-  if(!personalVoiceEngine) return
-  try{
-    const response = await fetch(API + '/api/personal-voice/config')
-    if(!response.ok) throw new Error('config unavailable')
-    personalVoiceConfig = await response.json()
-    personalVoiceEngine.replaceChildren()
-    for(const engine of personalVoiceConfig.engines.filter(item=>item.available)){
-      const option = document.createElement('option')
-      option.value = engine.id
-      option.textContent = engine.name + (engine.research_only ? ' · RESEARCH ONLY' : '')
-      personalVoiceEngine.appendChild(option)
-    }
-    personalVoiceTest.replaceChildren()
-    for(const test of personalVoiceConfig.tests){
-      const option = document.createElement('option')
-      option.value = test.id
-      option.textContent = test.label
-      personalVoiceTest.appendChild(option)
-    }
-  }catch(error){
-    setPersonalVoiceStatus('Không thể tải cấu hình Giọng cá nhân.', true)
-  }
-}
-
-async function uploadPersonalVoiceRecording(file){
-  if(!file) return
-  setPersonalVoiceStatus('Đang giữ bản gốc và giải mã cục bộ...')
-  const form = new FormData()
-  form.append('recording', file, file.name)
-  try{
-    const response = await fetch(API + '/api/personal-voice/sources', {method:'POST', body:form})
-    const data = await response.json()
-    if(!response.ok) throw new Error(data.detail || 'Upload thất bại')
-    renderPersonalVoiceSource(data)
-    const warnings = data.warnings?.length ? ` Cảnh báo: ${data.warnings.join(' ')}` : ''
-    setPersonalVoiceStatus(`✓ Bản gốc được giữ nguyên; PCM mono 48 kHz đã tạo.${warnings}`)
-  }catch(error){ setPersonalVoiceStatus(error.message || 'Upload thất bại.', true) }
-}
-
-async function extractPersonalVoiceSegment(){
-  if(!personalVoiceSource) return
-  const payload = {
-    start_seconds:Number(personalVoiceStart.value),
-    end_seconds:Number(personalVoiceEnd.value),
-    label:`Reference ${String.fromCharCode(65 + (personalVoiceSource.segments || []).length)}`,
-    transcript:personalVoiceTranscript.value,
-  }
-  try{
-    const response = await fetch(`${API}/api/personal-voice/sources/${encodeURIComponent(personalVoiceSource.id)}/segments`, {
-      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload),
-    })
-    const data = await response.json()
-    if(!response.ok) throw new Error(data.detail || 'Không thể trích đoạn')
-    const refreshed = await fetch(`${API}/api/personal-voice/sources/${encodeURIComponent(personalVoiceSource.id)}`)
-    renderPersonalVoiceSource(await refreshed.json())
-    personalVoiceSegment.value = data.id
-    personalVoiceGenerate.disabled = false
-    setPersonalVoiceStatus(`✓ Đã tạo ${data.label}, ${data.duration_seconds.toFixed(2)} giây. Hãy nghe source quanh timestamp trước khi generate.`)
-  }catch(error){ setPersonalVoiceStatus(error.message || 'Không thể trích đoạn.', true) }
-}
-
-async function generatePersonalVoiceCandidate(){
-  if(!personalVoiceSource || !personalVoiceSegment.value) return
-  personalVoiceGenerate.disabled = true
-  setPersonalVoiceStatus('Đang tạo đúng một controlled candidate...')
-  try{
-    const response = await fetch(API + '/api/personal-voice/candidates', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({source_id:personalVoiceSource.id, segment_id:personalVoiceSegment.value, engine_id:personalVoiceEngine.value, test_id:personalVoiceTest.value}),
-    })
-    const data = await response.json()
-    if(!response.ok) throw new Error(data.detail || 'Không thể tạo candidate')
-    personalVoiceCandidateAudio.src = `${API}/api/personal-voice/candidates/${encodeURIComponent(data.id)}/audio`
-    personalVoiceCandidateAudio.load()
-    setPersonalVoiceStatus(`✓ Candidate ${data.id} đã lưu · ${data.duration_seconds.toFixed(2)} giây · ${data.sha256.slice(0, 12)}…`)
-  }catch(error){ setPersonalVoiceStatus(error.message || 'Không thể tạo candidate.', true) }
-  finally{ personalVoiceGenerate.disabled = false }
-}
-
 Object.entries(voiceLabReferenceInputs).forEach(([slot, input])=>{
   input.addEventListener('change', async event=>{
     const file = event.target.files && event.target.files[0]
@@ -2405,12 +2307,6 @@ Object.entries(voiceLabReferenceInputs).forEach(([slot, input])=>{
     finally{ input.value = '' }
   })
 })
-personalVoiceUpload?.addEventListener('change', async event=>{
-  const file = event.target.files && event.target.files[0]
-  try{ await uploadPersonalVoiceRecording(file) }finally{ event.target.value = '' }
-})
-personalVoiceExtract?.addEventListener('click', extractPersonalVoiceSegment)
-personalVoiceGenerate?.addEventListener('click', generatePersonalVoiceCandidate)
 document.querySelectorAll('input[name="voiceLabReference"]').forEach(radio=> radio.addEventListener('change', ()=>{
   updateVoiceLabGenerateState()
   const reference = activeVoiceLabReference()
@@ -2463,5 +2359,4 @@ loadAudioStudioProject()
 renderConditioningRoundState()
 loadHealthAndVoices().then(()=>{ renderHistory() })
 loadVoiceLab()
-loadPersonalVoiceConfig()
 updateVoiceLabSaveState()
